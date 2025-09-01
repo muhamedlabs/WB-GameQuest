@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Quest — Multilink</title>
+  <link href="assets/logo.webp" rel="shortcut icon" type="image/icon">
+  <link rel="stylesheet" href="assets/css/styles_multilink.css">
+
+  <!-- SEO и превью -->
+  <meta property="og:title" content="Game Quest — Multilink">
+  <meta name="description" content="Game Quest — оперативные игровые новости, аналитические обзоры, трейлеры и мультиссылки на социальные сети для геймеров">
+  <meta name="keywords" content="Игровые новости, Обзоры игр, Трейлеры, Мультиссылки, Game Quest, Геймер, Соцсети, Новинки игр">
+  <meta name="robots" content="index,follow">
+  <meta property="og:description" content="Присоединяйся к Game Quest — твоему геймерскому гиду! Здесь ты найдешь самые свежие новости из мира игр, увлекательные обзоры, трейлеры и все важные мультиссылки на соцсети. Будь в центре событий и будь первым, кто узнает о геймерских новинках!">
+  <meta property="og:image" content="https://muhamedlabs.pro/gamequest_news/assets/images/avatar.webp">
+  <meta property="og:url" content="https://muhamedlabs.pro/gamequest_news/multilink.html">
+</head>
+<body>
+
+  <!-- Аудиоплеер -->
+  <audio id="bg-music"></audio>
+  <button class="music-btn" id="music-toggle">Включить музыку</button>
+
+  <main>
+    <!-- Биография -->
+    <img src="assets/images/avatar.webp" alt="Game Quest">
+    <h1>Game Quest</h1>
+    <h2>Киев, Украина</h2>
+    <p>Здесь ведётся постоянная разведка игровых новинок, публикуются оперативные сводки, аналитические обзоры и отчёты с виртуальных полей сражений — от ПК до консолей.</p>
+
+    <!-- Кнопки -->
+    <menu>
+      <li><a href="/" target="_blank">Website Muhameda</a></li>
+      <li><a href="https://www.youtube.com/@GameQuest_news" target="_blank">YouTube</a></li>
+      <li><a href="https://t.me/GameQuest_news" target="_blank">Telegram</a></li>
+      <li><a href="https://discord.gg/GJUuPRbN5a" target="_blank">Discord</a></li>
+      <li><a href="https://vk.com/GameQuest_news" target="_blank">ВКонтактe</a></li>
+      <li><a href="home" target="_blank">Game Quest — Website</a></li>
+    </menu>
+
+    <!-- YouTube видео -->
+    <div class="video-container">
+      <iframe 
+          id="yt-player"
+          src="https://www.youtube.com/embed/PHw0iNSi7WQ?enablejsapi=1" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="video-text">
+      <p>Оказывать поддержку операции через <a href="https://www.donationalerts.com/r/andremuhamad" target="_blank">DonationAlerts</a> или <a href="https://www.patreon.com/andremuhamad" target="_blank">Patreon</a>!</p>
+    </div>
+  </main>
+
+  <!-- JS для музыки и YouTube API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    const music = document.getElementById("bg-music");
+    const toggleBtn = document.getElementById("music-toggle");
+    let isPlaying = false;
+
+    // Плейлист
+    const playlist = [
+      "assets/music/tunetank.com_5540_motion-energy_by_cloudsystem.mp3",
+      "assets/music/tunetank.com_5747_trap-ricochet_by_cloudsystem.mp3",
+      "assets/music/tunetank.com_5395_arcade-machine_by_nuclear-wave.mp3",
+      "assets/music/tunetank.com_6155_neon-wave_by_cloudsystem.mp3",
+      "assets/music/tunetank.com_6231_exodus_by_unfeared.mp3"
+    ];
+
+    let shuffledPlaylist = [];
+    let currentTrack = 0;
+    music.volume = 0.05;
+
+    // Функция перемешивания массива (Фишер-Йетс)
+    function shuffle(array) {
+      let newArray = array.slice();
+      for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+      return newArray;
+    }
+
+    // Загружаем трек
+    function loadTrack(index) {
+      music.src = shuffledPlaylist[index];
+      music.load();
+    }
+
+    // Переключение кнопкой
+    toggleBtn.addEventListener("click", () => {
+      if (isPlaying) {
+        music.pause();
+        toggleBtn.textContent = "Включить музыку";
+      } else {
+        // Если первый запуск — перемешиваем плейлист
+        if (shuffledPlaylist.length === 0) {
+          shuffledPlaylist = shuffle(playlist);
+          currentTrack = 0;
+        }
+        loadTrack(currentTrack);
+        music.play();
+        toggleBtn.textContent = "Выключить музыку";
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // Когда трек заканчивается — берем следующий
+    music.addEventListener("ended", () => {
+      currentTrack++;
+      if (currentTrack >= shuffledPlaylist.length) {
+        // Перемешиваем заново, если дошли до конца
+        shuffledPlaylist = shuffle(playlist);
+        currentTrack = 0;
+      }
+      loadTrack(currentTrack);
+      music.play();
+    });
+
+    // YouTube API — при воспроизведении видео останавливаем музыку
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('yt-player', {
+        events: { 'onStateChange': onPlayerStateChange }
+      });
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data == YT.PlayerState.PLAYING) {
+        music.pause();
+        toggleBtn.textContent = "Включить музыку";
+        isPlaying = false;
+      }
+    }
+  </script>
+
+</body>
+</html>
