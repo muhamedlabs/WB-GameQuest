@@ -34,7 +34,7 @@ body {
   max-height: 100vh;
   overflow: hidden;
   background: 
-    linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.3) 100%),
+    linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.7) 100%),
     url('../images/background/backg_multilink.webp') center/cover no-repeat;
   background-color: var(--secondary-dark);
   background-attachment: fixed;
@@ -57,11 +57,11 @@ body::before {
   right: -20px;
   bottom: -20px;
   background: 
-    linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.25) 100%),
+    linear-gradient(135deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.6) 100%),
     url('../images/background/backg_multilink.webp') center/cover no-repeat;
   background-size: cover;
   background-position: center;
-  filter: blur(12px) brightness(0.88);
+  filter: blur(0px) brightness(0.85);
   z-index: -2;
 }
 
@@ -81,7 +81,7 @@ body::after {
       transparent 70%
     );
   z-index: -1;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(0px);
   pointer-events: none;
 }
 
@@ -1320,7 +1320,7 @@ li:hover::after {
   html,
   body {
     background-image: 
-      linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.3) 100%),
+      linear-gradient(135deg, rgb(0, 0, 0) 100%, rgb(0, 0, 0) 100%),
       url('../images/background/backg_multilink.webp');
   }
 }
