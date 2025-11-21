@@ -1,4 +1,3 @@
-
 body {
   font-family: "inter", sans-serif; }
 
@@ -45,17 +44,34 @@ h1, h2, h3, h4, h5, h6 {
   [01] Page css
 =================*/
 .page-section {
-  /*background: linear-gradient(135deg, #b76cd2, #4c3bb3);
-  background: linear-gradient(135deg, #fb6a44, #fa2b7f);D:\Website_Muhameda\gamequest_news\assets\images
-  background: #eee;*/ }
-  .page-section .particles-bg {
-    height: 100vh;
-    background-image: url("../images/background/backg_error.webp");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-blend-mode: overlay;
-    background-color: rgba(0, 0, 0, 0.25); }
+  /* Затемнение и размытие фона */
+  position: relative;
+}
+
+/* Затемнение и небольшое размытие для фона */
+.page-section::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+    url("../images/background/backg_error.webp") center/cover no-repeat;
+  filter: blur(15px) brightness(0.8);
+  z-index: -1;
+}
+
+.page-section .particles-bg {
+  height: 100vh;
+  background-image: url("../images/background/backg_error.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-blend-mode: overlay;
+  background-color: rgba(0, 0, 0, 0.573); /* Затемнение */
+  }
     .page-section .particles-bg .particles-js-canvas-el {
       position: absolute; }
   .page-section .content-detail {
