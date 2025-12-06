@@ -1,5 +1,5 @@
 /* ============================================= */
-/* ОСНОВНОЙ ФАЙЛ CSS (С ИСПРАВЛЕНИЯМИ) */
+/* ОСНОВНОЙ ФАЙЛ CSS */
 /* ============================================= */
 
 @font-face {
@@ -281,7 +281,7 @@ main:hover {
 /* УЛУЧШЕННЫЙ СКРОЛЛБАР С АНИМАЦИЕЙ */
 /* ============================================= */
 main::-webkit-scrollbar {
-  width: 10px;
+  width: 6px; 
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -292,7 +292,7 @@ main::-webkit-scrollbar-track {
     rgba(40, 40, 40, 0.6) 50%,
     rgba(20, 20, 20, 0.4) 100%
   );
-  border-radius: 10px;
+  border-radius: 6px; 
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 
@@ -309,7 +309,7 @@ main::-webkit-scrollbar-thumb {
     #a8c93a 70%,
     var(--primary-color) 100%
   );
-  border-radius: 10px;
+  border-radius: 6px; 
   box-shadow: 
     inset 0 2px 0 rgba(255, 255, 255, 0.4),
     inset 0 -2px 0 rgba(0, 0, 0, 0.3),
@@ -352,7 +352,7 @@ main::-webkit-scrollbar-thumb::before {
     rgba(255, 255, 255, 0.1) 50%,
     transparent 100%
   );
-  border-radius: 10px;
+  border-radius: 6px; 
   animation: scrollbarShine 2s ease-in-out infinite;
 }
 
@@ -389,11 +389,6 @@ main::-webkit-scrollbar-corner {
 /* Для Firefox */
 main {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary-color) rgba(40, 40, 40, 0.6);
-}
-
-main {
-  scrollbar-width: auto;
   scrollbar-color: var(--primary-color) rgba(40, 40, 40, 0.6);
 }
 

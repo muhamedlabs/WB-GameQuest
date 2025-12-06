@@ -282,7 +282,7 @@
 
   /* Улучшенный скроллбар для мобильных */
   main::-webkit-scrollbar {
-    width: 4px;
+    width: 10px;
   }
 
   main::-webkit-scrollbar-thumb {
