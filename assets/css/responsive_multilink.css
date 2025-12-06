@@ -1,0 +1,526 @@
+/* ============================================= */
+/* АДАПТИВНЫЕ РАЗМЕРЫ И ОРИЕНТАЦИЯ */
+/* ============================================= */
+
+/* Планшеты и маленькие десктопы (1024px и меньше) */
+@media (max-width: 1024px) {
+  html,
+  body {
+    padding: 0.8rem;
+    background-attachment: scroll;
+  }
+  
+  main {
+    max-height: 92vh;
+    padding: 2rem;
+    border-radius: 1.2rem;
+  }
+  
+  .music-btn {
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 18px;
+    font-size: 13px;
+  }
+}
+
+/* Мобильные устройства (до 768px) */
+@media (max-width: 768px) {
+  :root {
+    font-size: 16px;
+  }
+
+  html,
+  body {
+    background-attachment: scroll;
+    background-size: cover;
+    background-position: center;
+    background-image: 
+      linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.25) 100%),
+      url('../images/background/backg_multilink.webp');
+    padding: 0.5rem;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+    align-items: flex-start;
+  }
+
+  /* Оптимизированное размытие для мобильных */
+  body::before {
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    filter: blur(10px) brightness(0.9);
+  }
+
+  body::after {
+    backdrop-filter: blur(1px);
+  }
+
+  /* Улучшенный контейнер для мобильных */
+  main {
+    padding: 1.8rem 1.5rem;
+    border-radius: 1rem;
+    max-width: 100%;
+    max-height: 94vh;
+    background-color: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(20px) saturate(160%);
+    overflow-y: auto;
+    box-shadow: 
+      0 15px 35px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 0 30px rgba(209, 240, 93, 0.12);
+    margin: 0.5rem auto;
+    animation: mobileContainerReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+
+  @keyframes mobileContainerReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(25px) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Скрыть кнопку музыки на мобильных устройствах */
+  .music-btn {
+    display: none !important;
+  }
+
+  /* Улучшенная аватарка для мобильных */
+  img {
+    max-width: 95px;
+    margin-bottom: 0.5rem;
+    animation: mobileAvatarPop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  @keyframes mobileAvatarPop {
+    0% {
+      opacity: 0;
+      transform: scale(0.9) rotate(-10deg);
+    }
+    70% {
+      opacity: 1;
+      transform: scale(1.05) rotate(2deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0);
+    }
+  }
+
+  /* Оптимизированные заголовки */
+  h1 {
+    font-size: 1.8rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
+    animation: mobileTitleReveal 0.7s ease-out 0.4s both;
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  @keyframes mobileTitleReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(15px);
+      filter: blur(5px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  h1::after {
+    width: 80px;
+    height: 2px;
+    bottom: -8px;
+    animation: mobileLineExpand 0.6s ease-out 0.8s both;
+  }
+
+  @keyframes mobileLineExpand {
+    0% {
+      width: 0;
+      opacity: 0;
+    }
+    100% {
+      width: 80px;
+      opacity: 1;
+    }
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    margin-top: 0.8rem;
+    animation: mobileSubtitleReveal 0.6s ease-out 0.5s both;
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  @keyframes mobileSubtitleReveal {
+    0% {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  p {
+    margin: 1rem 0 1.2rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    animation: mobileTextReveal 0.6s ease-out 0.6s both;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  @keyframes mobileTextReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 0.9;
+      transform: translateY(0);
+    }
+  }
+
+  /* Улучшенное меню для мобильных */
+  menu {
+    margin: 1.5rem 0 0;
+  }
+
+  li {
+    padding: 1.2rem 1.2rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.9rem;
+    border-radius: 0.8rem;
+    backdrop-filter: blur(12px);
+    animation: mobileMenuItemReveal 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+
+  @keyframes mobileMenuItemReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Последовательная анимация для мобильных */
+  li:nth-child(1) { animation-delay: 0.8s; }
+  li:nth-child(2) { animation-delay: 0.9s; }
+  li:nth-child(3) { animation-delay: 1.0s; }
+  li:nth-child(4) { animation-delay: 1.1s; }
+  li:nth-child(5) { animation-delay: 1.2s; }
+  li:nth-child(6) { animation-delay: 1.3s; }
+
+  /* Иконки для мобильных */
+  li::after {
+    width: 22px;
+    height: 22px;
+    left: 1.2rem;
+    filter: brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+  }
+
+  /* Улучшенный видео контейнер */
+  .video-container {
+    margin: 1.5rem auto 1rem;
+    border-radius: 0.8rem;
+    animation: mobileVideoReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s both;
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  @keyframes mobileVideoReveal {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .video-container iframe {
+    border-radius: 0.8rem;
+  }
+
+  .video-text {
+    margin-top: 1.2rem;
+    animation: mobileTextReveal 0.6s ease-out 1.0s both;
+  }
+
+  .video-text::before {
+    width: 40px;
+    height: 2px;
+    top: -8px;
+  }
+
+  .video-text p {
+    font-size: 13px;
+    margin: 0 0 12px;
+  }
+
+  /* Улучшенный скроллбар для мобильных */
+  main::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  main::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      to bottom,
+      var(--primary-color),
+      #a8c93a
+    );
+  }
+}
+
+/* Маленькие мобильные устройства (до 480px) */
+@media (max-width: 480px) {
+  html,
+  body {
+    padding: 0.3rem;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-image: 
+      linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.2) 100%),
+      url('../images/background/backg_multilink.webp');
+    background-repeat: no-repeat;
+  }
+
+  body::before {
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    filter: blur(8px) brightness(0.92);
+  }
+
+  body::after {
+    backdrop-filter: blur(0.5px);
+  }
+
+  main {
+    padding: 1.5rem 1.2rem;
+    max-height: 96vh;
+    border-radius: 0.9rem;
+    margin: 0.3rem auto;
+  }
+
+  img {
+    max-width: 85px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    margin-top: 1rem;
+  }
+
+  h1::after {
+    width: 70px;
+    bottom: -6px;
+  }
+
+  h2 {
+    font-size: 1rem;
+    margin-top: 0.6rem;
+  }
+
+  p {
+    margin: 0.8rem 0 1rem;
+    font-size: 0.95rem;
+  }
+
+  menu {
+    margin: 1.2rem 0 0;
+  }
+
+  li {
+    padding: 1.1rem 1rem;
+    font-size: 1.05rem;
+    margin-bottom: 0.8rem;
+    border-radius: 0.7rem;
+  }
+
+  li::after {
+    width: 20px;
+    height: 20px;
+    left: 1rem;
+  }
+
+  .video-container {
+    margin: 1.2rem auto 0.8rem;
+    border-radius: 0.7rem;
+  }
+
+  .video-container iframe {
+    border-radius: 0.7rem;
+  }
+
+  .video-text {
+    margin-top: 1rem;
+  }
+
+  .video-text::before {
+    width: 35px;
+    top: -6px;
+  }
+
+  .video-text p {
+    font-size: 12px;
+  }
+}
+
+/* Очень маленькие устройства (до 360px) */
+@media (max-width: 360px) {
+  html,
+  body {
+    padding: 0.2rem;
+  }
+
+  main {
+    padding: 1.2rem 1rem;
+    border-radius: 0.8rem;
+  }
+
+  img {
+    max-width: 75px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  h2 {
+    font-size: 0.95rem;
+  }
+
+  li {
+    padding: 1rem 0.9rem;
+    font-size: 1rem;
+  }
+
+  li::after {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Ландшафтная ориентация мобильных */
+@media (max-height: 600px) and (orientation: landscape) {
+  html,
+  body {
+    padding: 0.3rem;
+    align-items: flex-start;
+    background-size: auto 120%;
+    background-position: center center;
+  }
+
+  body::before {
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    filter: blur(6px) brightness(0.9);
+  }
+
+  main {
+    max-height: 88vh;
+    padding: 1.2rem;
+    margin: 0.3rem auto;
+  }
+
+  img {
+    max-width: 60px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    margin-top: 0.8rem;
+  }
+
+  h2 {
+    font-size: 0.9rem;
+    margin-top: 0.4rem;
+  }
+
+  p {
+    margin: 0.6rem 0 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  menu {
+    margin: 1rem 0 0;
+  }
+
+  li {
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  /* Скрыть кнопку музыки в ландшафтном режиме */
+  .music-btn {
+    display: none !important;
+  }
+}
+
+/* Высокие DPI экраны (Retina) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  html,
+  body {
+    background-image: 
+      linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.2) 100%),
+      url('../images/background/backg_multilink@2x.webp');
+  }
+}
+
+/* Темная тема системы */
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    background-image: 
+      linear-gradient(135deg, rgb(0, 0, 0) 100%, rgb(0, 0, 0) 100%),
+      url('../images/background/backg_multilink.webp');
+  }
+}
+
+/* Уменьшенное потребление энергии */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  li:hover,
+  li:active {
+    transform: none;
+  }
+  
+  .video-container:hover {
+    transform: none;
+  }
+  
+  img:hover {
+    transform: none;
+  }
+}
