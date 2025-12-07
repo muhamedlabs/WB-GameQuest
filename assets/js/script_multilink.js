@@ -38,11 +38,18 @@
     let shuffledPlaylist = [];
     let currentTrack = 0;
     const playlist = [
+      "assets/music/tunetank.com_431_midnight-club_by_musical-bakery.mp3",
       "assets/music/tunetank.com_5540_motion-energy_by_cloudsystem.mp3",
+      "assets/music/tunetank.com_5793_hard-training_by_cloudsystem.mp3",
       "assets/music/tunetank.com_5747_trap-ricochet_by_cloudsystem.mp3",
+      "assets/music/tunetank.com_6212_ocean_by_slxsh.mp3",
       "assets/music/tunetank.com_5395_arcade-machine_by_nuclear-wave.mp3",
+      "assets/music/tunetank.com_6240_drop-top_by_jointmane.mp3",
       "assets/music/tunetank.com_6155_neon-wave_by_cloudsystem.mp3",
-      "assets/music/tunetank.com_6231_exodus_by_unfeared.mp3"
+      "assets/music/tunetank.com_6247_justice_by_unfeared.mp3",
+      "assets/music/tunetank.com_6231_exodus_by_unfeared.mp3",
+      "assets/music/tunetank.com_6683_the-odds_by_boy_.mp3",
+      "assets/music/tunetank.com_6921_syndicate_by_eugene-anikin.mp3"
     ];
 
     music.volume = 0.05;
