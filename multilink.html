@@ -7,6 +7,7 @@
 
   <link href="assets/logo.webp" rel="shortcut icon" type="image/icon">
 
+  <!-- Стили -->
   <link rel="stylesheet" href="assets/css/styles_multilink.css">
   <link rel="stylesheet" href="assets/css/responsive_multilink.css">
 
@@ -30,11 +31,14 @@
   <!-- Основной контент со встроенным скроллбаром -->
   <main id="main-content">
     <div class="content-wrapper">
+
+      <!-- Биография -->
       <img src="assets/images/avatar.webp" alt="Game Quest">
       <h1>Game Quest</h1>
       <h2>Киев, Украина</h2>
       <p>Здесь ведётся постоянная разведка игровых новинок, публикуются оперативные сводки, аналитические обзоры и отчёты с виртуальных полей сражений — от ПК до консолей.</p>
 
+      <!-- Кнопки -->
       <menu>
         <li><a href="/" target="_blank">Website Muhameda</a></li>
         <li><a href="https://www.youtube.com/@GameQuest_news" target="_blank">YouTube</a></li>
@@ -44,6 +48,7 @@
         <li><a href="home" target="_blank">Game Quest — Website</a></li>
       </menu>
 
+      <!-- YouTube видео -->
       <div class="video-container">
         <iframe 
             id="yt-player"
@@ -60,28 +65,29 @@
     </div>
   </main>
 
+  <!-- YouTube IFrame API -->
   <script src="https://www.youtube.com/iframe_api"></script>
 
 
-<!-- Подгрузка script_multilink.js с автоматическим увеличением версии -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Получаем последнюю версию из localStorage или ставим 0
-  let scriptVersion = parseInt(localStorage.getItem('scriptVersion') || '0') + 1;
+  <!-- Подгрузка script_multilink.js с автоматическим увеличением версии -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Получаем последнюю версию из localStorage или ставим 0
+    let scriptVersion = parseInt(localStorage.getItem('scriptVersion') || '0') + 1;
 
-  // Сохраняем новую версию обратно
-  localStorage.setItem('scriptVersion', scriptVersion);
+    // Сохраняем новую версию обратно
+    localStorage.setItem('scriptVersion', scriptVersion);
 
-  // Загружаем скрипт с версионным параметром
-  fetch(`assets/js/script_multilink.js?v=${scriptVersion}`)
-    .then(response => response.text())
-    .then(code => {
-      // Выполняем код скрипта
-      eval(code);
-    })
-    .catch(err => console.error('Ошибка загрузки скрипта:', err));
-});
-</script>
+    // Загружаем скрипт с версионным параметром
+    fetch(`assets/js/script_multilink.js?v=${scriptVersion}`)
+      .then(response => response.text())
+      .then(code => {
+          // Выполняем код скрипта
+        eval(code);
+      })
+      .catch(err => console.error('Ошибка загрузки скрипта:', err));
+  });
+  </script>
 
 </body>
 </html>
