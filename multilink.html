@@ -8,9 +8,12 @@
   <link rel="stylesheet" href="assets/css/styles_multilink.css">
   <link rel="stylesheet" href="assets/css/responsive_multilink.css">
 
-  <!-- SEO и превью -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Добавляем стили для встроенного скроллбара -->
+  <style>
+    /* Вставьте сюда весь CSS код выше */
+  </style>
 
+  <!-- SEO и превью -->
   <meta name="description" content="Game Quest — единая мультиссылка на игровые новости, обзоры, трейлеры и социальные сети проекта.">
   <meta name="keywords" content="игровые новости, обзоры игр, трейлеры, мультиссылка, соцсети, Game Quest, геймер, новинки игр">
   <meta name="robots" content="index, follow">
@@ -27,9 +30,11 @@
   <audio id="bg-music"></audio>
   <button class="music-btn" id="music-toggle">Включить музыку</button>
 
-  <main>
-    <div class="scroll-content">
-
+  <!-- Основной контент со встроенным скроллбаром -->
+  <main id="main-content">
+    <!-- Обертка для контента -->
+    <div class="content-wrapper">
+      
       <!-- Биография -->
       <img src="assets/images/avatar.webp" alt="Game Quest">
       <h1>Game Quest</h1>
@@ -38,12 +43,12 @@
 
       <!-- Кнопки -->
       <menu>
-      <li><a href="/" target="_blank">Website Muhameda</a></li>
-      <li><a href="https://www.youtube.com/@GameQuest_news" target="_blank">YouTube</a></li>
-      <li><a href="https://t.me/GameQuest_news" target="_blank">Telegram</a></li>
-      <li><a href="https://discord.gg/GJUuPRbN5a" target="_blank">Discord</a></li>
-      <li><a href="https://vk.com/GameQuest_news" target="_blank">ВКонтактe</a></li>
-      <li><a href="home" target="_blank">Game Quest — Website</a></li>
+        <li><a href="/" target="_blank">Website Muhameda</a></li>
+        <li><a href="https://www.youtube.com/@GameQuest_news" target="_blank">YouTube</a></li>
+        <li><a href="https://t.me/GameQuest_news" target="_blank">Telegram</a></li>
+        <li><a href="https://discord.gg/GJUuPRbN5a" target="_blank">Discord</a></li>
+        <li><a href="https://vk.com/GameQuest_news" target="_blank">ВКонтактe</a></li>
+        <li><a href="home" target="_blank">Game Quest — Website</a></li>
       </menu>
 
       <!-- YouTube видео -->
@@ -60,8 +65,9 @@
       <div class="video-text">
         <p>Поддержка операции через <a href="https://www.donationalerts.com/r/andremuhamad" target="_blank">DonationAlerts</a> или <a href="https://www.patreon.com/andremuhamad" target="_blank">Patreon</a>!</p>
       </div>
-    </div>
   </main>
+
+  <script src="assets/js/script_multilink.js"></script>
 
   <!-- JS для музыки и YouTube API -->
   <script src="https://www.youtube.com/iframe_api"></script>
