@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gq.muhamedlabs.pro/sitemap.xml

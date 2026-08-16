@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game Quest — Multilink</title>
+  <title>Game Quest — все ссылки: YouTube, Telegram, Discord, ВК | Multilink</title>
 
   <link href="assets/logo.webp" rel="shortcut icon" type="image/icon">
 
@@ -11,17 +12,55 @@
   <link rel="stylesheet" href="assets/css/styles_multilink.css">
   <link rel="stylesheet" href="assets/css/responsive_multilink.css">
 
-  <!-- SEO и превью -->
-  <meta name="description" content="Game Quest — единая мультиссылка на игровые новости, обзоры, трейлеры и социальные сети проекта.">
-  <meta name="keywords" content="игровые новости, обзоры игр, трейлеры, мультиссылка, соцсети, Game Quest, геймер, новинки игр">
+  <!-- SEO базовое -->
+  <meta name="description"
+    content="Game Quest — единая мультиссылка на игровые новости, обзоры, трейлеры и социальные сети проекта. YouTube, Telegram, Discord, ВКонтакте.">
+  <meta name="keywords"
+    content="игровые новости, обзоры игр, трейлеры, мультиссылка, соцсети, Game Quest, геймер, новинки игр">
   <meta name="robots" content="index, follow">
+  <meta name="author" content="Game Quest">
+  <meta name="theme-color" content="#d1f05d">
+  <link rel="canonical" href="https://gq.muhamedlabs.pro/multilink.html">
 
+  <!-- Open Graph (превью в Telegram, VK, соцсетях) -->
   <meta property="og:title" content="Game Quest — Multilink">
-  <meta property="og:description" content="Все ссылки Game Quest в одном месте: новости, обзоры, трейлеры и социальные сети. Удобный навигатор по проекту.">
+  <meta property="og:description"
+    content="Все ссылки Game Quest в одном месте: новости, обзоры, трейлеры и социальные сети. Удобный навигатор по проекту.">
   <meta property="og:image" content="https://gq.muhamedlabs.pro/assets/logo.webp">
   <meta property="og:url" content="https://gq.muhamedlabs.pro/multilink.html">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Game Quest">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Twitter/X Card — то же превью на X и части мессенджеров -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Game Quest — Multilink">
+  <meta name="twitter:description"
+    content="Все ссылки Game Quest в одном месте: новости, обзоры, трейлеры и социальные сети.">
+  <meta name="twitter:image" content="https://gq.muhamedlabs.pro/assets/logo.webp">
+
+  <!-- Ускоряем соединение с YouTube, т.к. на странице встроено видео -->
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="preconnect" href="https://i.ytimg.com">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Game Quest",
+    "url": "https://gq.muhamedlabs.pro/multilink.html",
+    "logo": "https://gq.muhamedlabs.pro/assets/logo.webp",
+    "description": "Игровые новости, обзоры и трейлеры от ПК до консолей.",
+    "sameAs": [
+      "https://www.youtube.com/@GameQuest_news",
+      "https://t.me/GameQuest_news",
+      "https://discord.gg/GJUuPRbN5a",
+      "https://vk.com/GameQuest_news"
+    ]
+  }
+  </script>
 </head>
+
 <body>
 
   <!-- Аудиоплеер -->
@@ -33,61 +72,41 @@
     <div class="content-wrapper">
 
       <!-- Биография -->
-      <img src="assets/images/avatar.webp" alt="Game Quest">
+      <img src="assets/images/avatar.webp" alt="Логотип Game Quest — игровой блог о новостях, обзорах и трейлерах">
       <h1>Game Quest</h1>
       <h2>Киев, Украина</h2>
-      <p>Здесь ведётся постоянная разведка игровых новинок, публикуются оперативные сводки, аналитические обзоры и отчёты с виртуальных полей сражений — от ПК до консолей.</p>
+      <p>Здесь ведётся постоянная разведка игровых новинок, публикуются оперативные сводки, аналитические обзоры и
+        отчёты с виртуальных полей сражений — от ПК до консолей.</p>
 
       <!-- Кнопки -->
       <menu>
-        <li><a href="https://muhamedlabs.pro" target="_blank">Website Muhameda</a></li>
-        <li><a href="https://www.youtube.com/@GameQuest_news" target="_blank">YouTube</a></li>
-        <li><a href="https://t.me/GameQuest_news" target="_blank">Telegram</a></li>
-        <li><a href="https://discord.gg/GJUuPRbN5a" target="_blank">Discord</a></li>
-        <li><a href="https://vk.com/GameQuest_news" target="_blank">ВКонтактe</a></li>
-        <li><a href="/" target="_blank">Game Quest — Website</a></li>
+        <li><a href="https://muhamedlabs.pro" target="_blank" rel="noopener noreferrer">Website Muhameda</a></li>
+        <li><a href="https://www.youtube.com/@GameQuest_news" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        <li><a href="https://t.me/GameQuest_news" target="_blank" rel="noopener noreferrer">Telegram</a></li>
+        <li><a href="https://discord.gg/GJUuPRbN5a" target="_blank" rel="noopener noreferrer">Discord</a></li>
+        <li><a href="https://vk.com/GameQuest_news" target="_blank" rel="noopener noreferrer">ВКонтактe</a></li>
+        <li><a href="/" target="_blank" rel="noopener noreferrer">Game Quest — Website</a></li>
       </menu>
 
       <!-- YouTube видео -->
       <div class="video-container">
-        <iframe 
-            id="yt-player"
-            src="https://www.youtube.com/embed/PHw0iNSi7WQ?enablejsapi=1" 
-            title="YouTube video player" 
-            frameborder="0" 
-            allowfullscreen>
+        <iframe id="yt-player" src="https://www.youtube.com/embed/PHw0iNSi7WQ?enablejsapi=1"
+          title="Game Quest — последнее видео на YouTube" frameborder="0" allowfullscreen loading="lazy">
         </iframe>
       </div>
 
       <div class="video-text">
-        <p>Поддержка операции через <a href="https://www.donationalerts.com/r/andremuhamad" target="_blank">DonationAlerts</a> или <a href="https://www.patreon.com/cw/andremuhamad" target="_blank">Patreon</a>!</p>
+        <p>Поддержка операции через <a href="https://www.donationalerts.com/r/andremuhamad" target="_blank"
+            rel="noopener noreferrer">DonationAlerts</a> или <a href="https://www.patreon.com/cw/andremuhamad"
+            target="_blank" rel="noopener noreferrer">Patreon</a>!</p>
       </div>
     </div>
   </main>
 
-  <!-- YouTube IFrame API -->
-  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="assets/js/script_multilink.js?v=1" defer></script>
 
-
-  <!-- Подгрузка script_multilink.js с автоматическим увеличением версии -->
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Получаем последнюю версию из localStorage или ставим 0
-    let scriptVersion = parseInt(localStorage.getItem('scriptVersion') || '0') + 1;
-
-    // Сохраняем новую версию обратно
-    localStorage.setItem('scriptVersion', scriptVersion);
-
-    // Загружаем скрипт с версионным параметром
-    fetch(`assets/js/script_multilink.js?v=${scriptVersion}`)
-      .then(response => response.text())
-      .then(code => {
-          // Выполняем код скрипта
-        eval(code);
-      })
-      .catch(err => console.error('Ошибка загрузки скрипта:', err));
-  });
-  </script>
+  <script src="https://www.youtube.com/iframe_api" defer></script>
 
 </body>
+
 </html>
