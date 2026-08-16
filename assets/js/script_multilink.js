@@ -1,5 +1,5 @@
 // script_multilink.js
-(function() {
+(function () {
   // Убедимся, что DOM загружен
   function init() {
     const mainElement = document.querySelector('main');
@@ -35,6 +35,7 @@
 
     // ---------- MUSIC ----------
     let isPlaying = false;
+    let isVideoPlaying = false;
     let shuffledPlaylist = [];
     let currentTrack = 0;
     const playlist = [
@@ -73,6 +74,10 @@
         music.pause();
         toggleBtn.textContent = "Включить музыку";
       } else {
+        if (isVideoPlaying && player && typeof player.pauseVideo === "function") {
+          player.pauseVideo();
+        }
+
         if (shuffledPlaylist.length === 0) {
           shuffledPlaylist = shuffle(playlist);
           currentTrack = 0;
@@ -103,10 +108,18 @@
     };
 
     function onPlayerStateChange(event) {
-      if (event.data === YT.PlayerState.PLAYING && isPlaying) {
-        music.pause();
-        toggleBtn.textContent = "Включить музыку";
-        isPlaying = false;
+      if (event.data === YT.PlayerState.PLAYING) {
+        isVideoPlaying = true;
+        if (isPlaying) {
+          music.pause();
+          toggleBtn.textContent = "Включить музыку";
+          isPlaying = false;
+        }
+      } else if (
+        event.data === YT.PlayerState.PAUSED ||
+        event.data === YT.PlayerState.ENDED
+      ) {
+        isVideoPlaying = false;
       }
     }
   }
@@ -118,4 +131,3 @@
     init();
   }
 })();
-
