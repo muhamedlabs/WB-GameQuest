@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://gq.muhamedlabs.pro/multilink.html</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+
+    <!--
+      video:video — расширение sitemap специально под видео-контент
+      (см. https://developers.google.com/search/docs/crawling-indexing/sitemaps/video-sitemaps).
+      Это то, что позволяет Google показывать превью/плеер видео прямо
+      в результатах поиска, а не просто ссылку на страницу.
+      thumbnail_loc, title и player_loc обязательные — я подставил их
+      под видео, которое сейчас встроено на multilink.html
+      (ID PHw0iNSi7WQ). Если сменишь видео на странице — поменяй
+      здесь то же самое (ID в thumbnail_loc и player_loc, плюс текст
+      title/description).
+    -->
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/PHw0iNSi7WQ/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>Game Quest — обзоры, новости и трейлеры</video:title>
+      <video:description>
+        Свежий выпуск Game Quest: обзоры игр, новости индустрии и
+        трейлеры — от ПК до консолей.
+      </video:description>
+      <video:player_loc>https://www.youtube.com/embed/PHw0iNSi7WQ</video:player_loc>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
 </urlset>

@@ -1,4 +1,28 @@
+# Game Quest — multilink (gq.muhamedlabs.pro)
+# https://developers.google.com/search/docs/crawling-indexing/robots/intro
+
 User-agent: *
+Allow: /
+
+# Явно разрешаем ассеты (картинки, стили, скрипты, шрифты) —
+# без этого некоторые боты по умолчанию не всегда докачивают их,
+# из-за чего превью страницы или картинки могут отображаться в
+# поиске некорректно/не полностью.
+Allow: /assets/
+Allow: *.css
+Allow: *.js
+Allow: *.webp
+Allow: *.svg
+Allow: *.png
+Allow: *.jpg
+Allow: *.mp3
+
+# Отдельно — боты Google под картинки и видео, чтобы точно не
+# резать превью/эскизы в Google Images и в видео-блоке поиска.
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Video
 Allow: /
 
 Sitemap: https://gq.muhamedlabs.pro/sitemap.xml
