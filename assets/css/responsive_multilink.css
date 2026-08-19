@@ -4,75 +4,80 @@
 
 /* Ультра широкие мониторы (2560px и больше) */
 @media (min-width: 2560px) {
-
   html,
   body {
     padding: 2rem;
   }
-
+  
   main {
     max-width: 950px;
     margin: 0 auto;
     padding: 2.5rem;
     border-radius: 1.5rem;
   }
-
+  
+  .avatar-wrap {
+    margin-bottom: 3.5rem;
+  }
+  
   img {
     max-width: 140px;
   }
-
+  
   h1 {
     font-size: 2.5rem;
-    margin-top: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
   }
-
+  
   h1::after {
     width: 100px;
     bottom: -10px;
   }
-
+  
   h2 {
     font-size: 1.4rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
   }
-
+  
   p {
     font-size: 1.15rem;
-    line-height: 1.7;
-    margin: 1.2rem 0 1.5rem;
+    line-height: 1.8;
+    margin: 0.8rem 0 1.2rem;
   }
-
+  
   menu {
-    margin: 2rem 0 0;
+    margin: 1.5rem 0 0;
   }
-
+  
   li {
     padding: 1.4rem 2rem;
     font-size: 1.2rem;
     margin-bottom: 1rem;
     border-radius: 1rem;
   }
-
+  
   li::after {
     width: 28px;
     height: 28px;
     left: 1.8rem;
   }
-
+  
   .video-container {
     margin: 2rem auto 1.5rem;
     border-radius: 1rem;
   }
-
+  
   .video-text {
     margin-top: 1.5rem;
   }
-
+  
   .video-text::before {
     width: 50px;
     top: -10px;
   }
-
+  
   .music-btn {
     padding: 14px 26px;
     font-size: 15px;
@@ -83,75 +88,80 @@
 
 /* Большие десктопы (1601px - 1920px) */
 @media (min-width: 1601px) and (max-width: 1919px) {
-
   html,
   body {
     padding: 1.5rem;
   }
-
+  
   main {
     max-width: 900px;
     margin: 0 auto;
     padding: 2.2rem;
     border-radius: 1.3rem;
   }
-
+  
+  .avatar-wrap {
+    margin-bottom: 3.2rem;
+  }
+  
   img {
     max-width: 130px;
   }
-
+  
   h1 {
     font-size: 2.3rem;
-    margin-top: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 0.4rem;
   }
-
+  
   h1::after {
     width: 90px;
     bottom: -9px;
   }
-
+  
   h2 {
     font-size: 1.3rem;
-    margin-top: 0.9rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
   }
-
+  
   p {
     font-size: 1.1rem;
-    line-height: 1.6;
-    margin: 1.1rem 0 1.4rem;
+    line-height: 1.7;
+    margin: 0.7rem 0 1.1rem;
   }
-
+  
   menu {
-    margin: 1.8rem 0 0;
+    margin: 1.3rem 0 0;
   }
-
+  
   li {
     padding: 1.3rem 1.8rem;
     font-size: 1.15rem;
     margin-bottom: 0.9rem;
     border-radius: 0.9rem;
   }
-
+  
   li::after {
     width: 26px;
     height: 26px;
     left: 1.6rem;
   }
-
+  
   .video-container {
     margin: 1.8rem auto 1.3rem;
     border-radius: 0.9rem;
   }
-
+  
   .video-text {
     margin-top: 1.3rem;
   }
-
+  
   .video-text::before {
     width: 45px;
     top: -9px;
   }
-
+  
   .music-btn {
     padding: 13px 24px;
     font-size: 14px;
@@ -162,75 +172,80 @@
 
 /* Средние десктопы (1440px - 1600px) */
 @media (min-width: 1440px) and (max-width: 1600px) {
-
   html,
   body {
     padding: 1.2rem;
   }
-
+  
   main {
     max-width: 650px;
     margin: 0 auto;
     padding: 2rem;
     border-radius: 1.2rem;
   }
-
+  
+  .avatar-wrap {
+    margin-bottom: 3rem;
+  }
+  
   img {
     max-width: 120px;
   }
-
+  
   h1 {
     font-size: 2.1rem;
-    margin-top: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 0.3rem;
   }
-
+  
   h1::after {
     width: 85px;
     bottom: -8px;
   }
-
+  
   h2 {
     font-size: 1.2rem;
-    margin-top: 0.8rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
   }
-
+  
   p {
     font-size: 1.05rem;
     line-height: 1.6;
-    margin: 1rem 0 1.3rem;
+    margin: 0.6rem 0 1rem;
   }
-
+  
   menu {
-    margin: 1.6rem 0 0;
+    margin: 1.2rem 0 0;
   }
-
+  
   li {
     padding: 1.2rem 1.7rem;
     font-size: 1.1rem;
     margin-bottom: 0.8rem;
     border-radius: 0.8rem;
   }
-
+  
   li::after {
     width: 24px;
     height: 24px;
     left: 1.5rem;
   }
-
+  
   .video-container {
     margin: 1.6rem auto 1.2rem;
     border-radius: 0.8rem;
   }
-
+  
   .video-text {
     margin-top: 1.2rem;
   }
-
+  
   .video-text::before {
     width: 42px;
     top: -8px;
   }
-
+  
   .music-btn {
     padding: 12px 22px;
     font-size: 13px;
@@ -241,75 +256,80 @@
 
 /* Стандартные десктопы (1280px - 1439px) */
 @media (min-width: 1280px) and (max-width: 1439px) {
-
   html,
   body {
     padding: 1rem;
   }
-
+  
   main {
     max-width: 500px;
     margin: 0 auto;
     padding: 1.8rem;
     border-radius: 1.1rem;
   }
-
+  
+  .avatar-wrap {
+    margin-bottom: 2.8rem;
+  }
+  
   img {
     max-width: 110px;
   }
-
+  
   h1 {
     font-size: 2rem;
-    margin-top: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 0.3rem;
   }
-
+  
   h1::after {
     width: 80px;
     bottom: -7px;
   }
-
+  
   h2 {
     font-size: 1.1rem;
-    margin-top: 0.7rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
   }
-
+  
   p {
     font-size: 1rem;
     line-height: 1.5;
-    margin: 0.9rem 0 1.2rem;
+    margin: 0.5rem 0 0.9rem;
   }
-
+  
   menu {
-    margin: 1.5rem 0 0;
+    margin: 1.1rem 0 0;
   }
-
+  
   li {
     padding: 1.1rem 1.6rem;
     font-size: 1.05rem;
     margin-bottom: 0.7rem;
     border-radius: 0.7rem;
   }
-
+  
   li::after {
     width: 22px;
     height: 22px;
     left: 1.4rem;
   }
-
+  
   .video-container {
     margin: 1.5rem auto 1.1rem;
     border-radius: 0.7rem;
   }
-
+  
   .video-text {
     margin-top: 1.1rem;
   }
-
+  
   .video-text::before {
     width: 40px;
     top: -7px;
   }
-
+  
   .music-btn {
     padding: 11px 20px;
     font-size: 13px;
@@ -320,75 +340,80 @@
 
 /* Маленькие десктопы (1025px - 1279px) */
 @media (min-width: 1025px) and (max-width: 1279px) {
-
   html,
   body {
     padding: 0.8rem;
   }
-
+  
   main {
     max-width: 350px;
     margin: 0 auto;
     padding: 1.6rem;
     border-radius: 1rem;
   }
-
+  
+  .avatar-wrap {
+    margin-bottom: 2.5rem;
+  }
+  
   img {
     max-width: 100px;
   }
-
+  
   h1 {
     font-size: 1.9rem;
-    margin-top: 1rem;
+    margin-top: 0;
+    margin-bottom: 0.3rem;
   }
-
+  
   h1::after {
     width: 75px;
     bottom: -7px;
   }
-
+  
   h2 {
     font-size: 1.05rem;
-    margin-top: 0.6rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
   }
-
+  
   p {
     font-size: 0.98rem;
     line-height: 1.5;
-    margin: 0.8rem 0 1.1rem;
+    margin: 0.5rem 0 0.8rem;
   }
-
+  
   menu {
-    margin: 1.4rem 0 0;
+    margin: 1rem 0 0;
   }
-
+  
   li {
     padding: 1rem 1.5rem;
     font-size: 1rem;
     margin-bottom: 0.7rem;
     border-radius: 0.7rem;
   }
-
+  
   li::after {
     width: 21px;
     height: 21px;
     left: 1.3rem;
   }
-
+  
   .video-container {
     margin: 1.4rem auto 1rem;
     border-radius: 0.7rem;
   }
-
+  
   .video-text {
     margin-top: 1rem;
   }
-
+  
   .video-text::before {
     width: 38px;
     top: -7px;
   }
-
+  
   .music-btn {
     padding: 10px 18px;
     font-size: 12px;
@@ -399,12 +424,11 @@
 
 /* Планшеты горизонтально (835px - 1024px) */
 @media (min-width: 835px) and (max-width: 1024px) {
-
   html,
   body {
     padding: 0.7rem;
   }
-
+  
   main {
     max-width: 500px;
     margin: 0 auto;
@@ -412,63 +436,69 @@
     border-radius: 0.9rem;
     max-height: 93vh;
   }
-
+  
+  .avatar-wrap {
+    margin-bottom: 2.8rem;
+  }
+  
   img {
     max-width: 95px;
   }
-
+  
   h1 {
     font-size: 1.8rem;
-    margin-top: 0.9rem;
+    margin-top: 0;
+    margin-bottom: 0.3rem;
   }
-
+  
   h1::after {
     width: 70px;
     bottom: -6px;
   }
-
+  
   h2 {
     font-size: 1rem;
-    margin-top: 0.5rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
   }
-
+  
   p {
     font-size: 0.95rem;
     line-height: 1.5;
-    margin: 0.7rem 0 1rem;
+    margin: 0.5rem 0 0.8rem;
   }
-
+  
   menu {
-    margin: 1.3rem 0 0;
+    margin: 1rem 0 0;
   }
-
+  
   li {
     padding: 0.9rem 1.4rem;
     font-size: 0.98rem;
     margin-bottom: 0.6rem;
     border-radius: 0.6rem;
   }
-
+  
   li::after {
     width: 20px;
     height: 20px;
     left: 1.2rem;
   }
-
+  
   .video-container {
     margin: 1.3rem auto 0.9rem;
     border-radius: 0.6rem;
   }
-
+  
   .video-text {
     margin-top: 0.9rem;
   }
-
+  
   .video-text::before {
     width: 35px;
     top: -6px;
   }
-
+  
   .music-btn {
     padding: 9px 16px;
     font-size: 11px;
@@ -479,12 +509,11 @@
 
 /* Планшеты вертикально (769px - 834px) */
 @media (min-width: 769px) and (max-width: 834px) {
-
   html,
   body {
     padding: 0.6rem;
   }
-
+  
   main {
     max-width: 350px;
     margin: 0 auto;
@@ -492,63 +521,69 @@
     border-radius: 0.8rem;
     max-height: 94vh;
   }
-
+  
+  .avatar-wrap {
+    margin-bottom: 2.5rem;
+  }
+  
   img {
     max-width: 90px;
   }
-
+  
   h1 {
     font-size: 1.7rem;
-    margin-top: 0.8rem;
+    margin-top: 0;
+    margin-bottom: 0.2rem;
   }
-
+  
   h1::after {
     width: 65px;
     bottom: -5px;
   }
-
+  
   h2 {
     font-size: 0.98rem;
-    margin-top: 0.4rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
   }
-
+  
   p {
     font-size: 0.93rem;
     line-height: 1.5;
-    margin: 0.6rem 0 0.9rem;
+    margin: 0.4rem 0 0.7rem;
   }
-
+  
   menu {
-    margin: 1.2rem 0 0;
+    margin: 0.9rem 0 0;
   }
-
+  
   li {
     padding: 0.8rem 1.3rem;
     font-size: 0.96rem;
     margin-bottom: 0.5rem;
     border-radius: 0.6rem;
   }
-
+  
   li::after {
     width: 19px;
     height: 19px;
     left: 1.1rem;
   }
-
+  
   .video-container {
     margin: 1.2rem auto 0.8rem;
     border-radius: 0.6rem;
   }
-
+  
   .video-text {
     margin-top: 0.8rem;
   }
-
+  
   .video-text::before {
     width: 33px;
     top: -5px;
   }
-
+  
   .music-btn {
     padding: 8px 15px;
     font-size: 11px;
@@ -559,14 +594,13 @@
 
 /* Мобильные горизонтально (569px - 768px) */
 @media (min-width: 569px) and (max-width: 768px) {
-
   html,
   body {
     padding: 0.5rem;
     background-attachment: scroll;
     background-size: cover;
     background-position: center;
-    background-image:
+    background-image: 
       linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.25) 100%),
       url('../images/background/backg_multilink.webp');
     height: 100vh;
@@ -595,7 +629,7 @@
     background-color: rgba(20, 20, 20, 0.95);
     backdrop-filter: blur(20px) saturate(160%);
     overflow-y: auto;
-    box-shadow:
+    box-shadow: 
       0 15px 35px rgba(0, 0, 0, 0.6),
       0 0 0 1px rgba(255, 255, 255, 0.06),
       0 0 30px rgba(209, 240, 93, 0.12);
@@ -605,7 +639,6 @@
     transform: translateY(20px) scale(0.98);
   }
 
-  /* Улучшенная ориентация для маленьких экранов */
   .content-wrapper {
     display: flex;
     flex-direction: column;
@@ -613,9 +646,16 @@
     width: 100%;
   }
 
+  .avatar-wrap {
+    margin-bottom: 2.5rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   img {
     max-width: 95px;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
     animation: mobileAvatarPop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
     opacity: 0;
     transform: scale(0.9);
@@ -623,8 +663,8 @@
 
   h1 {
     font-size: 1.8rem;
-    margin-top: 1rem;
-    margin-bottom: 0.4rem;
+    margin-top: 0;
+    margin-bottom: 0.3rem;
     text-align: center;
     width: 100%;
     animation: mobileTitleReveal 0.7s ease-out 0.4s both;
@@ -635,7 +675,7 @@
   h1::after {
     width: 80px;
     height: 2px;
-    bottom: -7px;
+    bottom: -5px;
     left: 50%;
     transform: translateX(-50%);
     animation: mobileLineExpand 0.6s ease-out 0.8s both;
@@ -643,7 +683,8 @@
 
   h2 {
     font-size: 1.1rem;
-    margin-top: 0.7rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
     text-align: center;
     width: 100%;
     animation: mobileSubtitleReveal 0.6s ease-out 0.5s both;
@@ -652,7 +693,7 @@
   }
 
   p {
-    margin: 0.8rem 0 1.1rem;
+    margin: 0.5rem 0 0.8rem;
     font-size: 1rem;
     line-height: 1.5;
     text-align: center;
@@ -662,8 +703,13 @@
     transform: translateY(10px);
   }
 
+  .intro-block {
+    margin: 0.6rem 0 0.6rem;
+    padding: 1.2rem 1.4rem;
+  }
+
   menu {
-    margin: 1.4rem 0 0;
+    margin: 1rem 0 0;
     width: 100%;
     padding: 0;
     list-style: none;
@@ -688,34 +734,19 @@
   li a {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 100%;
     text-decoration: none;
     color: inherit;
+    text-align: center;
   }
 
-  li:nth-child(1) {
-    animation-delay: 0.8s;
-  }
-
-  li:nth-child(2) {
-    animation-delay: 0.9s;
-  }
-
-  li:nth-child(3) {
-    animation-delay: 1.0s;
-  }
-
-  li:nth-child(4) {
-    animation-delay: 1.1s;
-  }
-
-  li:nth-child(5) {
-    animation-delay: 1.2s;
-  }
-
-  li:nth-child(6) {
-    animation-delay: 1.3s;
-  }
+  li:nth-child(1) { animation-delay: 0.8s; }
+  li:nth-child(2) { animation-delay: 0.9s; }
+  li:nth-child(3) { animation-delay: 1.0s; }
+  li:nth-child(4) { animation-delay: 1.1s; }
+  li:nth-child(5) { animation-delay: 1.2s; }
+  li:nth-child(6) { animation-delay: 1.3s; }
 
   li::after {
     width: 22px;
@@ -726,10 +757,10 @@
   }
 
   li span {
-    margin-left: 3rem;
+    margin-left: 0;
     display: block;
-    width: calc(100% - 4rem);
-    text-align: left;
+    width: 100%;
+    text-align: center;
   }
 
   .video-container {
@@ -740,15 +771,10 @@
     transform: scale(0.95);
     width: 100%;
     max-width: 100%;
-    /* высота контейнера по-прежнему берётся из padding-bottom: 56.25%
-       в базовом CSS — здесь высоту больше не переопределяем */
   }
 
   .video-container iframe {
     border-radius: 0.7rem;
-    /* было: height: 200px — конфликтовало с padding-bottom контейнера
-       и оставляло пустую полосу под видео. Теперь iframe снова
-       заполняет контейнер целиком (height: 100% из базового CSS). */
   }
 
   .video-text {
@@ -776,11 +802,13 @@
   }
 
   main::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom,
-        var(--primary-color),
-        #a8c93a);
+    background: linear-gradient(
+      to bottom,
+      var(--primary-color),
+      #a8c93a
+    );
   }
-
+  
   .music-btn {
     display: none !important;
   }
@@ -788,12 +816,11 @@
 
 /* Маленькие мобильные (391px - 480px) */
 @media (min-width: 391px) and (max-width: 480px) {
-
   html,
   body {
     padding: 0.35rem;
     background-attachment: fixed;
-    background-image:
+    background-image: 
       linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.2) 100%),
       url('../images/background/backg_multilink.webp');
   }
@@ -823,16 +850,23 @@
     width: 100%;
   }
 
+  .avatar-wrap {
+    margin-bottom: 2.2rem;
+  }
+
   img {
     max-width: 88px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 0.5rem;
   }
 
   h1 {
     font-size: 1.7rem;
     text-align: center;
+    margin-top: 0;
+    margin-bottom: 0.2rem;
   }
 
   h1::after {
@@ -844,31 +878,43 @@
   h2 {
     font-size: 1.05rem;
     text-align: center;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
   }
 
   p {
     text-align: center;
+    margin: 0.4rem 0 0.6rem;
+  }
+
+  .intro-block {
+    margin: 0.5rem 0 0.5rem;
+    padding: 1rem 1.2rem;
   }
 
   menu {
     width: 100%;
     padding: 0;
+    margin: 0.8rem 0 0;
   }
 
   li {
-    padding: 1.1rem 1.1rem;
+    padding: 1rem 1.1rem;
     font-size: 1.06rem;
     width: 100%;
     box-sizing: border-box;
+    min-height: 55px;
   }
 
   li::after {
     width: 21px;
     height: 21px;
+    left: 1.1rem;
   }
 
   li span {
-    margin-left: 2.8rem;
+    margin-left: 0;
+    text-align: center;
   }
 
   .video-container {
@@ -891,7 +937,6 @@
 
 /* Маленькие мобильные (361px - 390px) */
 @media (min-width: 361px) and (max-width: 390px) {
-
   html,
   body {
     padding: 0.3rem;
@@ -907,12 +952,19 @@
     width: 100%;
   }
 
+  .avatar-wrap {
+    margin-bottom: 2rem;
+  }
+
   img {
     max-width: 85px;
+    margin-bottom: 0.4rem;
   }
 
   h1 {
     font-size: 1.65rem;
+    margin-top: 0;
+    margin-bottom: 0.2rem;
   }
 
   h1::after {
@@ -921,12 +973,23 @@
 
   h2 {
     font-size: 1.03rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+  }
+
+  p {
+    margin: 0.3rem 0 0.5rem;
+  }
+
+  .intro-block {
+    margin: 0.4rem 0 0.4rem;
+    padding: 0.9rem 1.1rem;
   }
 
   li {
-    padding: 1.05rem 1rem;
+    padding: 0.95rem 1rem;
     font-size: 1.04rem;
-    min-height: 55px;
+    min-height: 50px;
   }
 
   li::after {
@@ -936,13 +999,13 @@
   }
 
   li span {
-    margin-left: 2.5rem;
+    margin-left: 0;
+    text-align: center;
   }
 }
 
 /* Очень маленькие устройства (320px - 360px) */
 @media (min-width: 320px) and (max-width: 360px) {
-
   html,
   body {
     padding: 0.25rem;
@@ -959,13 +1022,20 @@
     width: 100%;
   }
 
+  .avatar-wrap {
+    margin-bottom: 1.8rem;
+  }
+
   img {
     max-width: 80px;
+    margin-bottom: 0.3rem;
   }
 
   h1 {
     font-size: 1.6rem;
     line-height: 1.3;
+    margin-top: 0;
+    margin-bottom: 0.2rem;
   }
 
   h1::after {
@@ -975,22 +1045,30 @@
   h2 {
     font-size: 1rem;
     line-height: 1.3;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
   }
 
   p {
     font-size: 0.95rem;
     line-height: 1.4;
+    margin: 0.3rem 0 0.5rem;
+  }
+
+  .intro-block {
+    margin: 0.3rem 0 0.3rem;
+    padding: 0.8rem 1rem;
   }
 
   menu {
-    margin: 1.2rem 0 0;
+    margin: 0.8rem 0 0;
   }
 
   li {
-    padding: 1rem 0.95rem;
+    padding: 0.9rem 0.95rem;
     font-size: 1.02rem;
-    margin-bottom: 0.7rem;
-    min-height: 50px;
+    margin-bottom: 0.6rem;
+    min-height: 48px;
   }
 
   li::after {
@@ -1000,12 +1078,13 @@
   }
 
   li span {
-    margin-left: 2.3rem;
+    margin-left: 0;
     font-size: 0.98rem;
+    text-align: center;
   }
 
   .video-container {
-    margin: 1.2rem auto 0.8rem;
+    margin: 1rem auto 0.7rem;
   }
 
   .video-text p {
@@ -1016,7 +1095,6 @@
 
 /* Меньше 320px (экстремально маленькие) */
 @media (max-width: 319px) {
-
   html,
   body {
     padding: 0.2rem;
@@ -1033,13 +1111,20 @@
     width: 100%;
   }
 
+  .avatar-wrap {
+    margin-bottom: 1.6rem;
+  }
+
   img {
     max-width: 75px;
+    margin-bottom: 0.3rem;
   }
 
   h1 {
     font-size: 1.5rem;
     line-height: 1.2;
+    margin-top: 0;
+    margin-bottom: 0.1rem;
   }
 
   h1::after {
@@ -1049,23 +1134,30 @@
   h2 {
     font-size: 0.98rem;
     line-height: 1.2;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
   }
 
   p {
     font-size: 0.9rem;
     line-height: 1.3;
-    margin: 0.6rem 0 0.9rem;
+    margin: 0.2rem 0 0.4rem;
+  }
+
+  .intro-block {
+    margin: 0.2rem 0 0.2rem;
+    padding: 0.7rem 0.9rem;
   }
 
   menu {
-    margin: 1rem 0 0;
+    margin: 0.6rem 0 0;
   }
 
   li {
-    padding: 0.95rem 0.9rem;
+    padding: 0.8rem 0.9rem;
     font-size: 1rem;
-    margin-bottom: 0.6rem;
-    min-height: 45px;
+    margin-bottom: 0.5rem;
+    min-height: 42px;
   }
 
   li::after {
@@ -1075,12 +1167,13 @@
   }
 
   li span {
-    margin-left: 2.1rem;
+    margin-left: 0;
     font-size: 0.95rem;
+    text-align: center;
   }
 
   .video-container {
-    margin: 1rem auto 0.6rem;
+    margin: 0.8rem auto 0.5rem;
   }
 
   .video-text p {
@@ -1091,26 +1184,31 @@
 
 /* iPad Pro 12.9" (1024x1366) */
 @media (width: 1024px) and (height: 1366px) {
-
   html,
   body {
     padding: 1.5rem;
   }
-
+  
   main {
     max-width: 800px;
     max-height: 90vh;
     padding: 2rem;
   }
-
+  
+  .avatar-wrap {
+    margin-bottom: 3rem;
+  }
+  
   img {
     max-width: 120px;
   }
-
+  
   h1 {
     font-size: 2.2rem;
+    margin-top: 0;
+    margin-bottom: 0.3rem;
   }
-
+  
   li {
     padding: 1.2rem 1.8rem;
   }
@@ -1118,23 +1216,26 @@
 
 /* iPad Pro горизонтально (1366x1024) */
 @media (width: 1366px) and (height: 1024px) {
-
   html,
   body {
     padding: 1rem;
   }
-
+  
   main {
     max-width: 850px;
     max-height: 88vh;
   }
-
+  
+  .avatar-wrap {
+    margin-bottom: 2.8rem;
+  }
+  
   menu {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.9rem;
   }
-
+  
   li {
     margin-bottom: 0;
   }
@@ -1142,25 +1243,30 @@
 
 /* Surface Pro 12.3" (2736x1824) */
 @media (width: 2736px) and (height: 1824px) {
-
   html,
   body {
     padding: 2rem;
   }
-
+  
   main {
     max-width: 900px;
     padding: 2.5rem;
   }
-
+  
+  .avatar-wrap {
+    margin-bottom: 3.5rem;
+  }
+  
   img {
     max-width: 140px;
   }
-
+  
   h1 {
     font-size: 2.4rem;
+    margin-top: 0;
+    margin-bottom: 0.4rem;
   }
-
+  
   li {
     padding: 1.3rem 2rem;
   }
@@ -1168,30 +1274,35 @@
 
 /* Широкоформатные мониторы 21:9 (3440x1440) */
 @media (min-width: 3440px) and (min-aspect-ratio: 21/9) {
-
   html,
   body {
     padding: 2.5rem;
   }
-
+  
   main {
     max-width: 1000px;
     padding: 3rem;
     border-radius: 1.8rem;
   }
-
+  
+  .avatar-wrap {
+    margin-bottom: 4rem;
+  }
+  
   img {
     max-width: 150px;
   }
-
+  
   h1 {
     font-size: 2.6rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
   }
-
+  
   h1::after {
     width: 110px;
   }
-
+  
   li {
     padding: 1.5rem 2.2rem;
     font-size: 1.25rem;
@@ -1200,7 +1311,6 @@
 
 /* Очень низкие экраны в ландшафте (до 450px высоты) */
 @media (max-height: 450px) and (orientation: landscape) {
-
   html,
   body {
     padding: 0.25rem;
@@ -1227,6 +1337,11 @@
     align-items: flex-start;
   }
 
+  .avatar-wrap {
+    margin-bottom: 0.5rem;
+    margin-right: 1.5rem;
+  }
+
   img {
     max-width: 60px;
     margin-right: 1rem;
@@ -1240,6 +1355,8 @@
   h1 {
     font-size: 1.5rem;
     text-align: left;
+    margin-top: 0;
+    margin-bottom: 0.2rem;
   }
 
   h1::after {
@@ -1250,26 +1367,34 @@
   h2 {
     font-size: 0.9rem;
     text-align: left;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
   }
 
   p {
     font-size: 0.85rem;
     text-align: left;
+    margin: 0.2rem 0 0.4rem;
+  }
+
+  .intro-block {
+    margin: 0.3rem 0 0.3rem;
+    padding: 0.6rem 0.8rem;
   }
 
   menu {
-    margin: 1rem 0 0;
+    margin: 0.5rem 0 0;
     width: 100%;
   }
 
   li {
-    padding: 0.8rem 1rem;
-    font-size: 0.95rem;
-    min-height: 40px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+    min-height: 35px;
   }
 
   .video-container {
-    margin: 1rem auto 0.6rem;
+    margin: 0.8rem auto 0.4rem;
     width: 100%;
   }
 
@@ -1283,7 +1408,7 @@
   }
 
   .video-text p {
-    font-size: 11px;
+    font-size: 10px;
     text-align: left;
   }
 }
@@ -1293,18 +1418,24 @@
   main {
     padding: 1.2rem 1rem;
   }
-
+  
+  .avatar-wrap {
+    margin-bottom: 1.8rem;
+  }
+  
   menu {
-    margin: 1rem 0 0;
+    margin: 0.7rem 0 0;
   }
-
+  
   li {
-    padding: 0.9rem 0.9rem;
-    margin-bottom: 0.7rem;
+    padding: 0.8rem 0.9rem;
+    margin-bottom: 0.6rem;
+    min-height: 45px;
   }
-
+  
   li span {
     font-size: 0.95rem;
+    text-align: center;
   }
 }
 
@@ -1313,44 +1444,46 @@
   main {
     padding: 1.4rem;
   }
-
+  
+  .avatar-wrap {
+    margin-bottom: 2rem;
+  }
+  
   img {
     max-width: 80px;
   }
-
+  
   h1 {
     font-size: 1.6rem;
+    margin-top: 0;
+    margin-bottom: 0.2rem;
   }
-
+  
   menu {
-    margin: 1.2rem 0 0;
+    margin: 0.9rem 0 0;
   }
-
+  
   li {
-    padding: 1rem 1rem;
-    margin-bottom: 0.8rem;
+    padding: 0.9rem 1rem;
+    margin-bottom: 0.7rem;
   }
 }
 
 /* Retina дисплеи 2x */
-@media (-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
-
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   html,
   body {
-    background-image:
+    background-image: 
       linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.25) 100%),
       url('../images/background/backg_multilink@2x.webp');
   }
 }
 
 /* Retina дисплеи 3x */
-@media (-webkit-min-device-pixel-ratio: 3),
-(min-resolution: 288dpi) {
-
+@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
   html,
   body {
-    background-image:
+    background-image: 
       linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.25) 100%),
       url('../images/background/backg_multilink@3x.webp');
   }
@@ -1361,28 +1494,24 @@
   main {
     border: 2px solid var(--primary-color);
   }
-
+  
   li {
     border: 1px solid var(--primary-color);
   }
-
-  h1,
-  h2,
-  p,
-  li {
+  
+  h1, h2, p, li {
     text-shadow: 0 0 1px var(--primary-color);
   }
 }
 
 /* Режим экономии данных */
 @media (prefers-reduced-data: reduce) {
-
   html,
   body {
-    background-image:
+    background-image: 
       linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.3) 100%);
   }
-
+  
   * {
     transition-duration: 0.1s !important;
     animation-duration: 0.3s !important;
@@ -1391,10 +1520,9 @@
 
 /* Темная тема системы */
 @media (prefers-color-scheme: dark) {
-
   html,
   body {
-    background-image:
+    background-image: 
       linear-gradient(135deg, rgb(0, 0, 0) 100%, rgb(0, 0, 0) 100%),
       url('../images/background/backg_multilink.webp');
   }
@@ -1402,33 +1530,30 @@
 
 /* Светлая тема системы */
 @media (prefers-color-scheme: light) {
-
   html,
   body {
-    background-image:
+    background-image: 
       linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.5) 100%),
       url('../images/background/backg_multilink_light.webp');
   }
-
+  
   main {
     background-color: rgba(255, 255, 255, 0.95);
-    box-shadow:
+    box-shadow: 
       0 15px 35px rgba(0, 0, 0, 0.15),
       0 0 0 1px rgba(0, 0, 0, 0.06),
       0 0 20px rgba(209, 240, 93, 0.2);
   }
-
+  
   li {
     background-color: rgba(255, 255, 255, 0.85);
     color: #222;
   }
-
-  h1,
-  h2,
-  p {
+  
+  h1, h2, p {
     color: #222;
   }
-
+  
   .video-text p {
     color: #555;
   }
@@ -1440,32 +1565,27 @@
     transition: none !important;
     animation: none !important;
   }
-
+  
   li:hover,
   li:active {
     transform: none;
   }
-
+  
   .video-container:hover {
     transform: none;
   }
-
+  
   img:hover {
     transform: none;
   }
-
+  
   main {
     animation: none;
     opacity: 1;
     transform: none;
   }
-
-  img,
-  h1,
-  h2,
-  p,
-  li,
-  .video-container {
+  
+  img, h1, h2, p, li, .video-container {
     animation: none !important;
     opacity: 1;
     transform: none;
@@ -1486,104 +1606,71 @@ li,
 
 /* Сохранение анимаций */
 @keyframes mobileContainerReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(25px) scale(0.98);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  0% { opacity: 0; transform: translateY(25px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes mobileAvatarPop {
-  0% {
-    opacity: 0;
-    transform: scale(0.9) rotate(-10deg);
-  }
-
-  70% {
-    opacity: 1;
-    transform: scale(1.05) rotate(2deg);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(0);
-  }
+  0% { opacity: 0; transform: scale(0.9) rotate(-10deg); }
+  70% { opacity: 1; transform: scale(1.05) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
 }
 
 @keyframes mobileTitleReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(15px);
-    filter: blur(5px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
+  0% { opacity: 0; transform: translateY(15px); filter: blur(5px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
 @keyframes mobileLineExpand {
-  0% {
-    width: 0;
-    opacity: 0;
-  }
-
-  100% {
-    width: 80px;
-    opacity: 1;
-  }
+  0% { width: 0; opacity: 0; }
+  100% { width: 80px; opacity: 1; }
 }
 
 @keyframes mobileSubtitleReveal {
-  0% {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  0% { opacity: 0; transform: translateX(-10px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes mobileTextReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  100% {
-    opacity: 0.9;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 0.9; transform: translateY(0); }
 }
 
 @keyframes mobileMenuItemReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(12px) scale(0.98);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  0% { opacity: 0; transform: translateY(12px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes mobileVideoReveal {
-  0% {
-    opacity: 0;
-    transform: scale(0.95);
-  }
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
 
-  100% {
-    opacity: 1;
-    transform: scale(1);
+/* ============================================= */
+/* ФИНАЛЬНЫЕ ФИКСЫ (в конце файла — выше по приоритету) */
+/* ============================================= */
+
+/* Текст пунктов меню по центру с отступом для иконок */
+li {
+  justify-content: center;
+  text-align: center;
+  padding-left: 4rem;
+}
+
+li a {
+  justify-content: center;
+  text-align: center;
+}
+
+li span {
+  margin-left: 0;
+  text-align: center;
+}
+
+/* Фикс фона на телефонах */
+@media (max-width: 768px) {
+  html,
+  body {
+    background-attachment: scroll;
   }
 }
