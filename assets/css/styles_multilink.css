@@ -111,7 +111,7 @@ main {
   max-width: 650px;
   max-height: 90vh;
   margin: auto;
-  padding: 1.8rem 2.5rem 2.5rem; /* ЗМІНЕНО: зменшено верхній падінг */
+  padding: 2.5rem 2.5rem 2.5rem;
   background: linear-gradient(
     135deg,
     rgba(30, 30, 30, 0.7) 0%,
@@ -248,7 +248,7 @@ main:hover {
 }
 
 /* ============================================= */
-/* УЛУЧШЕННЫЙ СКРОЛЛБАР З ПОЯВОЮ/ПРОПАЖЕЮ */
+/* УЛУЧШЕННЫЙ СКРОЛЛБАР */
 /* ============================================= */
 main::-webkit-scrollbar {
   width: 6px;
@@ -309,7 +309,7 @@ main.show-scrollbar::-webkit-scrollbar-thumb:hover {
 .avatar-wrap {
   position: relative;
   width: fit-content;
-  margin: 0 auto 2rem; /* ЗМІНЕНО: зменшено відступ знизу */
+  margin: 0 auto 3.5rem;
 }
 
 .avatar-wrap::after {
@@ -410,7 +410,7 @@ img:hover {
 }
 
 /* ============================================= */
-/* ЗАГОЛОВКИ — НАЗВА БЛИЖЧЕ ДО ЛОГОТИПА */
+/* ЗАГОЛОВКИ */
 /* ============================================= */
 h1,
 h2,
@@ -427,8 +427,8 @@ li {
 }
 
 h1 {
-  margin-top: -27.8px;
-  margin-bottom: 0;
+  margin-top: -1.5rem;
+  margin-bottom: 0.2rem;
   font-size: 2.1rem;
   font-weight: 800;
   background: linear-gradient(135deg, var(--white) 0%, #e0e0e0 100%);
@@ -437,7 +437,6 @@ h1 {
   background-clip: text;
   letter-spacing: -0.5px;
   position: relative;
-  bottom: 25px;
   animation: titleReveal 1s cubic-bezier(0.23, 1, 0.32, 1) 0.8s both;
   opacity: 0;
   transform: translateY(30px) skewY(5deg);
@@ -462,7 +461,7 @@ h1::after {
   bottom: -3px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
+  width: 80px;
   height: 3px;
   background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
   border-radius: 3px;
@@ -475,23 +474,23 @@ h1::after {
     opacity: 0;
   }
   100% {
-    width: 100px;
+    width: 80px;
     opacity: 1;
   }
 }
 
 h2 {
   color: var(--primary-color);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   text-shadow: 0 2px 8px rgba(209, 240, 93, 0.3);
   letter-spacing: 1px;
   margin-top: 0.1rem;
+  margin-bottom: 0.3rem;
   animation: subtitleReveal 0.8s ease-out 1s both;
   opacity: 0;
   transform: translateX(-20px);
   position: relative;
-  bottom: 25px;
 }
 
 @keyframes subtitleReveal {
@@ -506,15 +505,14 @@ h2 {
 }
 
 p {
-  margin: 0.8rem 0 1.2rem; /* ЗМІНЕНО: зменшено відступи */
-  font-size: 1.1rem;
+  margin: 0.2rem 0 0.6rem;
+  font-size: 1rem;
   line-height: 1.6;
   opacity: 0.9;
   animation: textReveal 0.8s ease-out 1.1s both;
   opacity: 0;
   transform: translateY(20px);
   position: relative;
-  bottom: 28px;
 }
 
 @keyframes textReveal {
@@ -534,7 +532,7 @@ p {
 menu {
   list-style: none;
   padding: 0;
-  margin: 0.3rem 0 0; /* ЗМІНЕНО: ще менше відступу */
+  margin: 0.6rem 0 0;
 }
 
 li {
@@ -893,31 +891,12 @@ li:hover::after {
   text-shadow: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  main::before,
-  main::after {
-    animation: none;
-  }
-
-  .q-particle,
-  .avatar-wrap::after {
-    animation: none;
-    opacity: 0;
-  }
-
-  .kw-chip-mini {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-}
-
 /* ============================================= */
 /* ВСТУПНИЙ БЛОК */
 /* ============================================= */
 .intro-block {
   position: relative;
-  margin: 0.2rem 0 0.8rem; /* ЗМІНЕНО: зменшено відступи */
+  margin: 0.6rem 0 0.8rem;
   padding: 1.5rem 1.8rem 1.5rem 2.1rem;
   background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -941,28 +920,25 @@ li:hover::after {
 }
 
 .intro-block p:first-child {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--white);
   text-shadow: 0 0 14px rgba(209, 240, 93, 0.3);
   letter-spacing: 0.01em;
-  padding-bottom: 1rem;
-  margin-bottom: 1.2rem !important;
-  border-bottom: 1px solid rgb(255, 255, 255);
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.8rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .intro-block p {
-  margin: 0 0 1.2rem;
+  margin: 0 0 0.8rem;
   color: rgba(255, 255, 255, 0.92);
   line-height: 1.7;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   letter-spacing: 0.02em;
-  text-align: justify;
-  text-align-last: left;
+  text-align: left;
   hyphens: auto;
   -webkit-hyphens: auto;
-  bottom: 0; /* ДОДАНО: скидаємо позиціонування */
-  position: static; /* ДОДАНО: скидаємо relative */
 }
 
 .intro-block p:last-child {
@@ -976,16 +952,15 @@ li:hover::after {
 }
 
 .intro-block p.kw-extra {
-  margin-top: 0.8rem;
-  font-size: 0.9rem;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
   opacity: 0.8;
   text-align: left;
 }
 
-/* ---------- CTA-кнопка "все ссылки проекта" ---------- */
 .cta-text {
   text-align: center !important;
-  margin: 1.4rem 0 0 !important;
+  margin: 1rem 0 0 !important;
 }
 
 .cta-button {
@@ -996,9 +971,9 @@ li:hover::after {
   color: var(--secondary-dark) !important;
   font-weight: 800;
   text-decoration: none !important;
-  padding: 0.7rem 1.5rem;
+  padding: 0.6rem 1.3rem;
   border-radius: 2rem;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   letter-spacing: 0.3px;
   box-shadow:
     0 6px 18px rgba(0, 0, 0, 0.3),
@@ -1035,10 +1010,10 @@ li:hover::after {
   border: 1px solid rgba(255, 255, 255, 0.14);
   color: var(--white) !important;
   font-weight: 600;
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   text-decoration: none !important;
-  padding: 0.1rem 0.6rem;
-  margin: 0.15rem;
+  padding: 0.1rem 0.5rem;
+  margin: 0.1rem;
   border-radius: 0.8rem;
   transition: all 0.3s ease;
   white-space: nowrap;
@@ -1068,20 +1043,11 @@ li:hover::after {
   box-shadow: 0 0 12px rgba(209, 240, 93, 0.3);
 }
 
-@media (max-width: 480px) {
-  .intro-block {
-    padding: 1.2rem 1.2rem;
-  }
-  .intro-block p {
-    font-size: 0.98rem;
-  }
-}
-
 .section-divider {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  margin: 1.8rem 0 0.6rem;
+  margin: 1.5rem 0 0.5rem;
   opacity: 0.7;
 }
 
@@ -1094,7 +1060,7 @@ li:hover::after {
 }
 
 .section-divider span {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -1103,37 +1069,36 @@ li:hover::after {
   opacity: 0.85;
 }
 
-@media (max-width: 600px) {
+@media (prefers-reduced-motion: reduce) {
   main::before,
   main::after {
     animation: none;
-    opacity: 0.025;
   }
 
-  main {
-    backdrop-filter: blur(10px) saturate(120%);
-    padding: 1.2rem 1.2rem 1.8rem; /* ДОДАНО: менший падінг на мобільних */
+  .q-particle,
+  .avatar-wrap::after {
+    animation: none;
+    opacity: 0;
   }
 
-  main:hover {
-    backdrop-filter: blur(10px) saturate(120%);
+  .kw-chip-mini {
+    animation: none;
+    opacity: 1;
     transform: none;
   }
+}
 
-  li {
-    backdrop-filter: blur(4px);
+@media (max-width: 600px) {
+  main {
+    padding: 1.5rem 1.2rem;
   }
 
-  .video-container {
-    backdrop-filter: none;
+  .avatar-wrap {
+    margin-bottom: 2.5rem;
   }
 
   .avatar-wrap > .q-particle:nth-child(n + 26) {
     display: none;
-  }
-
-  .avatar-wrap {
-    margin-bottom: 2.5rem; /* ЗМІНЕНО: трохи більше на мобільних */
   }
 
   .q-particle {
@@ -1145,48 +1110,57 @@ li:hover::after {
     opacity: 0.7;
   }
 
-  .intro-block {
-    backdrop-filter: none;
-    background: rgba(255, 255, 255, 0.05);
-    margin: 0.1rem 0 0.6rem; /* ДОДАНО: адаптивні відступи */
-  }
-
-  .intro-block p {
-    text-align: left;
-    hyphens: none;
-    -webkit-hyphens: none;
-  }
-
   h1 {
-    font-size: 1.6rem; /* ДОДАНО: менший шрифт на мобільних */
-    margin-top: -20px;
-    bottom: 20px;
+    font-size: 1.6rem;
+    margin-top: -1rem;
+    margin-bottom: 0.1rem;
+  }
+
+  h1::after {
+    width: 60px;
+    bottom: -3px;
   }
 
   h2 {
-    font-size: 1rem;
-    bottom: 20px;
+    font-size: 0.95rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.2rem;
   }
 
   p {
-    font-size: 0.95rem;
-    bottom: 20px;
-    margin: 0.5rem 0 0.8rem;
+    font-size: 0.9rem;
+    margin: 0.1rem 0 0.4rem;
+  }
+
+  .intro-block {
+    margin: 0.4rem 0 0.5rem;
+    padding: 1rem 1.2rem;
+  }
+
+  .intro-block p {
+    font-size: 0.88rem;
+    margin: 0 0 0.6rem;
+  }
+
+  .intro-block p:first-child {
+    font-size: 1rem;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.6rem !important;
   }
 
   menu {
-    margin: 0.2rem 0 0;
+    margin: 0.4rem 0 0;
   }
 
   li {
-    font-size: 1rem;
+    font-size: 0.95rem;
     padding: 0.9rem 1.2rem;
     padding-left: 3.5rem;
   }
 
   li::after {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     left: 1.2rem;
   }
 }

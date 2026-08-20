@@ -2,18 +2,10 @@
 /* АДАПТИВНЫЕ РАЗМЕРЫ И ОРИЕНТАЦИЯ */
 /* ============================================= */
 
-/* Ультра широкие мониторы (2560px и больше) */
 @media (min-width: 2560px) {
-  html,
-  body {
-    padding: 2rem;
-  }
-  
   main {
     max-width: 950px;
-    margin: 0 auto;
     padding: 2.5rem;
-    border-radius: 1.5rem;
   }
   
   .avatar-wrap {
@@ -26,78 +18,23 @@
   
   h1 {
     font-size: 2.5rem;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-  }
-  
-  h1::after {
-    width: 100px;
-    bottom: -10px;
-  }
-  
-  h2 {
-    font-size: 1.4rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
   }
   
   p {
     font-size: 1.15rem;
-    line-height: 1.8;
     margin: 0.8rem 0 1.2rem;
-  }
-  
-  menu {
-    margin: 1.5rem 0 0;
   }
   
   li {
     padding: 1.4rem 2rem;
     font-size: 1.2rem;
-    margin-bottom: 1rem;
-    border-radius: 1rem;
-  }
-  
-  li::after {
-    width: 28px;
-    height: 28px;
-    left: 1.8rem;
-  }
-  
-  .video-container {
-    margin: 2rem auto 1.5rem;
-    border-radius: 1rem;
-  }
-  
-  .video-text {
-    margin-top: 1.5rem;
-  }
-  
-  .video-text::before {
-    width: 50px;
-    top: -10px;
-  }
-  
-  .music-btn {
-    padding: 14px 26px;
-    font-size: 15px;
-    bottom: 30px;
-    right: 30px;
   }
 }
 
-/* Большие десктопы (1601px - 1920px) */
 @media (min-width: 1601px) and (max-width: 1919px) {
-  html,
-  body {
-    padding: 1.5rem;
-  }
-  
   main {
     max-width: 900px;
-    margin: 0 auto;
     padding: 2.2rem;
-    border-radius: 1.3rem;
   }
   
   .avatar-wrap {
@@ -110,78 +47,13 @@
   
   h1 {
     font-size: 2.3rem;
-    margin-top: 0;
-    margin-bottom: 0.4rem;
-  }
-  
-  h1::after {
-    width: 90px;
-    bottom: -9px;
-  }
-  
-  h2 {
-    font-size: 1.3rem;
-    margin-top: 0.4rem;
-    margin-bottom: 0.4rem;
-  }
-  
-  p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    margin: 0.7rem 0 1.1rem;
-  }
-  
-  menu {
-    margin: 1.3rem 0 0;
-  }
-  
-  li {
-    padding: 1.3rem 1.8rem;
-    font-size: 1.15rem;
-    margin-bottom: 0.9rem;
-    border-radius: 0.9rem;
-  }
-  
-  li::after {
-    width: 26px;
-    height: 26px;
-    left: 1.6rem;
-  }
-  
-  .video-container {
-    margin: 1.8rem auto 1.3rem;
-    border-radius: 0.9rem;
-  }
-  
-  .video-text {
-    margin-top: 1.3rem;
-  }
-  
-  .video-text::before {
-    width: 45px;
-    top: -9px;
-  }
-  
-  .music-btn {
-    padding: 13px 24px;
-    font-size: 14px;
-    bottom: 25px;
-    right: 25px;
   }
 }
 
-/* Средние десктопы (1440px - 1600px) */
 @media (min-width: 1440px) and (max-width: 1600px) {
-  html,
-  body {
-    padding: 1.2rem;
-  }
-  
   main {
     max-width: 650px;
-    margin: 0 auto;
     padding: 2rem;
-    border-radius: 1.2rem;
   }
   
   .avatar-wrap {
@@ -194,78 +66,13 @@
   
   h1 {
     font-size: 2.1rem;
-    margin-top: 0;
-    margin-bottom: 0.3rem;
-  }
-  
-  h1::after {
-    width: 85px;
-    bottom: -8px;
-  }
-  
-  h2 {
-    font-size: 1.2rem;
-    margin-top: 0.3rem;
-    margin-bottom: 0.3rem;
-  }
-  
-  p {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin: 0.6rem 0 1rem;
-  }
-  
-  menu {
-    margin: 1.2rem 0 0;
-  }
-  
-  li {
-    padding: 1.2rem 1.7rem;
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-    border-radius: 0.8rem;
-  }
-  
-  li::after {
-    width: 24px;
-    height: 24px;
-    left: 1.5rem;
-  }
-  
-  .video-container {
-    margin: 1.6rem auto 1.2rem;
-    border-radius: 0.8rem;
-  }
-  
-  .video-text {
-    margin-top: 1.2rem;
-  }
-  
-  .video-text::before {
-    width: 42px;
-    top: -8px;
-  }
-  
-  .music-btn {
-    padding: 12px 22px;
-    font-size: 13px;
-    bottom: 22px;
-    right: 22px;
   }
 }
 
-/* Стандартные десктопы (1280px - 1439px) */
 @media (min-width: 1280px) and (max-width: 1439px) {
-  html,
-  body {
-    padding: 1rem;
-  }
-  
   main {
     max-width: 500px;
-    margin: 0 auto;
     padding: 1.8rem;
-    border-radius: 1.1rem;
   }
   
   .avatar-wrap {
@@ -278,78 +85,13 @@
   
   h1 {
     font-size: 2rem;
-    margin-top: 0;
-    margin-bottom: 0.3rem;
-  }
-  
-  h1::after {
-    width: 80px;
-    bottom: -7px;
-  }
-  
-  h2 {
-    font-size: 1.1rem;
-    margin-top: 0.3rem;
-    margin-bottom: 0.3rem;
-  }
-  
-  p {
-    font-size: 1rem;
-    line-height: 1.5;
-    margin: 0.5rem 0 0.9rem;
-  }
-  
-  menu {
-    margin: 1.1rem 0 0;
-  }
-  
-  li {
-    padding: 1.1rem 1.6rem;
-    font-size: 1.05rem;
-    margin-bottom: 0.7rem;
-    border-radius: 0.7rem;
-  }
-  
-  li::after {
-    width: 22px;
-    height: 22px;
-    left: 1.4rem;
-  }
-  
-  .video-container {
-    margin: 1.5rem auto 1.1rem;
-    border-radius: 0.7rem;
-  }
-  
-  .video-text {
-    margin-top: 1.1rem;
-  }
-  
-  .video-text::before {
-    width: 40px;
-    top: -7px;
-  }
-  
-  .music-btn {
-    padding: 11px 20px;
-    font-size: 13px;
-    bottom: 20px;
-    right: 20px;
   }
 }
 
-/* Маленькие десктопы (1025px - 1279px) */
 @media (min-width: 1025px) and (max-width: 1279px) {
-  html,
-  body {
-    padding: 0.8rem;
-  }
-  
   main {
-    max-width: 350px;
-    margin: 0 auto;
+    max-width: 420px;
     padding: 1.6rem;
-    border-radius: 1rem;
   }
   
   .avatar-wrap {
@@ -361,79 +103,14 @@
   }
   
   h1 {
-    font-size: 1.9rem;
-    margin-top: 0;
-    margin-bottom: 0.3rem;
-  }
-  
-  h1::after {
-    width: 75px;
-    bottom: -7px;
-  }
-  
-  h2 {
-    font-size: 1.05rem;
-    margin-top: 0.3rem;
-    margin-bottom: 0.3rem;
-  }
-  
-  p {
-    font-size: 0.98rem;
-    line-height: 1.5;
-    margin: 0.5rem 0 0.8rem;
-  }
-  
-  menu {
-    margin: 1rem 0 0;
-  }
-  
-  li {
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    margin-bottom: 0.7rem;
-    border-radius: 0.7rem;
-  }
-  
-  li::after {
-    width: 21px;
-    height: 21px;
-    left: 1.3rem;
-  }
-  
-  .video-container {
-    margin: 1.4rem auto 1rem;
-    border-radius: 0.7rem;
-  }
-  
-  .video-text {
-    margin-top: 1rem;
-  }
-  
-  .video-text::before {
-    width: 38px;
-    top: -7px;
-  }
-  
-  .music-btn {
-    padding: 10px 18px;
-    font-size: 12px;
-    bottom: 18px;
-    right: 18px;
+    font-size: 1.8rem;
   }
 }
 
-/* Планшеты горизонтально (835px - 1024px) */
 @media (min-width: 835px) and (max-width: 1024px) {
-  html,
-  body {
-    padding: 0.7rem;
-  }
-  
   main {
     max-width: 500px;
-    margin: 0 auto;
     padding: 1.5rem;
-    border-radius: 0.9rem;
     max-height: 93vh;
   }
   
@@ -447,25 +124,16 @@
   
   h1 {
     font-size: 1.8rem;
-    margin-top: 0;
     margin-bottom: 0.3rem;
-  }
-  
-  h1::after {
-    width: 70px;
-    bottom: -6px;
   }
   
   h2 {
     font-size: 1rem;
-    margin-top: 0.3rem;
     margin-bottom: 0.3rem;
   }
   
   p {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin: 0.5rem 0 0.8rem;
+    margin: 0.4rem 0 0.7rem;
   }
   
   menu {
@@ -475,50 +143,13 @@
   li {
     padding: 0.9rem 1.4rem;
     font-size: 0.98rem;
-    margin-bottom: 0.6rem;
-    border-radius: 0.6rem;
-  }
-  
-  li::after {
-    width: 20px;
-    height: 20px;
-    left: 1.2rem;
-  }
-  
-  .video-container {
-    margin: 1.3rem auto 0.9rem;
-    border-radius: 0.6rem;
-  }
-  
-  .video-text {
-    margin-top: 0.9rem;
-  }
-  
-  .video-text::before {
-    width: 35px;
-    top: -6px;
-  }
-  
-  .music-btn {
-    padding: 9px 16px;
-    font-size: 11px;
-    bottom: 15px;
-    right: 15px;
   }
 }
 
-/* Планшеты вертикально (769px - 834px) */
 @media (min-width: 769px) and (max-width: 834px) {
-  html,
-  body {
-    padding: 0.6rem;
-  }
-  
   main {
-    max-width: 350px;
-    margin: 0 auto;
+    max-width: 420px;
     padding: 1.4rem;
-    border-radius: 0.8rem;
     max-height: 94vh;
   }
   
@@ -532,25 +163,16 @@
   
   h1 {
     font-size: 1.7rem;
-    margin-top: 0;
     margin-bottom: 0.2rem;
-  }
-  
-  h1::after {
-    width: 65px;
-    bottom: -5px;
   }
   
   h2 {
     font-size: 0.98rem;
-    margin-top: 0.2rem;
     margin-bottom: 0.2rem;
   }
   
   p {
-    font-size: 0.93rem;
-    line-height: 1.5;
-    margin: 0.4rem 0 0.7rem;
+    margin: 0.3rem 0 0.6rem;
   }
   
   menu {
@@ -560,46 +182,14 @@
   li {
     padding: 0.8rem 1.3rem;
     font-size: 0.96rem;
-    margin-bottom: 0.5rem;
-    border-radius: 0.6rem;
-  }
-  
-  li::after {
-    width: 19px;
-    height: 19px;
-    left: 1.1rem;
-  }
-  
-  .video-container {
-    margin: 1.2rem auto 0.8rem;
-    border-radius: 0.6rem;
-  }
-  
-  .video-text {
-    margin-top: 0.8rem;
-  }
-  
-  .video-text::before {
-    width: 33px;
-    top: -5px;
-  }
-  
-  .music-btn {
-    padding: 8px 15px;
-    font-size: 11px;
-    bottom: 14px;
-    right: 14px;
   }
 }
 
-/* Мобильные горизонтально (569px - 768px) */
 @media (min-width: 569px) and (max-width: 768px) {
   html,
   body {
     padding: 0.5rem;
     background-attachment: scroll;
-    background-size: cover;
-    background-position: center;
     background-image: 
       linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.25) 100%),
       url('../images/background/backg_multilink.webp');
@@ -615,10 +205,6 @@
     right: -15px;
     bottom: -15px;
     filter: blur(10px) brightness(0.9);
-  }
-
-  body::after {
-    backdrop-filter: blur(1px);
   }
 
   main {
@@ -639,22 +225,14 @@
     transform: translateY(20px) scale(0.98);
   }
 
-  .content-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
   .avatar-wrap {
     margin-bottom: 2.5rem;
-    width: fit-content;
     margin-left: auto;
     margin-right: auto;
   }
 
   img {
-    max-width: 95px;
+    max-width: 90px;
     margin-bottom: 0.5rem;
     animation: mobileAvatarPop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
     opacity: 0;
@@ -662,7 +240,7 @@
   }
 
   h1 {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     margin-top: 0;
     margin-bottom: 0.3rem;
     text-align: center;
@@ -673,7 +251,7 @@
   }
 
   h1::after {
-    width: 80px;
+    width: 70px;
     height: 2px;
     bottom: -5px;
     left: 50%;
@@ -682,9 +260,9 @@
   }
 
   h2 {
-    font-size: 1.1rem;
-    margin-top: 0.3rem;
-    margin-bottom: 0.3rem;
+    font-size: 1rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
     text-align: center;
     width: 100%;
     animation: mobileSubtitleReveal 0.6s ease-out 0.5s both;
@@ -693,8 +271,8 @@
   }
 
   p {
-    margin: 0.5rem 0 0.8rem;
-    font-size: 1rem;
+    margin: 0.4rem 0 0.7rem;
+    font-size: 0.95rem;
     line-height: 1.5;
     text-align: center;
     width: 100%;
@@ -705,20 +283,20 @@
 
   .intro-block {
     margin: 0.6rem 0 0.6rem;
-    padding: 1.2rem 1.4rem;
+    padding: 1rem 1.2rem;
   }
 
   menu {
-    margin: 1rem 0 0;
+    margin: 0.9rem 0 0;
     width: 100%;
     padding: 0;
     list-style: none;
   }
 
   li {
-    padding: 1.1rem 1.2rem;
-    font-size: 1.05rem;
-    margin-bottom: 0.8rem;
+    padding: 1rem 1.2rem;
+    font-size: 1rem;
+    margin-bottom: 0.7rem;
     border-radius: 0.7rem;
     backdrop-filter: blur(12px);
     animation: mobileMenuItemReveal 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -728,17 +306,7 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    min-height: 60px;
-  }
-
-  li a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    text-decoration: none;
-    color: inherit;
-    text-align: center;
+    min-height: 55px;
   }
 
   li:nth-child(1) { animation-delay: 0.8s; }
@@ -749,8 +317,8 @@
   li:nth-child(6) { animation-delay: 1.3s; }
 
   li::after {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     left: 1.2rem;
     position: absolute;
     filter: brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
@@ -764,7 +332,7 @@
   }
 
   .video-container {
-    margin: 1.4rem auto 0.9rem;
+    margin: 1.2rem auto 0.8rem;
     border-radius: 0.7rem;
     animation: mobileVideoReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s both;
     opacity: 0;
@@ -773,32 +341,28 @@
     max-width: 100%;
   }
 
-  .video-container iframe {
-    border-radius: 0.7rem;
-  }
-
   .video-text {
-    margin-top: 1rem;
+    margin-top: 0.8rem;
     animation: mobileTextReveal 0.6s ease-out 1.0s both;
     width: 100%;
     text-align: center;
   }
 
   .video-text::before {
-    width: 40px;
+    width: 35px;
     height: 2px;
-    top: -7px;
+    top: -5px;
     left: 50%;
     transform: translateX(-50%);
   }
 
   .video-text p {
-    font-size: 12.5px;
-    margin: 0 0 10px;
+    font-size: 12px;
+    margin: 0 0 8px;
   }
 
   main::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
 
   main::-webkit-scrollbar-thumb {
@@ -807,6 +371,7 @@
       var(--primary-color),
       #a8c93a
     );
+    border-radius: 4px;
   }
   
   .music-btn {
@@ -814,7 +379,6 @@
   }
 }
 
-/* Маленькие мобильные (391px - 480px) */
 @media (min-width: 391px) and (max-width: 480px) {
   html,
   body {
@@ -825,20 +389,8 @@
       url('../images/background/backg_multilink.webp');
   }
 
-  body::before {
-    top: -12px;
-    left: -12px;
-    right: -12px;
-    bottom: -12px;
-    filter: blur(9px) brightness(0.91);
-  }
-
-  body::after {
-    backdrop-filter: blur(0.8px);
-  }
-
   main {
-    padding: 1.5rem 1.3rem;
+    padding: 1.4rem 1.2rem;
     border-radius: 0.9rem;
     margin: 0.35rem auto;
     width: 100%;
@@ -846,16 +398,12 @@
     box-sizing: border-box;
   }
 
-  .content-wrapper {
-    width: 100%;
-  }
-
   .avatar-wrap {
     margin-bottom: 2.2rem;
   }
 
   img {
-    max-width: 88px;
+    max-width: 85px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -863,20 +411,20 @@
   }
 
   h1 {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     text-align: center;
     margin-top: 0;
     margin-bottom: 0.2rem;
   }
 
   h1::after {
-    width: 75px;
+    width: 65px;
     left: 50%;
     transform: translateX(-50%);
   }
 
   h2 {
-    font-size: 1.05rem;
+    font-size: 1rem;
     text-align: center;
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
@@ -884,32 +432,33 @@
 
   p {
     text-align: center;
-    margin: 0.4rem 0 0.6rem;
+    margin: 0.3rem 0 0.5rem;
+    font-size: 0.9rem;
   }
 
   .intro-block {
-    margin: 0.5rem 0 0.5rem;
-    padding: 1rem 1.2rem;
+    margin: 0.4rem 0 0.4rem;
+    padding: 0.9rem 1rem;
   }
 
   menu {
     width: 100%;
     padding: 0;
-    margin: 0.8rem 0 0;
+    margin: 0.7rem 0 0;
   }
 
   li {
-    padding: 1rem 1.1rem;
-    font-size: 1.06rem;
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
     width: 100%;
     box-sizing: border-box;
-    min-height: 55px;
+    min-height: 50px;
   }
 
   li::after {
-    width: 21px;
-    height: 21px;
-    left: 1.1rem;
+    width: 19px;
+    height: 19px;
+    left: 1rem;
   }
 
   li span {
@@ -931,11 +480,10 @@
   }
 
   .video-text p {
-    font-size: 12.5px;
+    font-size: 11px;
   }
 }
 
-/* Маленькие мобильные (361px - 390px) */
 @media (min-width: 361px) and (max-width: 390px) {
   html,
   body {
@@ -943,12 +491,8 @@
   }
 
   main {
-    padding: 1.4rem 1.2rem;
+    padding: 1.3rem 1.1rem;
     border-radius: 0.85rem;
-    width: 100%;
-  }
-
-  .content-wrapper {
     width: 100%;
   }
 
@@ -957,54 +501,49 @@
   }
 
   img {
-    max-width: 85px;
+    max-width: 80px;
     margin-bottom: 0.4rem;
   }
 
   h1 {
-    font-size: 1.65rem;
+    font-size: 1.5rem;
     margin-top: 0;
     margin-bottom: 0.2rem;
   }
 
   h1::after {
-    width: 72px;
+    width: 60px;
   }
 
   h2 {
-    font-size: 1.03rem;
+    font-size: 0.95rem;
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
   }
 
   p {
     margin: 0.3rem 0 0.5rem;
+    font-size: 0.88rem;
   }
 
   .intro-block {
-    margin: 0.4rem 0 0.4rem;
-    padding: 0.9rem 1.1rem;
+    margin: 0.3rem 0 0.3rem;
+    padding: 0.8rem 0.9rem;
   }
 
   li {
-    padding: 0.95rem 1rem;
-    font-size: 1.04rem;
-    min-height: 50px;
+    padding: 0.85rem 0.9rem;
+    font-size: 0.95rem;
+    min-height: 48px;
   }
 
   li::after {
-    width: 20px;
-    height: 20px;
-    left: 1rem;
-  }
-
-  li span {
-    margin-left: 0;
-    text-align: center;
+    width: 18px;
+    height: 18px;
+    left: 0.9rem;
   }
 }
 
-/* Очень маленькие устройства (320px - 360px) */
 @media (min-width: 320px) and (max-width: 360px) {
   html,
   body {
@@ -1012,107 +551,14 @@
   }
 
   main {
-    padding: 1.3rem 1.1rem;
+    padding: 1.2rem 1rem;
     border-radius: 0.8rem;
     width: 100%;
     max-width: 100%;
   }
 
-  .content-wrapper {
-    width: 100%;
-  }
-
   .avatar-wrap {
     margin-bottom: 1.8rem;
-  }
-
-  img {
-    max-width: 80px;
-    margin-bottom: 0.3rem;
-  }
-
-  h1 {
-    font-size: 1.6rem;
-    line-height: 1.3;
-    margin-top: 0;
-    margin-bottom: 0.2rem;
-  }
-
-  h1::after {
-    width: 70px;
-  }
-
-  h2 {
-    font-size: 1rem;
-    line-height: 1.3;
-    margin-top: 0.2rem;
-    margin-bottom: 0.2rem;
-  }
-
-  p {
-    font-size: 0.95rem;
-    line-height: 1.4;
-    margin: 0.3rem 0 0.5rem;
-  }
-
-  .intro-block {
-    margin: 0.3rem 0 0.3rem;
-    padding: 0.8rem 1rem;
-  }
-
-  menu {
-    margin: 0.8rem 0 0;
-  }
-
-  li {
-    padding: 0.9rem 0.95rem;
-    font-size: 1.02rem;
-    margin-bottom: 0.6rem;
-    min-height: 48px;
-  }
-
-  li::after {
-    width: 19px;
-    height: 19px;
-    left: 0.95rem;
-  }
-
-  li span {
-    margin-left: 0;
-    font-size: 0.98rem;
-    text-align: center;
-  }
-
-  .video-container {
-    margin: 1rem auto 0.7rem;
-  }
-
-  .video-text p {
-    font-size: 11px;
-    line-height: 1.3;
-  }
-}
-
-/* Меньше 320px (экстремально маленькие) */
-@media (max-width: 319px) {
-  html,
-  body {
-    padding: 0.2rem;
-  }
-
-  main {
-    padding: 1.2rem 1rem;
-    border-radius: 0.75rem;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .content-wrapper {
-    width: 100%;
-  }
-
-  .avatar-wrap {
-    margin-bottom: 1.6rem;
   }
 
   img {
@@ -1121,32 +567,32 @@
   }
 
   h1 {
-    font-size: 1.5rem;
-    line-height: 1.2;
+    font-size: 1.4rem;
+    line-height: 1.3;
     margin-top: 0;
-    margin-bottom: 0.1rem;
+    margin-bottom: 0.2rem;
   }
 
   h1::after {
-    width: 65px;
+    width: 55px;
   }
 
   h2 {
-    font-size: 0.98rem;
-    line-height: 1.2;
-    margin-top: 0.1rem;
-    margin-bottom: 0.1rem;
+    font-size: 0.9rem;
+    line-height: 1.3;
+    margin-top: 0.15rem;
+    margin-bottom: 0.15rem;
   }
 
   p {
-    font-size: 0.9rem;
-    line-height: 1.3;
-    margin: 0.2rem 0 0.4rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 0.25rem 0 0.4rem;
   }
 
   .intro-block {
-    margin: 0.2rem 0 0.2rem;
-    padding: 0.7rem 0.9rem;
+    margin: 0.25rem 0 0.25rem;
+    padding: 0.7rem 0.8rem;
   }
 
   menu {
@@ -1154,43 +600,121 @@
   }
 
   li {
-    padding: 0.8rem 0.9rem;
-    font-size: 1rem;
+    padding: 0.8rem 0.85rem;
+    font-size: 0.92rem;
     margin-bottom: 0.5rem;
-    min-height: 42px;
+    min-height: 45px;
   }
 
   li::after {
-    width: 18px;
-    height: 18px;
-    left: 0.9rem;
+    width: 17px;
+    height: 17px;
+    left: 0.85rem;
   }
 
   li span {
     margin-left: 0;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     text-align: center;
   }
 
   .video-container {
-    margin: 0.8rem auto 0.5rem;
+    margin: 0.9rem auto 0.6rem;
   }
 
   .video-text p {
     font-size: 10px;
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 319px) {
+  html,
+  body {
+    padding: 0.2rem;
+  }
+
+  main {
+    padding: 1rem 0.8rem;
+    border-radius: 0.75rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .avatar-wrap {
+    margin-bottom: 1.6rem;
+  }
+
+  img {
+    max-width: 70px;
+    margin-bottom: 0.3rem;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+    line-height: 1.2;
+    margin-top: 0;
+    margin-bottom: 0.15rem;
+  }
+
+  h1::after {
+    width: 50px;
+  }
+
+  h2 {
+    font-size: 0.85rem;
+    line-height: 1.2;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+  }
+
+  p {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    margin: 0.2rem 0 0.35rem;
+  }
+
+  .intro-block {
+    margin: 0.2rem 0 0.2rem;
+    padding: 0.6rem 0.7rem;
+  }
+
+  menu {
+    margin: 0.5rem 0 0;
+  }
+
+  li {
+    padding: 0.7rem 0.8rem;
+    font-size: 0.88rem;
+    margin-bottom: 0.4rem;
+    min-height: 40px;
+  }
+
+  li::after {
+    width: 16px;
+    height: 16px;
+    left: 0.8rem;
+  }
+
+  li span {
+    margin-left: 0;
+    font-size: 0.88rem;
+    text-align: center;
+  }
+
+  .video-container {
+    margin: 0.7rem auto 0.4rem;
+  }
+
+  .video-text p {
+    font-size: 9px;
     line-height: 1.2;
   }
 }
 
-/* iPad Pro 12.9" (1024x1366) */
 @media (width: 1024px) and (height: 1366px) {
-  html,
-  body {
-    padding: 1.5rem;
-  }
-  
   main {
-    max-width: 800px;
+    max-width: 700px;
     max-height: 90vh;
     padding: 2rem;
   }
@@ -1205,25 +729,14 @@
   
   h1 {
     font-size: 2.2rem;
-    margin-top: 0;
-    margin-bottom: 0.3rem;
-  }
-  
-  li {
-    padding: 1.2rem 1.8rem;
   }
 }
 
-/* iPad Pro горизонтально (1366x1024) */
 @media (width: 1366px) and (height: 1024px) {
-  html,
-  body {
-    padding: 1rem;
-  }
-  
   main {
-    max-width: 850px;
+    max-width: 750px;
     max-height: 88vh;
+    padding: 2rem;
   }
   
   .avatar-wrap {
@@ -1241,13 +754,7 @@
   }
 }
 
-/* Surface Pro 12.3" (2736x1824) */
 @media (width: 2736px) and (height: 1824px) {
-  html,
-  body {
-    padding: 2rem;
-  }
-  
   main {
     max-width: 900px;
     padding: 2.5rem;
@@ -1263,22 +770,10 @@
   
   h1 {
     font-size: 2.4rem;
-    margin-top: 0;
-    margin-bottom: 0.4rem;
-  }
-  
-  li {
-    padding: 1.3rem 2rem;
   }
 }
 
-/* Широкоформатные мониторы 21:9 (3440x1440) */
 @media (min-width: 3440px) and (min-aspect-ratio: 21/9) {
-  html,
-  body {
-    padding: 2.5rem;
-  }
-  
   main {
     max-width: 1000px;
     padding: 3rem;
@@ -1295,12 +790,6 @@
   
   h1 {
     font-size: 2.6rem;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-  }
-  
-  h1::after {
-    width: 110px;
   }
   
   li {
@@ -1309,7 +798,6 @@
   }
 }
 
-/* Очень низкие экраны в ландшафте (до 450px высоты) */
 @media (max-height: 450px) and (orientation: landscape) {
   html,
   body {
@@ -1327,7 +815,7 @@
 
   main {
     max-height: 86vh;
-    padding: 1rem;
+    padding: 0.8rem;
   }
 
   .content-wrapper {
@@ -1343,58 +831,65 @@
   }
 
   img {
-    max-width: 60px;
+    max-width: 55px;
     margin-right: 1rem;
   }
 
   .header-content {
     flex: 1;
-    min-width: 200px;
+    min-width: 150px;
   }
 
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     text-align: left;
     margin-top: 0;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
   }
 
   h1::after {
     left: 0;
     transform: none;
+    width: 50px;
   }
 
   h2 {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     text-align: left;
     margin-top: 0.1rem;
     margin-bottom: 0.1rem;
   }
 
   p {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     text-align: left;
-    margin: 0.2rem 0 0.4rem;
+    margin: 0.1rem 0 0.3rem;
   }
 
   .intro-block {
-    margin: 0.3rem 0 0.3rem;
-    padding: 0.6rem 0.8rem;
+    margin: 0.2rem 0 0.2rem;
+    padding: 0.5rem 0.7rem;
   }
 
   menu {
-    margin: 0.5rem 0 0;
+    margin: 0.4rem 0 0;
     width: 100%;
   }
 
   li {
-    padding: 0.6rem 0.8rem;
-    font-size: 0.9rem;
-    min-height: 35px;
+    padding: 0.5rem 0.7rem;
+    font-size: 0.8rem;
+    min-height: 32px;
+  }
+
+  li::after {
+    width: 15px;
+    height: 15px;
+    left: 0.7rem;
   }
 
   .video-container {
-    margin: 0.8rem auto 0.4rem;
+    margin: 0.5rem auto 0.3rem;
     width: 100%;
   }
 
@@ -1408,41 +903,47 @@
   }
 
   .video-text p {
-    font-size: 10px;
+    font-size: 9px;
     text-align: left;
   }
 }
 
-/* Улучшенная адаптация для очень маленьких экранов в портрете */
 @media (max-width: 400px) and (orientation: portrait) {
   main {
-    padding: 1.2rem 1rem;
+    padding: 1rem 0.9rem;
   }
   
   .avatar-wrap {
     margin-bottom: 1.8rem;
   }
   
+  img {
+    max-width: 75px;
+  }
+  
+  h1 {
+    font-size: 1.4rem;
+  }
+  
   menu {
-    margin: 0.7rem 0 0;
+    margin: 0.6rem 0 0;
   }
   
   li {
-    padding: 0.8rem 0.9rem;
-    margin-bottom: 0.6rem;
-    min-height: 45px;
+    padding: 0.75rem 0.8rem;
+    margin-bottom: 0.5rem;
+    min-height: 42px;
   }
   
   li span {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     text-align: center;
   }
 }
 
-/* Оптимизация для квадратных экранов (например, 1:1 соотношение) */
 @media (max-aspect-ratio: 1/1) and (max-width: 600px) {
   main {
-    padding: 1.4rem;
+    padding: 1.2rem;
   }
   
   .avatar-wrap {
@@ -1454,22 +955,19 @@
   }
   
   h1 {
-    font-size: 1.6rem;
-    margin-top: 0;
-    margin-bottom: 0.2rem;
+    font-size: 1.5rem;
   }
   
   menu {
-    margin: 0.9rem 0 0;
+    margin: 0.8rem 0 0;
   }
   
   li {
-    padding: 0.9rem 1rem;
-    margin-bottom: 0.7rem;
+    padding: 0.85rem 0.9rem;
+    margin-bottom: 0.6rem;
   }
 }
 
-/* Retina дисплеи 2x */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   html,
   body {
@@ -1479,7 +977,6 @@
   }
 }
 
-/* Retina дисплеи 3x */
 @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
   html,
   body {
@@ -1489,7 +986,6 @@
   }
 }
 
-/* Высокая контрастность */
 @media (prefers-contrast: high) {
   main {
     border: 2px solid var(--primary-color);
@@ -1498,13 +994,8 @@
   li {
     border: 1px solid var(--primary-color);
   }
-  
-  h1, h2, p, li {
-    text-shadow: 0 0 1px var(--primary-color);
-  }
 }
 
-/* Режим экономии данных */
 @media (prefers-reduced-data: reduce) {
   html,
   body {
@@ -1518,7 +1009,6 @@
   }
 }
 
-/* Темная тема системы */
 @media (prefers-color-scheme: dark) {
   html,
   body {
@@ -1528,7 +1018,6 @@
   }
 }
 
-/* Светлая тема системы */
 @media (prefers-color-scheme: light) {
   html,
   body {
@@ -1559,24 +1048,10 @@
   }
 }
 
-/* Уменьшенное потребление энергии */
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
     animation: none !important;
-  }
-  
-  li:hover,
-  li:active {
-    transform: none;
-  }
-  
-  .video-container:hover {
-    transform: none;
-  }
-  
-  img:hover {
-    transform: none;
   }
   
   main {
@@ -1592,19 +1067,6 @@
   }
 }
 
-/* Плавные переходы */
-main,
-img,
-h1,
-h2,
-p,
-li,
-.video-container,
-.music-btn {
-  transition: all 0.3s ease;
-}
-
-/* Сохранение анимаций */
 @keyframes mobileContainerReveal {
   0% { opacity: 0; transform: translateY(25px) scale(0.98); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
@@ -1623,7 +1085,7 @@ li,
 
 @keyframes mobileLineExpand {
   0% { width: 0; opacity: 0; }
-  100% { width: 80px; opacity: 1; }
+  100% { width: 70px; opacity: 1; }
 }
 
 @keyframes mobileSubtitleReveal {
@@ -1646,15 +1108,10 @@ li,
   100% { opacity: 1; transform: scale(1); }
 }
 
-/* ============================================= */
-/* ФИНАЛЬНЫЕ ФИКСЫ (в конце файла — выше по приоритету) */
-/* ============================================= */
-
-/* Текст пунктов меню по центру с отступом для иконок */
 li {
   justify-content: center;
   text-align: center;
-  padding-left: 4rem;
+  padding-left: 3.5rem;
 }
 
 li a {
@@ -1667,7 +1124,6 @@ li span {
   text-align: center;
 }
 
-/* Фикс фона на телефонах */
 @media (max-width: 768px) {
   html,
   body {
