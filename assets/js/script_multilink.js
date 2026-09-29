@@ -1,10 +1,9 @@
 // script_multilink.js
 (function () {
-  // Убедимся, что DOM загружен
   function init() {
-    const mainElement = document.querySelector('main');
-    const music = document.getElementById("bg-music");
-    const toggleBtn = document.getElementById("music-toggle");
+    const mainElement = document.querySelector('#main-content');
+    const music = document.getElementById('bg-music');
+    const toggleBtn = document.getElementById('music-toggle');
 
     // ---------- SCROLLBAR ----------
     let isScrolling = false;
@@ -33,30 +32,66 @@
     window.addEventListener('blur', () => hideScrollbar());
     hideScrollbar();
 
+    // ---------- РАСКРЫВАЮЩАЯСЯ ЦИТАТА (как в Telegram) ----------
+    const quote = document.querySelector('.tg-quote');
+    const quoteBody = document.getElementById('about-text');
+    const quoteToggle = quote ? quote.querySelector('.tg-quote__toggle') : null;
+
+    if (quote && quoteBody && quoteToggle) {
+      let isOpen = false;
+
+      function setState(open, focusToggle) {
+        isOpen = open;
+        quote.classList.toggle('is-open', open);
+        quoteToggle.setAttribute('aria-expanded', String(open));
+        quoteToggle.setAttribute('aria-label', open ? 'Свернуть описание' : 'Развернуть описание');
+        quoteBody.style.maxHeight = open ? quoteBody.scrollHeight + 'px' : '';
+        if (focusToggle) quoteToggle.focus();
+      }
+
+      // Пока текст свёрнут — по клику в любом месте блока он раскрывается,
+      // как цитата в Telegram; клики по ссылкам внутри работают как обычно.
+      quote.addEventListener('click', (event) => {
+        if (isOpen) return;
+        if (event.target.closest('a')) return;
+        setState(true, false);
+      });
+
+      quoteToggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        setState(!isOpen, true);
+      });
+
+      // Пересчитываем высоту раскрытого блока при ресайзе/повороте экрана
+      window.addEventListener('resize', () => {
+        if (isOpen) quoteBody.style.maxHeight = quoteBody.scrollHeight + 'px';
+      });
+    }
+
     // ---------- MUSIC ----------
     let isPlaying = false;
     let isVideoPlaying = false;
     let shuffledPlaylist = [];
     let currentTrack = 0;
     const playlist = [
-      "assets/music/tunetank.com_431_midnight-club_by_musical-bakery.mp3",
-      "assets/music/tunetank.com_5540_motion-energy_by_cloudsystem.mp3",
-      "assets/music/tunetank.com_5793_hard-training_by_cloudsystem.mp3",
-      "assets/music/tunetank.com_5747_trap-ricochet_by_cloudsystem.mp3",
-      "assets/music/tunetank.com_6212_ocean_by_slxsh.mp3",
-      "assets/music/tunetank.com_5395_arcade-machine_by_nuclear-wave.mp3",
-      "assets/music/tunetank.com_6240_drop-top_by_jointmane.mp3",
-      "assets/music/tunetank.com_6155_neon-wave_by_cloudsystem.mp3",
-      "assets/music/tunetank.com_6247_justice_by_unfeared.mp3",
-      "assets/music/tunetank.com_6231_exodus_by_unfeared.mp3",
-      "assets/music/tunetank.com_6683_the-odds_by_boy_.mp3",
-      "assets/music/tunetank.com_6921_syndicate_by_eugene-anikin.mp3"
+      'assets/music/tunetank.com_431_midnight-club_by_musical-bakery.mp3',
+      'assets/music/tunetank.com_5540_motion-energy_by_cloudsystem.mp3',
+      'assets/music/tunetank.com_5793_hard-training_by_cloudsystem.mp3',
+      'assets/music/tunetank.com_5747_trap-ricochet_by_cloudsystem.mp3',
+      'assets/music/tunetank.com_6212_ocean_by_slxsh.mp3',
+      'assets/music/tunetank.com_5395_arcade-machine_by_nuclear-wave.mp3',
+      'assets/music/tunetank.com_6240_drop-top_by_jointmane.mp3',
+      'assets/music/tunetank.com_6155_neon-wave_by_cloudsystem.mp3',
+      'assets/music/tunetank.com_6247_justice_by_unfeared.mp3',
+      'assets/music/tunetank.com_6231_exodus_by_unfeared.mp3',
+      'assets/music/tunetank.com_6683_the-odds_by_boy_.mp3',
+      'assets/music/tunetank.com_6921_syndicate_by_eugene-anikin.mp3'
     ];
 
-    music.volume = 0.05;
+    if (music) music.volume = 0.05;
 
     function shuffle(array) {
-      let newArray = array.slice();
+      const newArray = array.slice();
       for (let i = newArray.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
@@ -69,50 +104,58 @@
       music.load();
     }
 
-    toggleBtn.addEventListener("click", () => {
-      if (isPlaying) {
-        music.pause();
-        toggleBtn.textContent = "Включить музыку";
-      } else {
-        if (isVideoPlaying && player && typeof player.pauseVideo === "function") {
-          player.pauseVideo();
-        }
+    if (toggleBtn && music) {
+      toggleBtn.addEventListener('click', () => {
+        if (isPlaying) {
+          music.pause();
+          toggleBtn.textContent = 'Включить музыку';
+          toggleBtn.classList.remove('is-playing');
+          toggleBtn.setAttribute('aria-pressed', 'false');
+        } else {
+          if (isVideoPlaying && player && typeof player.pauseVideo === 'function') {
+            player.pauseVideo();
+          }
 
-        if (shuffledPlaylist.length === 0) {
+          if (shuffledPlaylist.length === 0) {
+            shuffledPlaylist = shuffle(playlist);
+            currentTrack = 0;
+          }
+          loadTrack(currentTrack);
+          music.play().catch(() => {});
+          toggleBtn.textContent = 'Выключить музыку';
+          toggleBtn.classList.add('is-playing');
+          toggleBtn.setAttribute('aria-pressed', 'true');
+        }
+        isPlaying = !isPlaying;
+      });
+
+      music.addEventListener('ended', () => {
+        currentTrack++;
+        if (currentTrack >= shuffledPlaylist.length) {
           shuffledPlaylist = shuffle(playlist);
           currentTrack = 0;
         }
         loadTrack(currentTrack);
-        music.play();
-        toggleBtn.textContent = "Выключить музыку";
-      }
-      isPlaying = !isPlaying;
-    });
-
-    music.addEventListener("ended", () => {
-      currentTrack++;
-      if (currentTrack >= shuffledPlaylist.length) {
-        shuffledPlaylist = shuffle(playlist);
-        currentTrack = 0;
-      }
-      loadTrack(currentTrack);
-      music.play();
-    });
+        music.play().catch(() => {});
+      });
+    }
 
     // ---------- YOUTUBE ----------
     let player;
     window.onYouTubeIframeAPIReady = function () {
       player = new YT.Player('yt-player', {
-        events: { 'onStateChange': onPlayerStateChange }
+        events: { onStateChange: onPlayerStateChange }
       });
     };
 
     function onPlayerStateChange(event) {
       if (event.data === YT.PlayerState.PLAYING) {
         isVideoPlaying = true;
-        if (isPlaying) {
+        if (isPlaying && music) {
           music.pause();
-          toggleBtn.textContent = "Включить музыку";
+          toggleBtn.textContent = 'Включить музыку';
+          toggleBtn.classList.remove('is-playing');
+          toggleBtn.setAttribute('aria-pressed', 'false');
           isPlaying = false;
         }
       } else if (
@@ -124,7 +167,6 @@
     }
   }
 
-  // Если DOM уже загружен, запускаем сразу, иначе ждём
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

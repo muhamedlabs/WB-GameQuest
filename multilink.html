@@ -3,13 +3,15 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Game Quest — игровые новости, обзоры, трейлеры и подборки для ПК, PS4, PS5, Xbox, Nintendo | Мультиссылки</title>
 
-  <link href="assets/logo.webp" rel="shortcut icon" type="image/icon">
+  <script>document.documentElement.classList.add('js');</script>
 
-  <link rel="stylesheet" href="assets/css/styles_multilink.css">
-  <link rel="stylesheet" href="assets/css/responsive_multilink.css">
+  <link href="assets/logo.webp" rel="icon" type="image/webp">
+
+  <link rel="stylesheet" href="assets/css/styles_multilink.css?v=2">
+  <link rel="stylesheet" href="assets/css/responsive_multilink.css?v=2">
 
   <meta name="description"
     content="Game Quest — всё об игровой индустрии: свежие новости, честные обзоры игр для ПК, Xbox Series X|S, PlayStation 5, PS4 и Nintendo. Смотрим трейлеры, разбираем ААА-релизы и инди-проекты, делаем подборки игр, помогаем выбрать во что поиграть. Game Pass, PS Store, акции и релизы.">
@@ -18,7 +20,8 @@
   <meta name="google-site-verification" content="tUk6rzJT3i5DWvB2oZxp1vXxktdf1dOqbTRmSBGHx6I" />
   <meta name="robots" content="index, follow">
   <meta name="author" content="Game Quest">
-  <meta name="theme-color" content="#d1f05d">
+  <meta name="theme-color" content="#0c0d09">
+  <meta name="color-scheme" content="dark">
 
   <link rel="canonical" href="https://gq.muhamedlabs.pro/multilink.html">
 
@@ -61,13 +64,15 @@
 
 <body>
 
-  <audio id="bg-music"></audio>
-  <button class="music-btn" id="music-toggle">Включить музыку</button>
+  <audio id="bg-music" preload="none"></audio>
+  <button class="music-btn" id="music-toggle" type="button" aria-pressed="false">Включить музыку</button>
 
-  <main id="main-content">
-    <div class="content-wrapper">
+  <div class="card">
+    <main id="main-content">
+      <div class="content-wrapper">
 
-      <div class="avatar-wrap">
+        <header class="hero">
+          <div class="avatar-wrap">
         <img src="assets/images/avatar.webp"
           alt="Логотип Game Quest — игровой блог о новостях, Xbox Series X и трейлерах">
         <!-- Кольцо A (внутреннее) -->
@@ -110,87 +115,119 @@
         <span class="q-particle" style="left:98%;top:-33%;--peak:.4;--tx1:5px;--ty1:-9px;--r1:12deg;--tx2:8px;--ty2:-14px;--r2:20deg;--tx3:11px;--ty3:-19px;--r3:28deg;animation-duration:17.8s;animation-delay:-15.1s;"></span>
         <span class="q-particle" style="left:133%;top:2%;--peak:.4;--tx1:9px;--ty1:-5px;--r1:12deg;--tx2:14px;--ty2:-8px;--r2:20deg;--tx3:19px;--ty3:-11px;--r3:28deg;animation-duration:20s;animation-delay:-7s;"></span>
       </div>
-      
-      <h1>Game Quest</h1>
-      <h2>Киев, Украина</h2>
 
-      <p class="cta-text">
+          <h1>Game Quest</h1>
+          <h2 class="location">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
+            Киев, Украина
+          </h2>
+
           <a class="cta-button" href="#links-menu">
             Все мультиссылки проекта
+            <span class="arrow" aria-hidden="true">↓</span>
           </a>
-        </p>
+        </header>
 
-      <div class="intro-block">
-        <p>🧩 Здравия желаю в увлекательный мир игровых событий, обзоров новинок и многого другого!</p>
+        <!-- Раскрывающаяся цитата в стиле Telegram -->
+        <section class="tg-quote" id="about" aria-label="О проекте Game Quest">
+          <div class="tg-quote__body" id="about-text">
+            <p class="lead">🧩 Здравия желаю в увлекательный мир игровых событий, обзоров новинок и многого другого!</p>
 
-        <p>Здесь вы найдёте свежие <strong>новости игр</strong>, новые <strong>анонсы</strong>, трейлеры, 
-          <strong>гемплей</strong>, обзоры и подробности о самых интересных проектах игровой индустрии. Следим за новыми 
-          играми для <strong>ПК</strong>, <strong>PS5</strong>, <strong>PS4</strong>, <strong>Xbox</strong> и <strong>Nintendo</strong>, рассказываем 
-          о крупных релизах, будущих играх, датах выхода, обновлениях, <strong>дополнениях</strong> и важных событиях. Следим за новыми 
-          трейлерами, геймплейными роликами, анонсами, <strong>слухами и инсайдами</strong>, связанными с популярными играми и игровыми сериями. 
-          Каждую неделю собираем самые <strong>интересные события индустрии</strong>, от масштабных <strong>AAA-релизов</strong> и известных 
-          франшиз до небольших <strong>инди-игр</strong>, новых игровых проектов и неожиданных хитов. Следим за новостями <strong>Nintendo</strong>, 
-          <strong>Xbox</strong> и <strong>PlayStation</strong>, сравниваем платформы, разбираем игровые новинки и помогаем понять, <strong>во что поиграть 
-          </strong> и какие игры заслуживают внимания. В <strong>Game Quest</strong> можно найти обзоры новых игр, подборки <strong>бесплатных игр</strong>, рекомендации, 
-          игровые трейлеры на русском языке и материалы о проектах самых разных жанров. Мы рассказываем о долгожданных играх вроде <strong>GTA 6</strong>, <strong>Metro 2033</strong>, 
-          <strong>Cyberpunk 2077</strong> и <strong>Red Dead Redemption</strong>, но не ограничиваемся отдельными сериями и постоянно следим за множеством других новых и уже 
-          известных игр. Также публикуем информацию о скидках и раздачах в <strong>Steam</strong>, <strong>Epic Games Store</strong>, <strong>GOG</strong>, <strong>Game Pass</strong> и <strong>PS Store</strong>, 
-          рассказываем о ремейках, ремастерах, новых частях культовых серий, дополнениях и проектах, которые только начинают привлекать внимание игроков.</p>
+            <p>Здесь вы найдёте свежие <strong>новости игр</strong>, новые <strong>анонсы</strong>, трейлеры,
+              <strong>гемплей</strong>, обзоры и подробности о самых интересных проектах игровой индустрии. Следим за новыми
+              играми для <strong>ПК</strong>, <strong>PS5</strong>, <strong>PS4</strong>, <strong>Xbox</strong> и <strong>Nintendo</strong>, рассказываем
+              о крупных релизах, будущих играх, датах выхода, обновлениях, <strong>дополнениях</strong> и важных событиях.</p>
 
-        <p>Присоединяйтесь к сообществу <strong>Game Quest</strong> и следите за всеми важными событиями игрового мира в одном месте.</p>
+            <p>Следим за новыми трейлерами, геймплейными роликами, анонсами, <strong>слухами и инсайдами</strong>, связанными с популярными играми и игровыми сериями.
+              Каждую неделю собираем самые <strong>интересные события индустрии</strong>, от масштабных <strong>AAA-релизов</strong> и известных
+              франшиз до небольших <strong>инди-игр</strong>, новых игровых проектов и неожиданных хитов.</p>
 
+            <p>Следим за новостями <strong>Nintendo</strong>, <strong>Xbox</strong> и <strong>PlayStation</strong>, сравниваем платформы, разбираем игровые новинки и помогаем понять,
+              <strong>во что поиграть</strong> и какие игры заслуживают внимания. В <strong>Game Quest</strong> можно найти обзоры новых игр, подборки <strong>бесплатных игр</strong>, рекомендации,
+              игровые трейлеры на русском языке и материалы о проектах самых разных жанров.</p>
 
-        <p class="kw-extra">
-          <span class="kw-label">Также ищут:</span>
-          <a class="kw-chip-mini" href="#links-menu" rel="noopener noreferrer nofollow">Game Quest</a>
-          <a class="kw-chip-mini" href="https://www.rockstargames.com/gta-vi" target="_blank" rel="noopener noreferrer nofollow">GTA 6</a>
-          <a class="kw-chip-mini" href="https://www.rockstargames.com/reddeadredemption/" target="_blank" rel="noopener noreferrer nofollow">Red Dead Redemption</a>
-          <a class="kw-chip-mini" href="https://www.cyberpunk.net/" target="_blank" rel="noopener noreferrer nofollow">Cyberpunk 2077</a>
-          <a class="kw-chip-mini" href="https://www.4a-games.com.mt/4a-delta/metro-2033" target="_blank" rel="noopener noreferrer nofollow">Metro 2033</a>
-          <a class="kw-chip-mini" href="https://www.remedygames.com/" target="_blank" rel="noopener noreferrer nofollow">Remedy</a>
-          <a class="kw-chip-mini" href="https://www.cdprojektred.com/" target="_blank" rel="noopener noreferrer nofollow">CDPR</a>
-          <a class="kw-chip-mini" href="https://store.steampowered.com/" target="_blank" rel="noopener noreferrer nofollow">Steam</a>
-          <a class="kw-chip-mini" href="https://store.epicgames.com/" target="_blank" rel="noopener noreferrer nofollow">Epic Games</a>
-          <a class="kw-chip-mini" href="https://www.gog.com/" target="_blank" rel="noopener noreferrer nofollow">GOG</a>
-          <a class="kw-chip-mini" href="https://www.xbox.com/" target="_blank" rel="noopener noreferrer nofollow">Xbox</a>
-          <a class="kw-chip-mini" href="https://www.playstation.com/" target="_blank" rel="noopener noreferrer nofollow">PS5</a>
-          <a class="kw-chip-mini" href="https://www.playstation.com/" target="_blank" rel="noopener noreferrer nofollow">PS4</a>
-          <a class="kw-chip-mini" href="https://www.nintendo.com/" target="_blank" rel="noopener noreferrer nofollow">Nintendo</a>
-          <a class="kw-chip-mini" href="#video" rel="noopener noreferrer nofollow">PlayGames</a>
-          <a class="kw-chip-mini" href="https://www.xbox.com/xbox-game-pass" target="_blank" rel="noopener noreferrer nofollow">Game Pass</a>
-          <a class="kw-chip-mini" href="https://store.playstation.com/" target="_blank" rel="noopener noreferrer nofollow">PS Store</a>
-          <a class="kw-chip-mini" href="https://discord.com/" target="_blank" rel="noopener noreferrer nofollow">Discord</a>
-          <a class="kw-chip-mini" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer nofollow">YouTube</a>
-          <a class="kw-chip-mini" href="https://t.me/" target="_blank" rel="noopener noreferrer nofollow">Telegram</a>
-        </p>
+            <p>Мы рассказываем о долгожданных играх вроде <strong>GTA 6</strong>, <strong>Metro 2033</strong>,
+              <strong>Cyberpunk 2077</strong> и <strong>Red Dead Redemption</strong>, но не ограничиваемся отдельными сериями и постоянно следим за множеством других новых и уже
+              известных игр. Также публикуем информацию о скидках и раздачах в <strong>Steam</strong>, <strong>Epic Games Store</strong>, <strong>GOG</strong>, <strong>Game Pass</strong> и <strong>PS Store</strong>,
+              рассказываем о ремейках, ремастерах, новых частях культовых серий, дополнениях и проектах, которые только начинают привлекать внимание игроков.</p>
+
+            <p>Присоединяйтесь к сообществу <strong>Game Quest</strong> и следите за всеми важными событиями игрового мира в одном месте.</p>
+
+            <div class="kw-extra">
+              <span class="kw-label">Также ищут:</span>
+              <a class="kw-chip" href="#links-menu">Game Quest</a>
+              <a class="kw-chip" href="https://www.rockstargames.com/gta-vi" target="_blank" rel="noopener noreferrer nofollow">GTA 6</a>
+              <a class="kw-chip" href="https://www.rockstargames.com/reddeadredemption/" target="_blank" rel="noopener noreferrer nofollow">Red Dead Redemption</a>
+              <a class="kw-chip" href="https://www.cyberpunk.net/" target="_blank" rel="noopener noreferrer nofollow">Cyberpunk 2077</a>
+              <a class="kw-chip" href="https://www.4a-games.com.mt/4a-delta/metro-2033" target="_blank" rel="noopener noreferrer nofollow">Metro 2033</a>
+              <a class="kw-chip" href="https://www.remedygames.com/" target="_blank" rel="noopener noreferrer nofollow">Remedy</a>
+              <a class="kw-chip" href="https://www.cdprojektred.com/" target="_blank" rel="noopener noreferrer nofollow">CDPR</a>
+              <a class="kw-chip" href="https://store.steampowered.com/" target="_blank" rel="noopener noreferrer nofollow">Steam</a>
+              <a class="kw-chip" href="https://store.epicgames.com/" target="_blank" rel="noopener noreferrer nofollow">Epic Games</a>
+              <a class="kw-chip" href="https://www.gog.com/" target="_blank" rel="noopener noreferrer nofollow">GOG</a>
+              <a class="kw-chip" href="https://www.xbox.com/" target="_blank" rel="noopener noreferrer nofollow">Xbox</a>
+              <a class="kw-chip" href="https://www.playstation.com/" target="_blank" rel="noopener noreferrer nofollow">PS5</a>
+              <a class="kw-chip" href="https://www.playstation.com/" target="_blank" rel="noopener noreferrer nofollow">PS4</a>
+              <a class="kw-chip" href="https://www.nintendo.com/" target="_blank" rel="noopener noreferrer nofollow">Nintendo</a>
+              <a class="kw-chip" href="#video">PlayGames</a>
+              <a class="kw-chip" href="https://www.xbox.com/xbox-game-pass" target="_blank" rel="noopener noreferrer nofollow">Game Pass</a>
+              <a class="kw-chip" href="https://store.playstation.com/" target="_blank" rel="noopener noreferrer nofollow">PS Store</a>
+              <a class="kw-chip" href="https://discord.com/" target="_blank" rel="noopener noreferrer nofollow">Discord</a>
+              <a class="kw-chip" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer nofollow">YouTube</a>
+              <a class="kw-chip" href="https://t.me/" target="_blank" rel="noopener noreferrer nofollow">Telegram</a>
+            </div>
+          </div>
+
+          <button class="tg-quote__toggle" type="button" aria-expanded="false" aria-controls="about-text" aria-label="Развернуть описание">
+            <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </section>
+
+        <div class="section-divider"><span>Ссылки проекта</span></div>
+
+        <menu id="links-menu" class="links">
+          <li style="--i:0"><a class="link link--web" href="https://muhamedlabs.pro" target="_blank" rel="noopener noreferrer">
+            <span class="link__icon" aria-hidden="true"></span>
+            <span class="link__text"><span class="link__title">Website Muhameda</span></span>
+          </a></li>
+          <li style="--i:1"><a class="link link--youtube" href="https://www.youtube.com/@GameQuest_news" target="_blank" rel="noopener noreferrer nofollow">
+            <span class="link__icon" aria-hidden="true"></span>
+            <span class="link__text"><span class="link__title">YouTube</span><span class="link__desc">видео про игровые новости</span></span>
+          </a></li>
+          <li style="--i:2"><a class="link link--telegram" href="https://t.me/GameQuest_news" target="_blank" rel="noopener noreferrer">
+            <span class="link__icon" aria-hidden="true"></span>
+            <span class="link__text"><span class="link__title">Telegram</span><span class="link__desc">игровые новости каждый день</span></span>
+          </a></li>
+          <li style="--i:3"><a class="link link--discord" href="https://discord.gg/GJUuPRbN5a" target="_blank" rel="noopener noreferrer nofollow">
+            <span class="link__icon" aria-hidden="true"></span>
+            <span class="link__text"><span class="link__title">Discord</span><span class="link__desc">сообщество Game Quest</span></span>
+          </a></li>
+          <li style="--i:4"><a class="link link--vk" href="https://vk.com/GameQuest_news" target="_blank" rel="noopener noreferrer">
+            <span class="link__icon" aria-hidden="true"></span>
+            <span class="link__text"><span class="link__title">ВКонтакте</span><span class="link__desc">видео про игровые новости</span></span>
+          </a></li>
+          <li style="--i:5"><a class="link link--web" href="/" target="_blank" rel="noopener noreferrer">
+            <span class="link__icon" aria-hidden="true"></span>
+            <span class="link__text"><span class="link__title">Game Quest</span><span class="link__desc">Website</span></span>
+          </a></li>
+        </menu>
+
+        <div class="video-container" id="video">
+          <iframe id="yt-player" src="https://www.youtube.com/embed/PHw0iNSi7WQ?enablejsapi=1&rel=0&playsinline=1"
+            title="Game Quest — последнее видео на YouTube про Xbox Series X и игровые новости"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+        </div>
+
+        <div class="support">
+          <p>Поддержка операции через <a href="https://www.donationalerts.com/r/andremuhamad" target="_blank" rel="noopener noreferrer nofollow">DonationAlerts</a> или <a href="https://www.patreon.com/cw/andremuhamad" target="_blank" rel="noopener noreferrer nofollow">Patreon</a>!</p>
+        </div>
       </div>
+    </main>
+  </div>
 
-      <div class="section-divider"><span>Ссылки проекта</span></div>
-
-      <menu id="links-menu">
-        <li><a href="https://muhamedlabs.pro" target="_blank" rel="noopener noreferrer"><span>Website Muhameda</span></a></li>
-        <li><a href="https://www.youtube.com/@GameQuest_news" target="_blank" rel="noopener noreferrer nofollow"><span>YouTube — видео про игровые новости</span></a></li>
-        <li><a href="https://t.me/GameQuest_news" target="_blank" rel="noopener noreferrer"><span>Telegram — игровые новости каждый день</span></a></li>
-        <li><a href="https://discord.gg/GJUuPRbN5a" target="_blank" rel="noopener noreferrer nofollow"><span>Discord — сообщество Game Quest</span></a></li>
-        <li><a href="https://vk.com/GameQuest_news" target="_blank" rel="noopener noreferrer"><span>ВКонтакте — видео про игровые новости</span></a></li>
-        <li><a href="/" target="_blank" rel="noopener noreferrer"><span>Game Quest — Website</span></a></li>
-      </menu>
-
-      <div class="video-container" id="video">
-        <iframe id="yt-player" src="https://www.youtube.com/embed/PHw0iNSi7WQ?enablejsapi=1"
-          title="Game Quest — последнее видео на YouTube про Xbox Series X и игровые новости" frameborder="0"
-          allowfullscreen loading="lazy">
-        </iframe>
-      </div>
-
-      <div class="video-text">
-        <p>Поддержка операции через <a href="https://www.donationalerts.com/r/andremuhamad" target="_blank" rel="noopener noreferrer nofollow">DonationAlerts</a> или <a href="https://www.patreon.com/cw/andremuhamad" target="_blank" rel="noopener noreferrer nofollow">Patreon</a>!</p>
-      </div>
-    </div>
-  </main>
-
-  <script src="assets/js/script_multilink.js?v=1" defer></script>
-  <script src="https://www.youtube.com/iframe_api" defer></script>
+  <script src="assets/js/script_multilink.js?v=2" defer></script>
+  <script src="https://www.youtube.com/iframe_api" async></script>
 
 </body>
 
