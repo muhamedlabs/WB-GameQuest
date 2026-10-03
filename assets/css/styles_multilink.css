@@ -558,7 +558,8 @@ h1::after {
   transition: background-color 0.35s ease, filter 0.35s ease;
 }
 
-.link--web .link__icon { background-image: url("../icons/Wed.svg"); }
+.link--web .link__icon { background-image: url("../icons/Web.svg"); }
+.link--web2 .link__icon {background-image: url("../icons/Web2.svg");}
 .link--youtube .link__icon { background-image: url("../icons/YouTube.svg"); }
 .link--telegram .link__icon { background-image: url("../icons/Telegram.svg"); }
 .link--discord .link__icon { background-image: url("../icons/Discord.svg"); }
