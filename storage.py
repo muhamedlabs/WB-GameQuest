@@ -45,6 +45,7 @@ class Storage:
         self.db = sqlite3.connect(path, check_same_thread=False)
         self.db.row_factory = sqlite3.Row
         self.db.execute("PRAGMA journal_mode=WAL")
+        self.db.execute("PRAGMA wal_autocheckpoint=100")  # checkpoint при ~100 страницах WAL (~400 КБ вместо ~4 МБ)
         # NOCASE в SQLite не понимает кириллицу, поэтому регистр сравниваем в Python
         self.db.create_function("pylower", 1, lambda v: v.casefold() if isinstance(v, str) else v)
         self.db.executescript(SCHEMA)
@@ -76,6 +77,8 @@ class Storage:
             ms = int(now * 1000)
             self.db.execute(UPSERT, (pid, name, score, score, ms, ms))
             self.db.commit()
+            # переносим данные из WAL в основной .db после каждой записи
+            self.db.execute("PRAGMA wal_checkpoint(PASSIVE)")
         return 200, {"ok": True}
 
     def top(self, limit: int = 10) -> list[dict]:
