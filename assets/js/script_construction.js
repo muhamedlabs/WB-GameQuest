@@ -56,57 +56,136 @@
     }, 120);
   }
 
-  // Музыка для игры: бит и мелодия синтезируются прямо в браузере (Web Audio), файлы не нужны
+  // «Dragon Run» — оригинальный трек, синтезируется прямо в браузере (Web Audio, без файлов).
+  // Ре минор, ~126 BPM: пэды, арпеджио, бас, драм-партия, лид-мелодия, эхо и реверб.
+  // Музыка реагирует на игру: ожидание — приглушённые пэды, бег — полный бит, быстрый бег — ещё плотнее.
   function music(btn) {
     var AC = window.AudioContext || window.webkitAudioContext;
-    if (!btn) return;
-    if (!AC) { btn.hidden = true; return; }
-    var ac, master, noiseBuf, timer = null, step = 0, next = 0, on = false;
-    var BPM = 112, S = 60 / BPM / 4;
-    var BASS = [55, 43.65, 65.41, 49];
-    var CH = [[220, 261.63, 329.63], [174.61, 220, 261.63], [261.63, 329.63, 392], [196, 246.94, 293.66]];
-    var ARP = [0, 1, 2, 1, 2, 1, 0, 1];
+    if (!btn) return null;
+    if (!AC) { btn.hidden = true; return null; }
+    var ac, master, lpF, pump, drumBus, bassBus, leadBus, sfxBus, echoIn, verbIn, noiseBuf;
+    var timer = null, step = 0, next = 0, on = false, mode = 0;
+    var BPM = 126, S = 60 / BPM / 4;
+    var BASSN = [73.42, 73.42, 58.27, 65.41, 73.42, 73.42, 49, 55];
+    var DM = [146.83, 174.61, 220], BB = [116.54, 146.83, 174.61], CC = [130.81, 164.81, 196], GM = [98, 116.54, 146.83], AA = [110, 138.59, 164.81];
+    var PADS = [DM, DM, BB, CC, DM, DM, GM, AA];
+    var ARPP = [0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3];
+    // [шаг, частота, длина в шагах]
+    var MEL = [
+      [[0, 440, 3], [3, 587.33, 3], [6, 523.25, 2], [8, 440, 4], [12, 349.23, 2], [14, 392, 2]],
+      [[0, 440, 3], [3, 587.33, 3], [6, 659.25, 2], [8, 587.33, 6], [14, 523.25, 2]],
+      [[0, 587.33, 3], [3, 466.16, 3], [6, 587.33, 2], [8, 698.46, 4], [12, 587.33, 2], [14, 523.25, 2]],
+      [[0, 659.25, 3], [3, 523.25, 3], [6, 392, 2], [8, 523.25, 4], [12, 587.33, 2], [14, 659.25, 2]],
+      [[0, 698.46, 3], [3, 659.25, 3], [6, 587.33, 2], [8, 440, 4], [12, 587.33, 2], [14, 659.25, 2]],
+      [[0, 698.46, 3], [3, 587.33, 3], [6, 659.25, 2], [8, 698.46, 6], [14, 659.25, 2]],
+      [[0, 587.33, 3], [3, 466.16, 3], [6, 392, 2], [8, 587.33, 4], [12, 466.16, 2], [14, 587.33, 2]],
+      [[0, 554.37, 3], [3, 659.25, 3], [6, 440, 2], [8, 554.37, 3], [11, 659.25, 2], [13, 880, 3]]
+    ];
 
+    function mkBus(echo, verb) {
+      var b = ac.createGain(); b.connect(master);
+      if (echo) { var e = ac.createGain(); e.gain.value = echo; b.connect(e); e.connect(echoIn); }
+      if (verb) { var v = ac.createGain(); v.gain.value = verb; b.connect(v); v.connect(verbIn); }
+      return b;
+    }
     function setup() {
       ac = new AC();
       var comp = ac.createDynamicsCompressor();
-      var lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 5200;
+      lpF = ac.createBiquadFilter(); lpF.type = 'lowpass'; lpF.frequency.value = mode ? 7000 : 1500;
       master = ac.createGain(); master.gain.value = 0;
-      master.connect(lp); lp.connect(comp); comp.connect(ac.destination);
-      noiseBuf = ac.createBuffer(1, ac.sampleRate * 0.5, ac.sampleRate);
-      var data = noiseBuf.getChannelData(0);
-      for (var i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+      master.connect(lpF); lpF.connect(comp); comp.connect(ac.destination);
+      echoIn = ac.createGain();
+      var dl = ac.createDelay(1), fb = ac.createGain(), el = ac.createBiquadFilter();
+      dl.delayTime.value = S * 3; fb.gain.value = 0.36; el.type = 'lowpass'; el.frequency.value = 2600;
+      echoIn.connect(dl); dl.connect(el); el.connect(master); el.connect(fb); fb.connect(dl);
+      verbIn = ac.createGain();
+      var conv = ac.createConvolver(), vo = ac.createGain(), len = Math.floor(ac.sampleRate * 1.8);
+      var ir = ac.createBuffer(2, len, ac.sampleRate);
+      for (var c = 0; c < 2; c++) {
+        var ch = ir.getChannelData(c);
+        for (var i = 0; i < len; i++) ch[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6);
+      }
+      conv.buffer = ir; vo.gain.value = 0.5; verbIn.connect(conv); conv.connect(vo); vo.connect(master);
+      pump = ac.createGain(); pump.connect(mkBus(0.18, 0.32));
+      drumBus = mkBus(0, 0.16); bassBus = mkBus(0, 0); leadBus = mkBus(0.38, 0.28); sfxBus = mkBus(0, 0.1);
+      noiseBuf = ac.createBuffer(1, ac.sampleRate * 0.6, ac.sampleRate);
+      var nd = noiseBuf.getChannelData(0);
+      for (var k = 0; k < nd.length; k++) nd[k] = Math.random() * 2 - 1;
     }
-    function tone(t, f, dur, type, vol) {
-      var o = ac.createOscillator(), g = ac.createGain();
-      o.type = type; o.frequency.setValueAtTime(f, t);
+
+    function voice(t, f, dur, type, vol, dest, o) {
+      o = o || {};
+      var osc = ac.createOscillator(), g = ac.createGain(), a = o.a || 0.008, r = o.r || 0.05;
+      osc.type = type; osc.frequency.setValueAtTime(f, t);
+      if (o.det) osc.detune.value = o.det;
+      if (o.slide) osc.frequency.exponentialRampToValueAtTime(o.slide, t + dur);
       g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(vol, t + 0.01);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.02);
+      g.gain.exponentialRampToValueAtTime(vol, t + a);
+      g.gain.setValueAtTime(vol, t + Math.max(a, dur - r));
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur + r);
+      if (o.lp) {
+        var fl = ac.createBiquadFilter(); fl.type = 'lowpass'; fl.frequency.setValueAtTime(o.lp, t);
+        if (o.lpEnd) fl.frequency.exponentialRampToValueAtTime(o.lpEnd, t + dur);
+        osc.connect(fl); fl.connect(g);
+      } else { osc.connect(g); }
+      g.connect(dest);
+      if (o.vib) {
+        var lfo = ac.createOscillator(), lg = ac.createGain();
+        lfo.frequency.value = 5.5; lg.gain.value = o.vib; lfo.connect(lg); lg.connect(osc.detune);
+        lfo.start(t); lfo.stop(t + dur + r + 0.02);
+      }
+      osc.start(t); osc.stop(t + dur + r + 0.02);
     }
-    function kick(t) {
-      var o = ac.createOscillator(), g = ac.createGain();
-      o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.13);
-      g.gain.setValueAtTime(0.9, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
-      o.connect(g); g.connect(master); o.start(t); o.stop(t + 0.3);
-    }
-    function hit(t, dur, hp, vol) {
+    function hit(t, dur, hp, vol, dest) {
       var s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
       s.buffer = noiseBuf; f.type = 'highpass'; f.frequency.value = hp;
       g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
-      s.connect(f); f.connect(g); g.connect(master); s.start(t); s.stop(t + dur + 0.02);
+      s.connect(f); f.connect(g); g.connect(dest || drumBus); s.start(t); s.stop(t + dur + 0.02);
     }
+    function kick(t) {
+      var o = ac.createOscillator(), g = ac.createGain();
+      o.frequency.setValueAtTime(155, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.13);
+      g.gain.setValueAtTime(0.95, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+      o.connect(g); g.connect(drumBus); o.start(t); o.stop(t + 0.32);
+    }
+
     function play(s, t) {
-      var bar = (s >> 4) & 3, i = s & 15;
+      var bar = (s >> 4) & 7, i = s & 15, m = mode, ch = PADS[bar], root = BASSN[bar], n;
+      if (i % 4 === 0) {
+        pump.gain.cancelScheduledValues(t); pump.gain.setValueAtTime(m ? 0.3 : 0.85, t);
+        pump.gain.linearRampToValueAtTime(1, t + S * 3.2);
+      }
+      if (i === 0) {
+        for (n = 0; n < 3; n++) {
+          voice(t, ch[n], S * 15, 'sawtooth', m ? 0.045 : 0.06, pump, { det: -7, lp: 1100, a: 0.35, r: 0.5 });
+          voice(t, ch[n], S * 15, 'sawtooth', m ? 0.045 : 0.06, pump, { det: 7, lp: 1100, a: 0.35, r: 0.5 });
+        }
+        if (s === 0 && m) hit(t, 1.4, 3500, 0.22);
+        if (!m) voice(t, root, S * 14, 'sine', 0.2, bassBus, { a: 0.2, r: 0.4 });
+      }
+      if (m || i % 2 === 0) {
+        var an = [ch[0] * 2, ch[1] * 2, ch[2] * 2, ch[0] * 4];
+        voice(t, an[ARPP[i] % 4], S * 0.9, 'square', m ? (m === 2 ? 0.04 : 0.033) : 0.026, pump, { lp: 3500, r: 0.02 });
+      }
+      if (!m) return;
       if (i % 4 === 0) kick(t);
-      if (i === 4 || i === 12) { hit(t, 0.16, 1800, 0.38); tone(t, 190, 0.1, 'triangle', 0.22); }
-      if (i % 2 === 0) hit(t, 0.04, 7000, i % 4 === 2 ? 0.2 : 0.1);
-      if (i % 2 === 0) tone(t, BASS[bar] * (i % 8 === 6 ? 2 : 1), S * 1.7, 'sawtooth', 0.2);
-      if (i % 2 === 0) tone(t, CH[bar][ARP[(i >> 1) % 8]] * (i >= 8 ? 2 : 1), S * 1.6, 'square', 0.045);
+      if (i === 4 || i === 12) { hit(t, 0.05, 1200, 0.3); hit(t + 0.012, 0.18, 1500, 0.32); }
+      if (i % 2 === 0 && i % 4 !== 2) hit(t, 0.04, 7500, 0.08);
+      if (i % 4 === 2) hit(t, 0.14, 6000, 0.11);
+      if (m === 2 && i % 2 === 1) hit(t, 0.03, 8000, 0.04);
+      if ((bar & 3) === 3 && i >= 12) hit(t, 0.1, 2000, 0.12 + (i - 12) * 0.06);
+      if (i % 2 === 0) voice(t, root * (i % 8 === 6 ? 2 : 1), S * 1.6, 'sawtooth', 0.16, bassBus, { lp: 1400, lpEnd: 260, r: 0.03 });
+      if (i % 4 === 0) voice(t, root, S * 1.9, 'sine', 0.22, bassBus);
+      MEL[bar].forEach(function (nt) {
+        if (nt[0] !== i) return;
+        var d = nt[2] * S * 0.95;
+        voice(t, nt[1], d, 'square', 0.05, leadBus, { vib: 10, lp: 3200, a: 0.01, r: 0.06 });
+        voice(t, nt[1], d, 'sawtooth', 0.035, leadBus, { det: 7, vib: 10, lp: 3000, a: 0.01, r: 0.06 });
+        if (m === 2) voice(t, nt[1] * 2, d, 'triangle', 0.03, leadBus, { r: 0.05 });
+      });
     }
     function schedule() {
-      while (next < ac.currentTime + 0.12) { play(step, next); next += S; step = (step + 1) % 64; }
+      while (next < ac.currentTime + 0.12) { play(step, next); next += S; step = (step + 1) % 128; }
     }
     function start() {
       if (!ac) setup();
@@ -115,7 +194,7 @@
       next = n + 0.05; step = 0;
       clearInterval(timer); timer = setInterval(schedule, 25);
       master.gain.cancelScheduledValues(n); master.gain.setValueAtTime(master.gain.value, n);
-      master.gain.linearRampToValueAtTime(0.5, n + 0.3);
+      master.gain.linearRampToValueAtTime(0.55, n + 0.4);
     }
     function stop() {
       var n = ac.currentTime;
@@ -123,6 +202,22 @@
       master.gain.linearRampToValueAtTime(0, n + 0.25);
       setTimeout(function () { if (!on) { clearInterval(timer); timer = null; } }, 320);
     }
+    function setMode(m) {
+      if (m === mode) return;
+      mode = m;
+      if (ac) lpF.frequency.setTargetAtTime(m ? 7000 : 1500, ac.currentTime, 0.15);
+    }
+    // Звуковые эффекты включаются вместе с музыкой
+    function sfx(name) {
+      if (!on || !ac) return;
+      var t = ac.currentTime + 0.005;
+      if (name === 'jump') voice(t, 330, 0.11, 'square', 0.09, sfxBus, { slide: 700, r: 0.03 });
+      else if (name === 'gem') { voice(t, 988, 0.06, 'square', 0.08, sfxBus); voice(t + 0.06, 1319, 0.1, 'square', 0.08, sfxBus); }
+      else if (name === 'power') [523.25, 659.25, 784, 1046.5].forEach(function (f, k) { voice(t + k * 0.06, f, 0.08, 'triangle', 0.14, sfxBus, { r: 0.04 }); });
+      else if (name === 'shield') { hit(t, 0.25, 900, 0.3, sfxBus); voice(t, 880, 0.15, 'triangle', 0.12, sfxBus, { slide: 220 }); }
+      else if (name === 'die') { hit(t, 0.35, 300, 0.35, sfxBus); voice(t, 320, 0.5, 'sawtooth', 0.16, sfxBus, { slide: 50, lp: 1500 }); }
+    }
+
     // Кнопка музыки — только для мыши/тапа: фокус на ней не остаётся, пробел и стрелки управляют игрой
     btn.addEventListener('mousedown', function (e) { e.preventDefault(); });
     btn.addEventListener('click', function () {
@@ -138,6 +233,7 @@
       if (!ac || !on) return;
       if (document.hidden) ac.suspend(); else ac.resume();
     });
+    return { mode: setMode, sfx: sfx };
   }
 
   function init() {
@@ -148,7 +244,7 @@
     var scoreEl = document.getElementById('game-score');
     var bestEl = document.getElementById('game-best');
     if (!field || !canvas) return;
-    music(document.getElementById('game-music'));
+    var mus = music(document.getElementById('game-music')) || { mode: function () {}, sfx: function () {} };
 
     var ctx = canvas.getContext('2d');
     var AC = '#d1f05d', AC2 = '#b9e03f', DK = '#7fa317', RGB = '209,240,93';
@@ -196,7 +292,7 @@
       if (d.jumps < 2) {
         d.vy = d.jumps === 0 ? -640 * K : -560 * K;
         if (d.jumps === 0) burst(DX() - 6 * K, G, 8, 60 * K, 20); else burst(DX(), G + d.y - 18 * K, 14, 90 * K, 0);
-        d.jumps++;
+        d.jumps++; mus.sfx('jump');
       }
     }
 
@@ -271,20 +367,20 @@
         for (i = 0; i < obs.length; i++) {
           var o = obs[i];
           if (o.x + o.w * 0.15 < b.x2 && o.x + o.w * 0.85 > b.x1 && b.t < G - o.bot && b.b > G - o.top) {
-            if (d.shield) { d.shield = false; shake = 8; burst(o.x + o.w / 2, G - o.top / 2, 18, 140 * K, 20); obs.splice(i, 1); i--; continue; }
+            if (d.shield) { d.shield = false; shake = 8; mus.sfx('shield'); burst(o.x + o.w / 2, G - o.top / 2, 18, 140 * K, 20); obs.splice(i, 1); i--; continue; }
             return die();
           }
         }
         for (i = gems.length - 1; i >= 0; i--) {
           var g = gems[i], gy = G - g.y, r = 9 * K;
           if (g.x > b.x1 - r && g.x < b.x2 + r && gy > b.t - r && gy < b.b + r) {
-            gems.splice(i, 1); score += 5; burst(g.x, gy, 8, 80 * K, 10);
+            gems.splice(i, 1); score += 5; mus.sfx('gem'); burst(g.x, gy, 8, 80 * K, 10);
           }
         }
         for (i = pows.length - 1; i >= 0; i--) {
           var q = pows[i], qy = G - q.y, rq = 12 * K;
           if (q.x > b.x1 - rq && q.x < b.x2 + rq && qy > b.t - rq && qy < b.b + rq) {
-            pows.splice(i, 1); burst(q.x, qy, 14, 110 * K, 10);
+            pows.splice(i, 1); burst(q.x, qy, 14, 110 * K, 10); mus.sfx('power');
             if (q.type === 'shield') d.shield = true; else if (q.type === 'slow') slow = 6; else mag = 7;
           }
         }
@@ -305,7 +401,7 @@
     }
 
     function die() {
-      state = 'dead'; deadAt = performance.now(); shake = 10; d.duck = false;
+      state = 'dead'; deadAt = performance.now(); shake = 10; mus.sfx('die'); d.duck = false;
       burst(DX(), G + d.y - 22 * K, 30, 150 * K, 40);
       var s = Math.floor(score);
       if (s > best) {
@@ -672,6 +768,7 @@
     function loop(now) {
       var dt = Math.min((now - last) / 1000, 0.04); last = now;
       if (W > 0 && H > 0) { update(dt); draw(); }
+      mus.mode(state === 'run' ? (speed > 460 ? 2 : 1) : 0);
       raf = requestAnimationFrame(loop);
     }
     function start() { cancelAnimationFrame(raf); last = performance.now(); raf = requestAnimationFrame(loop); }
