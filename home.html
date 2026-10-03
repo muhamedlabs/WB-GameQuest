@@ -6,12 +6,23 @@
   <meta name="theme-color" content="#0c0d09">
   <meta name="color-scheme" content="dark">
   <meta name="robots" content="noindex, follow">
+  <script>document.documentElement.classList.add('js');</script>
   <title>Game Quest — раздел скоро откроется</title>
   <link href="assets/logo.webp" rel="icon" type="image/webp">
-  <link rel="stylesheet" href="assets/css/styles_construction.css?v=3">
-  <link rel="stylesheet" href="assets/css/responsive_construction.css?v=3">
+  <link rel="stylesheet" href="assets/css/styles_construction.css?v=5">
+  <link rel="stylesheet" href="assets/css/responsive_construction.css?v=5">
 </head>
 <body>
+  <div class="pre" id="preloader" aria-hidden="true">
+    <div class="pre__panel pre__panel--top"></div>
+    <div class="pre__panel pre__panel--bottom"></div>
+    <div class="pre__center">
+      <div class="logo pre__logo"><span class="logo__disc"><img src="assets/icons/Quest.svg" alt="" width="96" height="96"></span></div>
+      <p class="pre__name">GAME QUEST</p>
+      <div class="pre__line"><span></span></div>
+      <p class="pre__pct" id="pre-pct">0%</p>
+    </div>
+  </div>
   <main class="page">
     <div class="info">
       <div class="logo" style="--i:0"><span class="logo__disc"><img src="assets/icons/Quest.svg" alt="Game Quest" width="96" height="96"></span></div>
@@ -21,7 +32,7 @@
       <p class="soft" style="--i:4">А пока всё самое свежее — в наших соцсетях.</p>
 
       <div class="build" style="--i:5">
-        <div class="build__row"><span id="build-text">Собираем новости</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="build__row"><span class="build__label"><span id="build-text">Собираем новости</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></span><span class="build__pct" id="build-pct">0%</span></div>
         <div class="build__track" aria-hidden="true"><span></span></div>
       </div>
 
@@ -47,6 +58,6 @@
       </div>
     </section>
   </main>
-  <script src="assets/js/script_construction.js?v=3" defer></script>
+  <script src="assets/js/script_construction.js?v=5" defer></script>
 </body>
 </html>
