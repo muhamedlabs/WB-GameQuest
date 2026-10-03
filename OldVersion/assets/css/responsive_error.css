@@ -1,0 +1,130 @@
+/* ============================================= */
+/* GAME QUEST — СТРАНИЦА В РАЗРАБОТКЕ · АДАПТИВ  */
+/* Подключается ПОСЛЕ styles_error.css           */
+/* ============================================= */
+
+/* ---------- Крупные мониторы ---------- */
+@media (min-width: 1800px) {
+  html { font-size: 18px; }
+}
+
+@media (min-width: 2560px) {
+  html { font-size: 22px; }
+}
+
+/* ---------- Телевизоры (Smart TV, 10-футовый интерфейс) ---------- */
+@media (min-width: 3440px) {
+  html { font-size: 27px; }
+
+  .card { max-width: 40rem; border-width: 2px; }
+
+  /* Крупный и явный фокус — его легко заметить с дивана при навигации пультом */
+  :focus-visible {
+    outline-width: 4px;
+    outline-offset: 6px;
+  }
+
+  .link { min-height: 4.4rem; }
+}
+
+@media (min-width: 3840px) {
+  html { font-size: 30px; }
+}
+
+/* ---------- Планшеты ---------- */
+@media (max-width: 834px) {
+  .card { max-width: 30rem; }
+}
+
+/* ---------- Телефоны ---------- */
+@media (max-width: 600px) {
+  :root { --pad: 0.6rem; }
+
+  .card { border-radius: 1.25rem; }
+  main { padding: 2rem 1.1rem 1.5rem; }
+
+  .stub-visual { width: 132px; height: 132px; margin-bottom: 1.4rem; }
+  .stub-gem { width: 44px; height: 44px; }
+  .ring--solid { inset: 14px; }
+
+  h1 { font-size: 1.65rem; }
+  .lead { font-size: 0.92rem; }
+  .sub { font-size: 0.85rem; }
+
+  .status-chip { font-size: 0.72rem; margin-bottom: 1.25rem; }
+
+  .progress { margin-top: 1.3rem; }
+
+  .section-divider { margin: 1.6rem 0 0.9rem; }
+
+  .links { gap: 0.6rem; }
+  .link { min-height: 3.4rem; padding: 0.6rem 0.9rem 0.6rem 0.65rem; gap: 0.8rem; }
+  .link__icon { width: 2.3rem; height: 2.3rem; background-size: 1.25rem; }
+  .link__title { font-size: 1rem; }
+  .link__desc { font-size: 0.78rem; }
+
+  .cta-button { margin-top: 1.3rem; padding: 0.65rem 1.25rem; font-size: 0.9rem; }
+}
+
+/* ---------- Очень узкие телефоны ---------- */
+@media (max-width: 360px) {
+  :root { --pad: 0.4rem; }
+  main { padding: 1.75rem 0.85rem 1.25rem; }
+  .stub-visual { width: 112px; height: 112px; }
+  h1 { font-size: 1.45rem; }
+  .link__title { font-size: 0.95rem; }
+  .link__desc { font-size: 0.74rem; }
+}
+
+/* ---------- Низкие экраны в ландшафте ---------- */
+@media (max-height: 480px) and (orientation: landscape) {
+  :root { --pad: 0.35rem; }
+
+  .card { max-width: 42rem; border-radius: 1rem; }
+  main { padding: 1.1rem 1.4rem; }
+
+  .stub-visual { width: 104px; height: 104px; margin-bottom: 0.8rem; }
+  .stub-gem { width: 38px; height: 38px; }
+
+  h1 { font-size: 1.4rem; }
+  .lead { margin-top: 0.5rem; font-size: 0.85rem; }
+  .sub { font-size: 0.8rem; }
+
+  .progress { margin-top: 1rem; }
+  .section-divider { margin: 1.1rem 0 0.7rem; }
+
+  .links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .link { min-height: 3rem; }
+
+  .cta-button { margin-top: 1rem; }
+}
+
+/* ---------- Ретина ---------- */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  :root { --bg-image: url("../images/background/backg_multilink@2x.webp"); }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
+  :root { --bg-image: url("../images/background/backg_multilink@3x.webp"); }
+}
+
+/* ---------- Экономия трафика ---------- */
+@media (prefers-reduced-data: reduce) {
+  :root { --bg-image: linear-gradient(135deg, #14170e, #0a0b07); }
+}
+
+/* ---------- Повышенный контраст ---------- */
+@media (prefers-contrast: high) {
+  .card { border: 2px solid var(--accent); }
+  .link { border-color: var(--accent); }
+  .sub, .link__desc { color: #fff; }
+}
+
+/* ---------- Без анимаций ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .progress__fill { left: 0; width: 40%; }
+}
