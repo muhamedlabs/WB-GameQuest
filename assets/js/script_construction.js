@@ -1,5 +1,9 @@
 // script_construction.js — мини-игра «Дракончик Game Quest»
 (function () {
+  // Адрес API статистики лидеров (например 'https://api.example.com/api/score').
+  // Пока пусто — статистика копится только в браузере и никуда не отправляется.
+  var STATS_ENDPOINT = '/api/score';
+
   // Вступительная заставка: загрузка -> шторки -> появление страницы
   function preloader() {
     var root = document.documentElement;
@@ -258,6 +262,47 @@
     try { best = Number(localStorage.getItem('gq_dragon_best')) || 0; } catch (e) {}
     bestEl.textContent = best;
 
+    // ---------- Профиль и статистика игрока ----------
+    var gamesEl = document.getElementById('game-games'), totalEl = document.getElementById('game-total'), nickEl = document.getElementById('game-nick');
+    function lsGet(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
+    function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    function uid() {
+      if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+      return 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+    }
+    function cleanName(s) { return String(s || '').replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, 20); }
+    var player = lsGet('gq_player') || {};
+    if (!player.id) player.id = uid();
+    if (!player.name) player.name = 'Игрок-' + (1000 + Math.floor(Math.random() * 9000));
+    lsSet('gq_player', player);
+    var stats = lsGet('gq_stats') || { games: 0, total: 0, best: 0 };
+    if (best > stats.best) stats.best = best;
+    best = stats.best;
+    var runStart = 0;
+    function renderStats() {
+      bestEl.textContent = best;
+      if (gamesEl) gamesEl.textContent = stats.games;
+      if (totalEl) totalEl.textContent = stats.total;
+    }
+    if (nickEl) {
+      nickEl.value = player.name;
+      nickEl.addEventListener('change', function () {
+        player.name = cleanName(nickEl.value) || player.name; nickEl.value = player.name; lsSet('gq_player', player);
+      });
+      nickEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') nickEl.blur(); });
+    }
+    // Отправка результата завершённого забега на сервер статистики
+    function report(s) {
+      if (!STATS_ENDPOINT || s < 1) return;
+      try {
+        fetch(STATS_ENDPOINT, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
+          body: JSON.stringify({ v: 1, playerId: player.id, name: player.name, score: s, duration: Math.round((Date.now() - runStart) / 1000) })
+        }).catch(function () {});
+      } catch (e) {}
+    }
+    renderStats();
+
     function resize() {
       var dpr = window.devicePixelRatio || 1;
       W = canvas.clientWidth; H = canvas.clientHeight; K = Math.min(1.5, H / 190); G = H - 12;
@@ -285,7 +330,7 @@
     function action() {
       var now = performance.now();
       if (state === 'idle' || (state === 'dead' && now - deadAt > 400)) {
-        reset(); state = 'run'; return;
+        reset(); state = 'run'; runStart = Date.now(); return;
       }
       if (state === 'paused') { state = 'run'; return; }
       if (state !== 'run') return;
@@ -408,6 +453,8 @@
         best = s; newRec = true; bestEl.textContent = best;
         try { localStorage.setItem('gq_dragon_best', best); } catch (e) {}
       }
+      stats.games++; stats.total += s; if (best > stats.best) stats.best = best;
+      lsSet('gq_stats', stats); renderStats(); report(s);
     }
 
     // ---------- Отрисовка ----------
@@ -776,6 +823,7 @@
     function setDuck(v) { d.duck = v && state === 'run'; }
     field.addEventListener('pointerdown', function (e) {
       e.preventDefault();
+      if (document.activeElement && document.activeElement.tagName === 'INPUT') document.activeElement.blur();
       var r = field.getBoundingClientRect();
       if (state === 'run' && e.clientY - r.top > r.height * 0.62) {
         setDuck(true);
