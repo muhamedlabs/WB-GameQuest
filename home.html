@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0c0d09">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex, follow">
+  <title>Game Quest — раздел скоро откроется</title>
+  <link href="assets/logo.webp" rel="icon" type="image/webp">
+  <link rel="stylesheet" href="assets/css/styles_construction.css?v=3">
+  <link rel="stylesheet" href="assets/css/responsive_construction.css?v=3">
+</head>
+<body>
+  <main class="page">
+    <div class="info">
+      <div class="logo" style="--i:0"><span class="logo__disc"><img src="assets/icons/Quest.svg" alt="Game Quest" width="96" height="96"></span></div>
+      <p class="eyebrow" style="--i:1">Раздел в разработке</p>
+      <h1 style="--i:2">Мы строим этот раздел</h1>
+      <p class="lead" style="--i:3">Game Quest собирает новости, обзоры и трейлеры в одном месте. Совсем скоро здесь появится на что посмотреть.</p>
+      <p class="soft" style="--i:4">А пока всё самое свежее — в наших соцсетях.</p>
+
+      <div class="build" style="--i:5">
+        <div class="build__row"><span id="build-text">Собираем новости</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="build__track" aria-hidden="true"><span></span></div>
+      </div>
+
+      <a class="cta-button" style="--i:6" href="multilink.html">
+        <span>Все ссылки проекта</span>
+        <span class="cta-button__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></svg></span>
+      </a>
+    </div>
+
+    <section class="game" style="--i:7" aria-label="Мини-игра">
+      <div class="game__head">
+        <h2>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7 8h10a4 4 0 0 1 3.9 4.9l-.7 3a2.4 2.4 0 0 1-4 1.2L14 15h-4l-2.2 2.1a2.4 2.4 0 0 1-4-1.2l-.7-3A4 4 0 0 1 7 8ZM8 10.5v3M6.5 12h3"/><circle cx="15.5" cy="11" r=".9" fill="currentColor"/><circle cx="17.7" cy="13" r=".9" fill="currentColor"/></svg>
+          Пока ждёшь — прыгай
+        </h2>
+        <div class="game__score">
+          <span>Счёт <b id="game-score">0</b></span>
+          <span>Рекорд <b id="game-best">0</b></span>
+        </div>
+      </div>
+      <div class="game__field" id="game-field">
+        <canvas id="game-canvas" aria-label="Игра: дракончик перепрыгивает препятствия"></canvas>
+      </div>
+    </section>
+  </main>
+  <script src="assets/js/script_construction.js?v=3" defer></script>
+</body>
+</html>

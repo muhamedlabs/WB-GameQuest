@@ -1,0 +1,63 @@
+/* ============================================= */
+/* GAME QUEST — СТРАНИЦА В РАЗРАБОТКЕ · АДАПТИВ  */
+/* Подключается ПОСЛЕ styles_construction.css    */
+/* ============================================= */
+@media (min-width: 1800px) { html { font-size: 18px; } }
+@media (min-width: 2560px) { html { font-size: 22px; } }
+@media (min-width: 3440px) and (min-aspect-ratio: 21/9) { html { font-size: 26px; } }
+
+/* ---------- ПК и планшеты в ландшафте: две колонки ---------- */
+@media (min-width: 700px) and (min-aspect-ratio: 5/4) {
+  .page {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: center; justify-content: center;
+    gap: clamp(1.5rem, 5vw, 4.5rem);
+    max-width: 78rem; margin-inline: auto;
+  }
+  .logo { width: 6.5rem; height: 6.5rem; }
+  h1 { font-size: clamp(2rem, 3.4vw, 3.1rem); }
+  .lead { font-size: 1.05rem; }
+  .soft { font-size: .95rem; }
+  .game { flex: none; width: 100%; height: min(100%, 26rem); }
+  .game h2 { font-size: 1.05rem; }
+  .game__score { font-size: .9rem; }
+}
+
+/* ---------- Телефоны: без игры, всё по центру ---------- */
+@media (max-width: 699px) {
+  .game { display: none; }
+  .logo { width: 7rem; height: 7rem; margin-bottom: 2rem; }
+  .info { width: 100%; }
+  h1 { font-size: clamp(1.9rem, 8.5vw, 2.4rem); }
+  .lead { font-size: 1rem; }
+  .soft { font-size: .9rem; }
+  .build { margin-top: 1.8rem; }
+  .cta-button { margin-top: 1.8rem; }
+}
+
+/* Телефоны в ландшафте: тоже без игры */
+@media (max-height: 500px) and (hover: none) {
+  .page { display: flex; flex-direction: column; justify-content: center; max-width: none; }
+  .game { display: none; }
+}
+
+@media (max-height: 640px) { .soft { display: none; } }
+@media (max-height: 520px) { .logo { width: 4rem; height: 4rem; margin-bottom: .6rem; } .build, .cta-button { margin-top: .9rem; } }
+@media (max-height: 420px) { .eyebrow { display: none; } }
+@media (max-width: 360px) { h1 { font-size: 1.6rem; } .lead { font-size: .9rem; } }
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  :root { --bg-image: url("../images/background/backg_multilink@2x.webp"); }
+}
+@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
+  :root { --bg-image: url("../images/background/backg_multilink@3x.webp"); }
+}
+@media (prefers-reduced-data: reduce) {
+  :root { --bg-image: linear-gradient(135deg, #14170e, #0a0b07); }
+}
+@media (prefers-contrast: high) { .soft { color: #fff; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
