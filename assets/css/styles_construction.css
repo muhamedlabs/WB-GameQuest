@@ -199,3 +199,21 @@ h1 { text-wrap: balance; margin-top: .6rem; font-size: clamp(1.7rem, 7vw, 2.4rem
 .pre.is-done .pre__panel--top { transform: translateY(-101%); }
 .pre.is-done .pre__panel--bottom { transform: translateY(101%); }
 .pre.is-done { pointer-events: none; }
+
+/* ---------- Кнопка музыки ---------- */
+.game__right { display: flex; align-items: center; gap: .9rem; }
+.sound {
+  width: 1.9rem; height: 1.9rem; display: grid; place-items: center; flex: none;
+  border-radius: 50%; border: 1px solid rgba(255,255,255,.2);
+  background: rgba(255,255,255,.05); color: var(--text-soft); cursor: pointer;
+  transition: transform .3s var(--ease), background .3s, color .3s, border-color .3s, box-shadow .3s;
+}
+.sound:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sound .on { display: none; }
+.sound.is-on .on { display: block; }
+.sound.is-on .off { display: none; }
+.sound.is-on { color: var(--ink); background: var(--accent); border-color: var(--accent); box-shadow: 0 0 14px rgba(var(--accent-rgb), .5); }
+.sound.is-on .on path:nth-child(1) { animation: wave 1.2s ease-in-out infinite; }
+.sound.is-on .on path:nth-child(2) { animation: wave 1.2s ease-in-out .25s infinite; }
+@keyframes wave { 50% { opacity: .3; } }
+@media (hover: hover) { .sound:hover { transform: scale(1.1); border-color: var(--accent); color: var(--accent); } .sound.is-on:hover { color: var(--ink); } }

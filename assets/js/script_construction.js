@@ -56,6 +56,90 @@
     }, 120);
   }
 
+  // Музыка для игры: бит и мелодия синтезируются прямо в браузере (Web Audio), файлы не нужны
+  function music(btn) {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!btn) return;
+    if (!AC) { btn.hidden = true; return; }
+    var ac, master, noiseBuf, timer = null, step = 0, next = 0, on = false;
+    var BPM = 112, S = 60 / BPM / 4;
+    var BASS = [55, 43.65, 65.41, 49];
+    var CH = [[220, 261.63, 329.63], [174.61, 220, 261.63], [261.63, 329.63, 392], [196, 246.94, 293.66]];
+    var ARP = [0, 1, 2, 1, 2, 1, 0, 1];
+
+    function setup() {
+      ac = new AC();
+      var comp = ac.createDynamicsCompressor();
+      var lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 5200;
+      master = ac.createGain(); master.gain.value = 0;
+      master.connect(lp); lp.connect(comp); comp.connect(ac.destination);
+      noiseBuf = ac.createBuffer(1, ac.sampleRate * 0.5, ac.sampleRate);
+      var data = noiseBuf.getChannelData(0);
+      for (var i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+    }
+    function tone(t, f, dur, type, vol) {
+      var o = ac.createOscillator(), g = ac.createGain();
+      o.type = type; o.frequency.setValueAtTime(f, t);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(vol, t + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.02);
+    }
+    function kick(t) {
+      var o = ac.createOscillator(), g = ac.createGain();
+      o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.13);
+      g.gain.setValueAtTime(0.9, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+      o.connect(g); g.connect(master); o.start(t); o.stop(t + 0.3);
+    }
+    function hit(t, dur, hp, vol) {
+      var s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
+      s.buffer = noiseBuf; f.type = 'highpass'; f.frequency.value = hp;
+      g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+      s.connect(f); f.connect(g); g.connect(master); s.start(t); s.stop(t + dur + 0.02);
+    }
+    function play(s, t) {
+      var bar = (s >> 4) & 3, i = s & 15;
+      if (i % 4 === 0) kick(t);
+      if (i === 4 || i === 12) { hit(t, 0.16, 1800, 0.38); tone(t, 190, 0.1, 'triangle', 0.22); }
+      if (i % 2 === 0) hit(t, 0.04, 7000, i % 4 === 2 ? 0.2 : 0.1);
+      if (i % 2 === 0) tone(t, BASS[bar] * (i % 8 === 6 ? 2 : 1), S * 1.7, 'sawtooth', 0.2);
+      if (i % 2 === 0) tone(t, CH[bar][ARP[(i >> 1) % 8]] * (i >= 8 ? 2 : 1), S * 1.6, 'square', 0.045);
+    }
+    function schedule() {
+      while (next < ac.currentTime + 0.12) { play(step, next); next += S; step = (step + 1) % 64; }
+    }
+    function start() {
+      if (!ac) setup();
+      ac.resume();
+      var n = ac.currentTime;
+      next = n + 0.05; step = 0;
+      clearInterval(timer); timer = setInterval(schedule, 25);
+      master.gain.cancelScheduledValues(n); master.gain.setValueAtTime(master.gain.value, n);
+      master.gain.linearRampToValueAtTime(0.5, n + 0.3);
+    }
+    function stop() {
+      var n = ac.currentTime;
+      master.gain.cancelScheduledValues(n); master.gain.setValueAtTime(master.gain.value, n);
+      master.gain.linearRampToValueAtTime(0, n + 0.25);
+      setTimeout(function () { if (!on) { clearInterval(timer); timer = null; } }, 320);
+    }
+    // Кнопка музыки — только для мыши/тапа: фокус на ней не остаётся, пробел и стрелки управляют игрой
+    btn.addEventListener('mousedown', function (e) { e.preventDefault(); });
+    btn.addEventListener('click', function () {
+      on = !on;
+      if (on) start(); else stop();
+      btn.classList.toggle('is-on', on);
+      btn.setAttribute('aria-pressed', String(on));
+      btn.setAttribute('aria-label', on ? 'Выключить музыку' : 'Включить музыку');
+      btn.title = on ? 'Выключить музыку' : 'Включить музыку';
+      btn.blur();
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (!ac || !on) return;
+      if (document.hidden) ac.suspend(); else ac.resume();
+    });
+  }
+
   function init() {
     preloader();
     progress();
@@ -64,6 +148,7 @@
     var scoreEl = document.getElementById('game-score');
     var bestEl = document.getElementById('game-best');
     if (!field || !canvas) return;
+    music(document.getElementById('game-music'));
 
     var ctx = canvas.getContext('2d');
     var AC = '#d1f05d', AC2 = '#b9e03f', DK = '#7fa317', RGB = '209,240,93';
@@ -515,15 +600,16 @@
     }
 
     function hud() {
-      var fs = Math.max(11, Math.round(H / 14)), items = [];
+      var fs = Math.max(10, Math.min(13, Math.round(H / 22))), items = [];
       if (d.shield) items.push('Щит');
       if (slow > 0) items.push('Замедление ' + Math.ceil(slow) + ' с');
       if (mag > 0) items.push('Магнит ' + Math.ceil(mag) + ' с');
       ctx.font = '800 ' + fs + 'px ' + FONT; ctx.textAlign = 'left'; ctx.fillStyle = AC;
-      items.forEach(function (s, i) { ctx.fillText(s, 10, 18 + i * (fs + 4)); });
+      ctx.textBaseline = 'alphabetic';
+      items.forEach(function (s, i) { ctx.fillText(s, 12, fs + 16 + i * (fs + 7)); });
       if (toast) {
         ctx.globalAlpha = Math.min(1, toast.life); ctx.textAlign = 'center';
-        ctx.font = '800 ' + Math.round(fs * 1.9) + 'px ' + FONT;
+        ctx.font = '800 ' + Math.max(18, Math.min(32, Math.round(H / 9))) + 'px ' + FONT;
         ctx.fillText(toast.text, W / 2, H * 0.3 - (1.2 - toast.life) * 14);
         ctx.globalAlpha = 1;
       }
@@ -600,12 +686,15 @@
       } else { action(); }
     });
     ['pointerup', 'pointercancel'].forEach(function (n) { field.addEventListener(n, function () { setDuck(false); }); });
+    function typing(e) { var n = e.target && e.target.tagName; return n === 'INPUT' || n === 'TEXTAREA' || n === 'SELECT'; }
     document.addEventListener('keydown', function (e) {
-      if (document.activeElement !== document.body) return;
+      if (typing(e)) return;
       if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') { e.preventDefault(); action(); }
       else if (e.code === 'ArrowDown' || e.code === 'KeyS') { e.preventDefault(); setDuck(true); }
     });
     document.addEventListener('keyup', function (e) {
+      if (typing(e)) return;
+      if (e.code === 'Space') e.preventDefault();
       if (e.code === 'ArrowDown' || e.code === 'KeyS') setDuck(false);
     });
     document.addEventListener('visibilitychange', function () {
