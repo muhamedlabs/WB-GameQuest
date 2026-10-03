@@ -9,8 +9,8 @@
   <script>document.documentElement.classList.add('js');</script>
   <title>Game Quest — раздел скоро откроется</title>
   <link href="assets/logo.webp" rel="icon" type="image/webp">
-  <link rel="stylesheet" href="assets/css/styles_construction.css?v=6">
-  <link rel="stylesheet" href="assets/css/responsive_construction.css?v=6">
+  <link rel="stylesheet" href="assets/css/styles_construction.css?v=7">
+  <link rel="stylesheet" href="assets/css/responsive_construction.css?v=7">
 </head>
 <body>
   <div class="pre" id="preloader" aria-hidden="true">
@@ -53,16 +53,20 @@
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><g class="on" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 9.2a4 4 0 0 1 0 5.6"/><path d="M17.6 6.8a7.5 7.5 0 0 1 0 10.4"/></g><g class="off" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M16 9.5l5 5M21 9.5l-5 5"/></g></svg>
           </button>
           <div class="game__score">
-          <span>Счёт <b id="game-score">0</b></span>
-          <span>Рекорд <b id="game-best">0</b></span>
+          <span>Счёт: <b id="game-score">0</b></span>
+          <span>Рекорд: <b id="game-best">0</b></span>
         </div>
         </div>
       </div>
       <div class="game__field" id="game-field">
         <canvas id="game-canvas" aria-label="Игра: дракончик перепрыгивает препятствия"></canvas>
       </div>
+      <div class="game__stats">
+        <label class="nick"><span>Ник:</span><input id="game-nick" type="text" maxlength="20" autocomplete="off" spellcheck="false" placeholder="Игрок"></label>
+        <span class="game__meta">Игр: <b id="game-games">0</b> · Очков всего: <b id="game-total">0</b></span>
+      </div>
     </section>
   </main>
-  <script src="assets/js/script_construction.js?v=6" defer></script>
+  <script src="assets/js/script_construction.js?v=7" defer></script>
 </body>
 </html>
