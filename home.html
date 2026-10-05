@@ -92,11 +92,21 @@
         <canvas id="game-canvas" aria-label="Игра: дракончик перепрыгивает препятствия"></canvas>
       </div>
       <div class="game__stats">
-        <label class="nick"><span>Ник:</span><input id="game-nick" type="text" maxlength="20" autocomplete="off" spellcheck="false" placeholder="Игрок"></label>
+        <div class="gq-who">
+          <label class="nick"><span>Ник:</span><input id="game-nick" type="text" maxlength="20" autocomplete="off" spellcheck="false" placeholder="Игрок"></label>
+          <div class="gq-code" id="game-codebox" hidden>
+            <label for="game-code">Код:</label>
+            <input id="game-code" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" readonly>
+            <button class="gq-btn gq-eye" id="game-code-eye" type="button" aria-pressed="false" aria-label="Показать или скрыть код" title="Показать / скрыть код"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path class="slash" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 4l16 16"/></svg></button>
+            <button class="gq-btn gq-go" id="game-login-go" type="button" hidden>Войти</button>
+            <button class="gq-btn gq-x" id="game-login-x" type="button" hidden aria-label="Отмена" title="Отмена">✕</button>
+          </div>
+        </div>
         <span class="game__meta">Игр: <b id="game-games">0</b> · Очков всего: <b id="game-total">0</b></span>
       </div>
+      <p id="game-msg" aria-live="polite" style="min-height:1.1em;margin-top:.3rem;font-size:.72rem;font-weight:700;color:var(--accent)"></p>
     </section>
   </main>
-  <script src="assets/js/script_construction.js?v=7" defer></script>
+  <script src="assets/js/script_construction.js?v=9" defer></script>
 </body>
 </html>

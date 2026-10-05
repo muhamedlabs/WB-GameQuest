@@ -264,44 +264,195 @@
 
     // ---------- Профиль и статистика игрока ----------
     var gamesEl = document.getElementById('game-games'), totalEl = document.getElementById('game-total'), nickEl = document.getElementById('game-nick');
+    var msgEl = document.getElementById('game-msg'), msgTimer = 0;
     function lsGet(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
     function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
-    function uid() {
-      if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
-      return 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
-    }
     function cleanName(s) { return String(s || '').replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, 20); }
+    function randName() { return 'Игрок-' + (1000 + Math.floor(Math.random() * 9000)); }
+    // Короткое сообщение под статистикой (например «Ник занят»), через 4 секунды пропадает
+    function setMsg(text, ms) {
+      if (!msgEl) return;
+      msgEl.textContent = text || '';
+      clearTimeout(msgTimer);
+      if (text) msgTimer = setTimeout(function () { msgEl.textContent = ''; }, ms || 4000);
+    }
+
+    // player.name — то, что сейчас в поле; player.reg — ник, который реально занят на сервере
     var player = lsGet('gq_player') || {};
-    if (!player.id) player.id = uid();
-    if (!player.name) player.name = 'Игрок-' + (1000 + Math.floor(Math.random() * 9000));
+    if (!player.name) player.name = randName();
     lsSet('gq_player', player);
     var stats = lsGet('gq_stats') || { games: 0, total: 0, best: 0 };
     if (best > stats.best) stats.best = best;
     best = stats.best;
     var runStart = 0;
+
     function renderStats() {
       bestEl.textContent = best;
       if (gamesEl) gamesEl.textContent = stats.games;
       if (totalEl) totalEl.textContent = stats.total;
     }
+
+    function post(url, body, keepalive) {
+      return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: !!keepalive, body: JSON.stringify(body) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (b) { return { s: r.status, b: b }; }); });
+    }
+
+    // ---------- Ник + код: одно поле и для регистрации, и для входа ----------
+    // Обычный режим: код показан (скрыт точками, глазок показывает). Режим входа: ник занят, код вводим руками.
+    var codeBox = document.getElementById('game-codebox'), codeInput = document.getElementById('game-code');
+    var codeEye = document.getElementById('game-code-eye');
+    var loginGo = document.getElementById('game-login-go'), loginX = document.getElementById('game-login-x');
+    var loginFor = '';   // ник, в который входим (пусто — обычный режим)
+
+    function setEye(show) {
+      if (!codeInput || !codeEye) return;
+      codeInput.type = show ? 'text' : 'password';
+      codeEye.classList.toggle('is-shown', show);
+      codeEye.setAttribute('aria-pressed', show ? 'true' : 'false');
+    }
+    function renderCode() {
+      if (!codeBox || !codeInput) return;
+      var login = !!loginFor;
+      codeBox.hidden = !(login || player.code);
+      codeBox.classList.toggle('is-login', login);
+      codeInput.readOnly = !login;
+      codeInput.value = login ? '' : (player.code || '');
+      codeInput.placeholder = login ? '0000' : '';
+      if (loginGo) loginGo.hidden = !login;
+      if (loginX) loginX.hidden = !login;
+      setEye(false);
+    }
+    function openLogin(name, focus) {
+      loginFor = name || (nickEl && cleanName(nickEl.value)) || '';
+      if (name && nickEl) nickEl.value = name;
+      renderCode();
+      if (focus && codeInput) codeInput.focus();
+    }
+    function closeLogin() { loginFor = ''; renderCode(); }
+    function cancelLogin() { if (nickEl) nickEl.value = player.name; closeLogin(); }
+    function setStats(p) {
+      stats = { games: p.games || 0, total: p.total || 0, best: p.best || 0 };
+      best = stats.best; lsSet('gq_stats', stats);
+      try { localStorage.setItem('gq_dragon_best', best); } catch (e) {}
+      renderStats();
+    }
+
+    function doLogin() {
+      var nn = cleanName(nickEl && nickEl.value), code = String(codeInput && codeInput.value || '').replace(/\D/g, '');
+      if (!nn || code.length !== 4) { setMsg('Введи ник и код из 4 цифр'); return; }
+      setMsg('Входим…');
+      post('/api/login', { name: nn, token: code }).then(function (r) {
+        if (r.s === 200 && r.b.player) {
+          var p = r.b.player;
+          player.name = player.reg = p.name; player.code = code; lsSet('gq_player', player);
+          if (nickEl) nickEl.value = p.name;
+          setStats(p); closeLogin();
+          setMsg('Здравия желаю, лейтенант ' + p.name);
+        } else if (r.s === 429) {
+          setMsg('Слишком много неверных попыток. Попробуй через 15 минут', 7000);
+        } else if (r.s === 403) {
+          setMsg('Неверный ник или код');
+        } else {
+          setMsg('Нет связи с сервером, попробуй позже');
+        }
+      }).catch(function () { setMsg('Нет связи с сервером, попробуй позже'); });
+    }
+
+    if (codeEye) codeEye.addEventListener('click', function () { setEye(codeInput.type === 'password'); codeEye.blur(); });
+    if (loginGo) loginGo.addEventListener('click', function () { doLogin(); loginGo.blur(); });
+    if (loginX) loginX.addEventListener('click', function () { cancelLogin(); loginX.blur(); });
+    if (codeInput) {
+      codeInput.addEventListener('input', function () { codeInput.value = codeInput.value.replace(/\D/g, '').slice(0, 4); });
+      codeInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && loginFor) doLogin();
+        else if (e.key === 'Escape' && loginFor) cancelLogin();
+      });
+    }
+
+    // Занять ник на сервере. cb(статус, код): 200 — ник твой и пришёл код, 409 — занят, 0 — нет связи
+    function register(name, cb) {
+      post('/api/register', { name: name }).then(function (r) { cb(r.s, r.b && r.b.token ? String(r.b.token) : ''); }).catch(function () { cb(0, ''); });
+    }
+
+    // Подтянуть статистику с сервера (берём максимум, чтобы не потерять локальный прогресс)
+    function syncFromServer() {
+      if (!player.reg) return;
+      post('/api/restore', { name: player.reg }).then(function (r) {
+        if (r.s !== 200 || !r.b.player) return;
+        var p = r.b.player;
+        stats.games = Math.max(stats.games, p.games);
+        stats.total = Math.max(stats.total, p.total);
+        stats.best = Math.max(stats.best, p.best);
+        best = stats.best;
+        lsSet('gq_stats', stats);
+        try { localStorage.setItem('gq_dragon_best', best); } catch (e) {}
+        renderStats();
+      }).catch(function () {});
+    }
+
+    // Первый запуск: занимаем ник из поля (получаем код); если занят — подбираем другой случайный.
+    // Старый игрок без кода пробует забрать свой ник и получить код.
+    function ensureRegistered(tries) {
+      if (player.reg && player.code) { syncFromServer(); return; }
+      var name = player.reg || player.name;
+      register(name, function (s, code) {
+        if (s === 200 && code) {
+          player.name = player.reg = name; player.code = code; lsSet('gq_player', player);
+          renderCode(); syncFromServer();
+          setMsg('Твой код: ' + code + ' — запомни его, он нужен для входа с другого устройства', 9000);
+        } else if (s === 409) {
+          if (player.reg) {
+            setMsg('Ник «' + player.reg + '» уже защищён кодом. Нажми «Войти» и введи код', 8000);
+            openLogin(player.reg, false);
+          } else if (tries > 0) {
+            player.name = randName(); if (nickEl) nickEl.value = player.name; lsSet('gq_player', player);
+            ensureRegistered(tries - 1);
+          }
+        }
+      });
+    }
+
     if (nickEl) {
       nickEl.value = player.name;
       nickEl.addEventListener('change', function () {
-        player.name = cleanName(nickEl.value) || player.name; nickEl.value = player.name; lsSet('gq_player', player);
+        var nn = cleanName(nickEl.value);
+        if (!nn || nn === player.name) { nickEl.value = player.name; closeLogin(); return; }
+        if (player.reg && nn.toLowerCase() === player.reg.toLowerCase()) { // поменялся только регистр букв
+          player.name = nn; lsSet('gq_player', player); return;
+        }
+        loginFor = '';
+        setMsg('Проверяем ник…');
+        register(nn, function (s, code) {
+          if (s === 200 && code) {
+            player.name = player.reg = nn; player.code = code; lsSet('gq_player', player);
+            setStats({}); renderCode();
+            setMsg('Ник «' + nn + '» теперь твой. Код: ' + code + ' — запомни его', 9000);
+          } else if (s === 409) {
+            setMsg('Ник «' + nn + '» уже занят. Если он твой — введи код и нажми «Войти»', 7000);
+            openLogin(nn, true);
+          } else {
+            nickEl.value = player.name; renderCode();
+            setMsg('Нет связи с сервером, попробуй позже');
+          }
+        });
       });
       nickEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') nickEl.blur(); });
     }
-    // Отправка результата завершённого забега на сервер статистики
+
+    // Отправка результата завершённого забега на сервер (с кодом), затем обновление статистики с сервера
     function report(s) {
-      if (!STATS_ENDPOINT || s < 1) return;
-      try {
-        fetch(STATS_ENDPOINT, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
-          body: JSON.stringify({ v: 1, playerId: player.id, name: player.name, score: s, duration: Math.round((Date.now() - runStart) / 1000) })
-        }).catch(function () {});
-      } catch (e) {}
+      if (!STATS_ENDPOINT || s < 1 || !player.reg || !player.code) return;
+      var body = { name: player.reg, token: player.code, score: s, duration: Math.round((Date.now() - runStart) / 1000) };
+      post(STATS_ENDPOINT, body, true).then(function (r) {
+        if (r.s === 200) syncFromServer();
+        else if (r.s === 403) { setMsg('Код не подошёл. Нажми «Войти» и введи свой код', 7000); openLogin(player.reg, false); }
+        else if (r.s === 429 && r.b.error === 'locked') setMsg('Ник временно заблокирован из-за неверных кодов', 7000);
+      }).catch(function () {});
     }
+
+    renderCode();
     renderStats();
+    ensureRegistered(3);
 
     function resize() {
       var dpr = window.devicePixelRatio || 1;

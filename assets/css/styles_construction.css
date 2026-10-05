@@ -229,3 +229,27 @@ h1 { text-wrap: balance; margin-top: .6rem; font-size: clamp(1.7rem, 7vw, 2.4rem
 }
 .nick input:focus { border-bottom-color: var(--accent); }
 .game__meta { white-space: nowrap; }
+
+/* ---------- Ник + код: регистрация и вход в одном месте ---------- */
+.game__stats { flex-wrap: wrap; }
+.gq-who { display: flex; align-items: center; flex-wrap: wrap; gap: .3rem 1rem; min-width: 0; }
+.gq-code { display: inline-flex; align-items: center; gap: .4rem; }
+.gq-code[hidden] { display: none; }
+.gq-code input {
+  width: 3.9rem; padding: .2rem .1rem; border: 0; border-bottom: 1px solid rgba(255,255,255,.2);
+  background: transparent; color: var(--accent); font: inherit; font-weight: 800; letter-spacing: .28em; text-align: center; outline: none;
+  transition: border-color .3s;
+}
+.gq-code input:read-only { cursor: default; border-bottom-color: transparent; }
+.gq-code input::placeholder { color: rgba(255,255,255,.3); }
+.gq-code.is-login input { border-bottom-color: rgba(var(--accent-rgb), .6); }
+.gq-code.is-login input:focus { border-bottom-color: var(--accent); }
+.gq-btn { display: grid; place-items: center; flex: none; font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.gq-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gq-eye, .gq-x { width: 1.6rem; height: 1.6rem; border-radius: 50%; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.05); color: var(--text-soft); font-size: .7rem; transition: color .3s, border-color .3s, background .3s; }
+.gq-eye .slash { opacity: 1; }
+.gq-eye.is-shown { color: var(--accent); border-color: var(--accent); }
+.gq-eye.is-shown .slash { opacity: 0; }
+.gq-go { padding: .28rem .85rem; border: 0; border-radius: 3rem; background: var(--accent); color: var(--ink); font-size: .78rem; font-weight: 800; }
+.gq-go[hidden], .gq-x[hidden] { display: none; }
+@media (hover: hover) { .gq-eye:hover, .gq-x:hover { color: var(--accent); border-color: var(--accent); } .gq-go:hover { background: #e0ff6e; } }
