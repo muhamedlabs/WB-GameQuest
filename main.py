@@ -1,5 +1,6 @@
 import os
 from flask import Flask, send_from_directory, abort, request, jsonify
+from werkzeug.exceptions import HTTPException
 
 from storage import Storage
 
@@ -18,10 +19,11 @@ BLOCKED_DIRS = {"__pycache__", "venv", ".venv", "node_modules", "gq_data"}
 
 
 def is_blocked(filename):
-    parts = filename.replace("\\", "/").split("/")
+    # lower(): на Windows GQ_DATA и gq_data - одна и та же папка
+    parts = filename.replace("\\", "/").lower().split("/")
     if any(p.startswith(".") or p in BLOCKED_DIRS for p in parts):
         return True
-    return os.path.splitext(parts[-1])[1].lower() in BLOCKED_EXT
+    return os.path.splitext(parts[-1])[1] in BLOCKED_EXT
 
 
 # ---------------------------------------------------------------- API статистики игры
@@ -57,6 +59,7 @@ def home():
     """Главная страница - home.html"""
     return send_from_directory(BASE_DIR, "home.html")
 
+
 @app.route("/<path:filename>")
 def serve_file(filename):
     if is_blocked(filename):
@@ -74,12 +77,40 @@ def serve_file(filename):
 
     return abort(404)
 
+
+# ---------------------------------------------------------------- Страница 404
+def wants_html():
+    # Браузеры всегда просят text/html; боты и скрипты (requests, curl, aiohttp) - как правило, нет
+    return "text/html" in request.headers.get("Accept", "")
+
+
+def render_404():
+    path = os.path.join(BASE_DIR, "404.html")
+    if os.path.isfile(path):
+        resp = send_from_directory(BASE_DIR, "404.html")
+    else:
+        # запасной вариант, если 404.html вдруг удалили
+        resp = app.response_class("404 Not Found", mimetype="text/plain")
+    resp.status_code = 404
+    resp.headers["Cache-Control"] = "no-store"
+    return resp
+
+
+@app.errorhandler(HTTPException)
+def handle_http_error(e):
+    # Бот на /api/... получает JSON, все остальные (браузер) - страницу 404
+    if request.path.startswith("/api/") and not wants_html():
+        return jsonify({"error": e.name.lower().replace(" ", "_")}), e.code
+    return render_404()
+
+
 def run_flask():
     print("[FLASK] Starting Flask server on port 6001")
     print(f"[FLASK] Serving files from: {BASE_DIR}")
     print(f"[FLASK] Game stats DB: {os.path.join(DATA_DIR, 'leaderboard.db')}")
     # debug=True на 0.0.0.0 опасен (отладчик Werkzeug умеет выполнять код) — включай только локально: FLASK_DEBUG=1
     app.run(host="0.0.0.0", port=6001, debug=os.environ.get("FLASK_DEBUG") == "1")
+
 
 if __name__ == "__main__":
     print("[APP] Starting application...")
