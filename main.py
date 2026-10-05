@@ -53,6 +53,36 @@ def api_player():
     return jsonify({"player": player})
 
 
+@app.post("/api/register")
+def api_register():
+    """Занять ник: 200 - свободен и теперь твой, 409 - уже занят."""
+    status, body = storage.register(request.get_json(silent=True))
+    resp = jsonify(body)
+    resp.status_code = status
+    resp.headers["Cache-Control"] = "no-store"
+    return resp
+
+
+@app.post("/api/login")
+def api_login():
+    """Вход в ник по нику и коду из 4 цифр."""
+    status, body = storage.login(request.get_json(silent=True))
+    resp = jsonify(body)
+    resp.status_code = status
+    resp.headers["Cache-Control"] = "no-store"
+    return resp
+
+
+@app.post("/api/restore")
+def api_restore():
+    """Статистика по нику: восстановление и синхронизация при старте игры."""
+    status, body = storage.restore(request.get_json(silent=True))
+    resp = jsonify(body)
+    resp.status_code = status
+    resp.headers["Cache-Control"] = "no-store"
+    return resp
+
+
 # ---------------------------------------------------------------- Сайт
 @app.route("/")
 def home():
