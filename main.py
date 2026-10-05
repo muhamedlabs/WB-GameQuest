@@ -84,6 +84,17 @@ def wants_html():
     return "text/html" in request.headers.get("Accept", "")
 
 
+# Краулеры превью ссылок. Discord и другие не строят превью, если страница вернула 404,
+# поэтому им отдаём ту же 404.html, но со статусом 200 (в ней лежат og-теги).
+PREVIEW_BOTS = ("discordbot", "twitterbot", "telegrambot", "slackbot",
+                "facebookexternalhit", "whatsapp", "linkedinbot")
+
+
+def is_preview_bot():
+    ua = request.headers.get("User-Agent", "").lower()
+    return any(b in ua for b in PREVIEW_BOTS)
+
+
 def render_404():
     path = os.path.join(BASE_DIR, "404.html")
     if os.path.isfile(path):
@@ -91,13 +102,17 @@ def render_404():
     else:
         # запасной вариант, если 404.html вдруг удалили
         resp = app.response_class("404 Not Found", mimetype="text/plain")
-    resp.status_code = 404
+    # Обычным пользователям и ботам API - честный 404, краулерам превью - 200
+    resp.status_code = 200 if is_preview_bot() else 404
     resp.headers["Cache-Control"] = "no-store"
     return resp
 
 
 @app.errorhandler(HTTPException)
 def handle_http_error(e):
+    # Краулер превью (Discord и т.п.) всегда получает страницу с og-тегами
+    if is_preview_bot():
+        return render_404()
     # Бот на /api/... получает JSON, все остальные (браузер) - страницу 404
     if request.path.startswith("/api/") and not wants_html():
         return jsonify({"error": e.name.lower().replace(" ", "_")}), e.code
