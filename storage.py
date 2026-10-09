@@ -1,8 +1,4 @@
-"""Хранилище статистики игры (SQLite, только стандартная библиотека).
-
-Игрок = ник. Ключ в базе - ник в нижнем регистре, дубликатов быть не может.
-Владение ником подтверждается кодом из 4 цифр (выдаётся при регистрации ника).
-"""
+"""Хранилище статистики игры (SQLite)."""
 import hashlib
 import hmac
 import re
@@ -11,31 +7,30 @@ import sqlite3
 import threading
 import time
 
-MAX_SCORE = 100_000   # потолок очков за один забег
-MAX_RATE = 30         # очков в секунду с запасом (в игре реально ~9–20)
-MIN_GAP = 2.0         # не чаще одного результата в 2 с на один ник
+MAX_SCORE = 100_000
+MAX_RATE = 30
+MIN_GAP = 2.0
 
-MAX_FAILS = 5         # неверных кодов подряд -> блокировка ника
-LOCK_SECONDS = 900    # блокировка на 15 минут
+MAX_FAILS = 5
+LOCK_SECONDS = 900
 
 _NAME_RE = re.compile(r"[\x00-\x1f<>]")
 _CODE_RE = re.compile(r"\d{4}")
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS players (
-    name_key   TEXT PRIMARY KEY,          -- ник.casefold(), уникален
-    name       TEXT NOT NULL,             -- ник как его написал игрок
+    name_key   TEXT PRIMARY KEY,
+    name       TEXT NOT NULL,
     best       INTEGER NOT NULL DEFAULT 0,
     games      INTEGER NOT NULL DEFAULT 0,
     total      INTEGER NOT NULL DEFAULT 0,
     created_at INTEGER NOT NULL,
     updated_at INTEGER NOT NULL,
-    token_hash TEXT                       -- хэш 4-значного кода (NULL у старых ников)
+    token_hash TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_players_best ON players (best DESC);
 """
 
-# Результат забега: создаёт игрока, если ника ещё нет, иначе обновляет статистику.
 UPSERT = """
 INSERT INTO players (name_key, name, best, games, total, created_at, updated_at)
 VALUES (?, ?, ?, 1, ?, ?, ?)
@@ -56,7 +51,7 @@ def _hash(key: str, code: str) -> str:
 
 
 def _new_code() -> str:
-    return f"{secrets.randbelow(10000):04d}"   # 0000–9999
+    return f"{secrets.randbelow(10000):04d}"
 
 
 class Storage:
@@ -64,19 +59,18 @@ class Storage:
         self.db = sqlite3.connect(path, check_same_thread=False)
         self.db.row_factory = sqlite3.Row
         self.db.execute("PRAGMA journal_mode=WAL")
-        self.db.execute("PRAGMA wal_autocheckpoint=100")  # checkpoint при ~100 страницах WAL (~400 КБ вместо ~4 МБ)
+        self.db.execute("PRAGMA wal_autocheckpoint=100")
         self._migrate_old()
         self.db.executescript(SCHEMA)
         cols = {r[1] for r in self.db.execute("PRAGMA table_info(players)")}
-        if "token_hash" not in cols:   # база создана до появления кодов
+        if "token_hash" not in cols:
             self.db.execute("ALTER TABLE players ADD COLUMN token_hash TEXT")
             self.db.commit()
         self._last: dict[str, float] = {}
-        self._fails: dict[str, list] = {}   # ник -> [неудач подряд, заблокирован до, начало окна]
-        self._lock = threading.Lock()  # Flask/aiohttp могут звать из разных потоков
+        self._fails: dict[str, list] = {}
+        self._lock = threading.Lock()
 
     def _migrate_old(self):
-        """Старая схема (с playerId): переносим в новую, дубликаты ников -> Ник_2, Ник_3."""
         cols = {r[1] for r in self.db.execute("PRAGMA table_info(players)")}
         if "id" not in cols:
             return
@@ -104,20 +98,19 @@ class Storage:
         self.db.execute("DROP TABLE players_old")
         self.db.commit()
 
-    # ---------- проверка кода ----------
 
     def _auth(self, key: str, code) -> str:
-        """'ok' | 'bad' | 'locked'. Вызывать только под self._lock."""
+        """'ok' | 'bad' | 'locked'. Только под self._lock."""
         now = time.time()
         f = self._fails.get(key)
         if f and f[1] > now:
             return "locked"
-        if f and now - f[2] > LOCK_SECONDS:      # окно неудач истекло
+        if f and now - f[2] > LOCK_SECONDS:
             self._fails.pop(key, None)
             f = None
         code = str(code).strip() if code is not None else ""
         if not _CODE_RE.fullmatch(code):
-            return "bad"                          # мусор вместо кода за попытку подбора не считаем
+            return "bad"
         row = self.db.execute(
             "SELECT token_hash FROM players WHERE name_key = ?", (key,)).fetchone()
         if row and row["token_hash"] and hmac.compare_digest(row["token_hash"], _hash(key, code)):
@@ -128,14 +121,12 @@ class Storage:
         f[0] += 1
         if f[0] >= MAX_FAILS:
             f[0], f[1], f[2] = 0, now + LOCK_SECONDS, now
-        if len(self._fails) > 10_000:             # чистим старое
+        if len(self._fails) > 10_000:
             self._fails = {k: v for k, v in self._fails.items() if now - v[2] < LOCK_SECONDS * 2}
         return "bad"
 
-    # ---------- регистрация и вход ----------
 
     def register(self, data) -> tuple[int, dict]:
-        """Занять ник и получить код. 200 - ник теперь твой (в ответе token), 409 - уже занят."""
         if not isinstance(data, dict):
             return 400, {"error": "bad_request"}
         name = clean_name(data.get("name"))
@@ -150,7 +141,7 @@ class Storage:
                     "INSERT INTO players (name_key, name, best, games, total, created_at, updated_at, token_hash) "
                     "VALUES (?, ?, 0, 0, 0, ?, ?, ?)", (key, name, ms, ms, _hash(key, code)))
             except sqlite3.IntegrityError:
-                # ник из старых времён без кода: первый, кто заберёт, становится владельцем
+                # старый ник без кода: первый забравший становится владельцем
                 cur = self.db.execute(
                     "UPDATE players SET token_hash = ? WHERE name_key = ? AND token_hash IS NULL",
                     (_hash(key, code), key))
@@ -162,7 +153,6 @@ class Storage:
                      "player": {"name": name, "best": 0, "games": 0, "total": 0}}
 
     def login(self, data) -> tuple[int, dict]:
-        """Вход в ник по нику и коду. Возвращает статистику игрока."""
         if not isinstance(data, dict):
             return 400, {"error": "bad_request"}
         nick = clean_name(data.get("name"))
@@ -179,10 +169,8 @@ class Storage:
                 "SELECT name, best, games, total FROM players WHERE name_key = ?", (key,)).fetchone()
         return 200, {"ok": True, "player": dict(row)}
 
-    # ---------- результаты ----------
 
     def submit(self, data) -> tuple[int, dict]:
-        """Принимает результат забега. Возвращает (HTTP-статус, ответ)."""
         if not isinstance(data, dict):
             return 400, {"error": "bad_request"}
         name = clean_name(data.get("name"))
@@ -206,16 +194,14 @@ class Storage:
             if now - self._last.get(key, 0) < MIN_GAP:
                 return 429, {"error": "too_fast"}
             self._last[key] = now
-            if len(self._last) > 10_000:  # чистим старые записи
+            if len(self._last) > 10_000:
                 self._last = {k: v for k, v in self._last.items() if now - v < 60}
             ms = int(now * 1000)
             self.db.execute(UPSERT, (key, name, score, score, ms, ms))
             self.db.commit()
-            # переносим данные из WAL в основной .db после каждой записи
             self.db.execute("PRAGMA wal_checkpoint(PASSIVE)")
         return 200, {"ok": True}
 
-    # ---------- чтение ----------
 
     def top(self, limit: int = 10) -> list[dict]:
         with self._lock:
@@ -225,7 +211,6 @@ class Storage:
         return [dict(r) for r in rows]
 
     def find(self, nick: str):
-        """Игрок по нику (без учёта регистра) + его место в топе."""
         with self._lock:
             row = self.db.execute(
                 "SELECT name, best, games, total FROM players WHERE name_key = ?",
@@ -237,7 +222,6 @@ class Storage:
         return {**dict(row), "place": place}
 
     def restore(self, data) -> tuple[int, dict]:
-        """Публичная статистика по нику (синхронизация при старте игры)."""
         if not isinstance(data, dict):
             return 400, {"error": "bad_request"}
         nick = clean_name(data.get("name"))
