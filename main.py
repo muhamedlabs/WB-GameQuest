@@ -1,6 +1,7 @@
 import os
-from flask import Flask, send_from_directory, abort, request, jsonify
+from flask import Flask, send_from_directory, abort, request, jsonify, redirect
 from werkzeug.exceptions import HTTPException
+from werkzeug.security import safe_join
 
 from storage import Storage
 
@@ -10,23 +11,21 @@ DATA_DIR = os.environ.get("GQ_DATA_DIR", os.path.join(BASE_DIR, "assets", "gq_da
 os.makedirs(DATA_DIR, exist_ok=True)
 storage = Storage(os.path.join(DATA_DIR, "leaderboard.db"))
 
-# static_folder=None: отключаем встроенный /static, он отдавал файлы мимо is_blocked
+# static_folder=None: иначе /static отдаёт файлы мимо is_blocked
 app = Flask(__name__, template_folder=BASE_DIR, static_folder=None)
 
-# Эти файлы никогда не отдаём по ссылке (код, базы, секреты, логи)
 BLOCKED_EXT = {".py", ".pyc", ".db", ".sqlite", ".sqlite3", ".env", ".log", ".ini", ".cfg", ".toml", ".yml", ".yaml"}
 BLOCKED_DIRS = {"__pycache__", "venv", ".venv", "node_modules", "gq_data"}
 
 
 def is_blocked(filename):
-    # lower(): на Windows GQ_DATA и gq_data - одна и та же папка
+    # lower(): на Windows регистр папок не важен
     parts = filename.replace("\\", "/").lower().split("/")
     if any(p.startswith(".") or p in BLOCKED_DIRS for p in parts):
         return True
     return os.path.splitext(parts[-1])[1] in BLOCKED_EXT
 
 
-# ---------------------------------------------------------------- API статистики игры
 @app.post("/api/score")
 def api_score():
     status, body = storage.submit(request.get_json(silent=True))
@@ -55,7 +54,6 @@ def api_player():
 
 @app.post("/api/register")
 def api_register():
-    """Занять ник: 200 - свободен и теперь твой, 409 - уже занят."""
     status, body = storage.register(request.get_json(silent=True))
     resp = jsonify(body)
     resp.status_code = status
@@ -65,7 +63,6 @@ def api_register():
 
 @app.post("/api/login")
 def api_login():
-    """Вход в ник по нику и коду из 4 цифр."""
     status, body = storage.login(request.get_json(silent=True))
     resp = jsonify(body)
     resp.status_code = status
@@ -75,7 +72,6 @@ def api_login():
 
 @app.post("/api/restore")
 def api_restore():
-    """Статистика по нику: восстановление и синхронизация при старте игры."""
     status, body = storage.restore(request.get_json(silent=True))
     resp = jsonify(body)
     resp.status_code = status
@@ -83,11 +79,42 @@ def api_restore():
     return resp
 
 
-# ---------------------------------------------------------------- Сайт
 @app.route("/")
 def home():
-    """Главная страница - home.html"""
     return send_from_directory(BASE_DIR, "home.html")
+
+
+def resolve_file(filename):
+    clean = filename.strip("/")
+    if not clean:
+        return None
+
+    has_ext = bool(os.path.splitext(clean)[1])
+
+    if has_ext:
+        candidates = [clean, clean + ".html", clean + "/index.html"]
+    else:
+        candidates = [clean + ".html", clean + "/index.html", clean]
+
+    for rel in candidates:
+        if is_blocked(rel):
+            continue
+        full = safe_join(BASE_DIR, rel)
+        if full and os.path.isfile(full):
+            return rel
+    return None
+
+
+def find_from_root(filename):
+    parts = filename.strip("/").split("/")
+    for i in range(1, len(parts)):
+        rel = "/".join(parts[i:])
+        if is_blocked(rel):
+            continue
+        full = safe_join(BASE_DIR, rel)
+        if full and os.path.isfile(full):
+            return rel
+    return None
 
 
 @app.route("/<path:filename>")
@@ -95,27 +122,29 @@ def serve_file(filename):
     if is_blocked(filename):
         return abort(404)
 
-    # Пробуем точное имя
-    filepath = os.path.join(BASE_DIR, filename)
-    if os.path.isfile(filepath):
-        return send_from_directory(BASE_DIR, filename)
+    full = safe_join(BASE_DIR, filename.strip("/"))
+    if full and os.path.isdir(full) and not request.path.endswith("/"):
+        if resolve_file(filename.strip("/") + "/index.html"):
+            return redirect(request.path + "/", code=301)
 
-    # Пробуем с .html на конце
-    html_filepath = filepath + ".html"
-    if os.path.isfile(html_filepath):
-        return send_from_directory(BASE_DIR, filename + ".html")
+    rel = resolve_file(filename)
+    if rel:
+        return send_from_directory(BASE_DIR, rel)
+
+    ext = os.path.splitext(filename)[1].lower()
+    if ext and ext != ".html":
+        rel = find_from_root(filename)
+        if rel:
+            return send_from_directory(BASE_DIR, rel)
 
     return abort(404)
 
 
-# ---------------------------------------------------------------- Страница 404
 def wants_html():
-    # Браузеры всегда просят text/html; боты и скрипты (requests, curl, aiohttp) - как правило, нет
     return "text/html" in request.headers.get("Accept", "")
 
 
-# Краулеры превью ссылок. Discord и другие не строят превью, если страница вернула 404,
-# поэтому им отдаём ту же 404.html, но со статусом 200 (в ней лежат og-теги).
+# Discord не строит превью для 404, поэтому ботам отдаём 200
 PREVIEW_BOTS = ("discordbot", "twitterbot", "telegrambot", "slackbot",
                 "facebookexternalhit", "whatsapp", "linkedinbot")
 
@@ -130,9 +159,7 @@ def render_404():
     if os.path.isfile(path):
         resp = send_from_directory(BASE_DIR, "404.html")
     else:
-        # запасной вариант, если 404.html вдруг удалили
         resp = app.response_class("404 Not Found", mimetype="text/plain")
-    # Обычным пользователям и ботам API - честный 404, краулерам превью - 200
     resp.status_code = 200 if is_preview_bot() else 404
     resp.headers["Cache-Control"] = "no-store"
     return resp
@@ -140,10 +167,8 @@ def render_404():
 
 @app.errorhandler(HTTPException)
 def handle_http_error(e):
-    # Краулер превью (Discord и т.п.) всегда получает страницу с og-тегами
     if is_preview_bot():
         return render_404()
-    # Бот на /api/... получает JSON, все остальные (браузер) - страницу 404
     if request.path.startswith("/api/") and not wants_html():
         return jsonify({"error": e.name.lower().replace(" ", "_")}), e.code
     return render_404()
@@ -153,7 +178,7 @@ def run_flask():
     print("[FLASK] Starting Flask server on port 6001")
     print(f"[FLASK] Serving files from: {BASE_DIR}")
     print(f"[FLASK] Game stats DB: {os.path.join(DATA_DIR, 'leaderboard.db')}")
-    # debug=True на 0.0.0.0 опасен (отладчик Werkzeug умеет выполнять код) — включай только локально: FLASK_DEBUG=1
+    # debug=True на 0.0.0.0 опасен, включай только локально: FLASK_DEBUG=1
     app.run(host="0.0.0.0", port=6001, debug=os.environ.get("FLASK_DEBUG") == "1")
 
 
