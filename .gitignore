@@ -5,3 +5,5 @@
 
 .env
 assets/gq_data
+sitemap.xml
+robots.txt
