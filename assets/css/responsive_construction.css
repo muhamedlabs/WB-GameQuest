@@ -1,12 +1,9 @@
-/* ============================================= */
-/* GAME QUEST — СТРАНИЦА В РАЗРАБОТКЕ · АДАПТИВ  */
-/* Подключается ПОСЛЕ styles_construction.css    */
-/* ============================================= */
+/* в разработке — адаптив */
 @media (min-width: 1800px) { html { font-size: 18px; } }
 @media (min-width: 2560px) { html { font-size: 22px; } }
 @media (min-width: 3440px) and (min-aspect-ratio: 21/9) { html { font-size: 26px; } }
 
-/* ---------- ПК и планшеты в ландшафте: две колонки ---------- */
+/* пк и планшеты: две колонки */
 @media (min-width: 700px) and (min-aspect-ratio: 5/4) {
   .page {
     display: grid;
@@ -25,7 +22,7 @@
   .game__score { font-size: .9rem; }
 }
 
-/* ---------- Телефоны: без игры, всё по центру ---------- */
+/* телефоны: без игры */
 @media (max-width: 699px) {
   .game { display: none; }
   .logo { width: 7rem; height: 7rem; margin-bottom: 2rem; }
@@ -37,7 +34,6 @@
   .cta-button { margin-top: 1.8rem; }
 }
 
-/* Телефоны в ландшафте: тоже без игры */
 @media (max-height: 500px) and (hover: none) {
   .page { display: flex; flex-direction: column; justify-content: center; max-width: none; }
   .game { display: none; }

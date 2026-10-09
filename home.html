@@ -82,6 +82,7 @@
           <button class="sound" id="game-music" type="button" aria-pressed="false" aria-label="Включить музыку" title="Включить музыку">
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><g class="on" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 9.2a4 4 0 0 1 0 5.6"/><path d="M17.6 6.8a7.5 7.5 0 0 1 0 10.4"/></g><g class="off" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M16 9.5l5 5M21 9.5l-5 5"/></g></svg>
           </button>
+          <input class="vol" id="game-vol" type="range" min="0" max="100" step="1" value="100" aria-label="Громкость музыки" title="Громкость музыки">
           <div class="game__score">
           <span>Счёт: <b id="game-score">0</b></span>
           <span>Рекорд: <b id="game-best">0</b></span>
@@ -107,6 +108,60 @@
       <p id="game-msg" aria-live="polite" style="min-height:1.1em;margin-top:.3rem;font-size:.72rem;font-weight:700;color:var(--accent)"></p>
     </section>
   </main>
+  <!-- тексты для скрипта, правятся здесь -->
+  <div id="gq-text" hidden>
+    <ol data-list="steps">
+      <li data-at="0">Собираем новости</li>
+      <li data-at="18">Подключаем трейлеры</li>
+      <li data-at="38">Полируем обзоры</li>
+      <li data-at="58">Настраиваем подборки</li>
+      <li data-at="78">Проверяем всё на прочность</li>
+    </ol>
+    <ol data-list="tail">
+      <li>Финальные штрихи</li>
+      <li>Шлифуем детали</li>
+      <li>Ещё чуть-чуть</li>
+      <li>Почти готово</li>
+    </ol>
+
+    <span data-t="music-on">Выключить музыку</span>
+    <span data-t="music-off">Включить музыку</span>
+    <span data-t="vol-title">Громкость музыки: {n}%</span>
+
+    <span data-t="ov-title-idle">Drakeling</span>
+    <span data-t="ov-title-dead">Игра окончена</span>
+    <span data-t="ov-title-paused">Пауза</span>
+    <span data-t="ov-sub-idle">↑ прыжок  ·  ↓ пригнуться  ·  Esc — пауза</span>
+    <span data-t="ov-sub-record">Новый рекорд: {n}</span>
+    <span data-t="ov-sub-score">Счёт {n}  ·  Рекорд {best}</span>
+    <span data-t="ov-cta-idle">Пробел — начать</span>
+    <span data-t="ov-cta-dead">Пробел — играть снова</span>
+    <span data-t="ov-cta-paused">Пробел или Esc — продолжить игру</span>
+
+    <span data-t="hud-shield">Щит</span>
+    <span data-t="hud-slow">Замедление {s} с</span>
+    <span data-t="hud-mag">Магнит {s} с</span>
+
+    <span data-t="zone-0">Тёмная пещера</span>
+    <span data-t="zone-1">Кристальный грот</span>
+    <span data-t="zone-2">Лавовый зал</span>
+
+    <span data-t="nick-prefix">Игрок-</span>
+    <span data-t="msg-need">Введи ник и 4-значный код</span>
+    <span data-t="msg-login">Входим…</span>
+    <span data-t="msg-welcome">Здравия желаю, лейтенант {name}</span>
+    <span data-t="msg-many">Слишком много неверных попыток. Повтори через 15 минут</span>
+    <span data-t="msg-bad">Неверный ник или код</span>
+    <span data-t="msg-net">Нет связи с сервером. Попробуй позже</span>
+    <span data-t="msg-code">Твой код: {code} — запомни его, он нужен для входа с другого устройства</span>
+    <span data-t="msg-protected">Ник «{name}» уже защищён кодом. Нажми «Войти» и введи код</span>
+    <span data-t="msg-check">Проверяем ник…</span>
+    <span data-t="msg-newnick">Ник «{name}» теперь твой. Код: {code} — запомни его</span>
+    <span data-t="msg-taken">Ник «{name}» уже занят. Если он твой — введи код и нажми «Войти»</span>
+    <span data-t="msg-codebad">Код не подошёл. Нажми «Войти» и введи свой код</span>
+    <span data-t="msg-locked">Ник временно заблокирован из-за неверных кодов</span>
+  </div>
+
   <script src="assets/js/script_construction.js?v=9" defer></script>
 </body>
 </html>
