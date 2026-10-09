@@ -5,7 +5,7 @@
     const music = document.getElementById('bg-music');
     const toggleBtn = document.getElementById('music-toggle');
 
-    // ---------- SCROLLBAR ----------
+    // scrollbar
     let isScrolling = false;
     let isHovering = false;
     let hideTimeout = null;
@@ -32,7 +32,7 @@
     window.addEventListener('blur', () => hideScrollbar());
     hideScrollbar();
 
-    // ---------- РАСКРЫВАЮЩАЯСЯ ЦИТАТА (как в Telegram) ----------
+    // цитата
     const quote = document.querySelector('.tg-quote');
     const quoteBody = document.getElementById('about-text');
     const quoteToggle = quote ? quote.querySelector('.tg-quote__toggle') : null;
@@ -49,8 +49,6 @@
         if (focusToggle) quoteToggle.focus();
       }
 
-      // Пока текст свёрнут — по клику в любом месте блока он раскрывается,
-      // как цитата в Telegram; клики по ссылкам внутри работают как обычно.
       quote.addEventListener('click', (event) => {
         if (isOpen) return;
         if (event.target.closest('a')) return;
@@ -62,13 +60,12 @@
         setState(!isOpen, true);
       });
 
-      // Пересчитываем высоту раскрытого блока при ресайзе/повороте экрана
       window.addEventListener('resize', () => {
         if (isOpen) quoteBody.style.maxHeight = quoteBody.scrollHeight + 'px';
       });
     }
 
-    // ---------- MUSIC ----------
+    // музыка
     let isPlaying = false;
     let isVideoPlaying = false;
     let shuffledPlaylist = [];
@@ -140,7 +137,7 @@
       });
     }
 
-    // ---------- YOUTUBE ----------
+    // youtube
     let player;
     window.onYouTubeIframeAPIReady = function () {
       player = new YT.Player('yt-player', {

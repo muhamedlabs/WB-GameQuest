@@ -1,7 +1,4 @@
-/* ============================================= */
-/* GAME QUEST — МУЛЬТИССЫЛКИ · ОСНОВНОЙ CSS      */
-/* Адаптивность — в responsive_multilink.css     */
-/* ============================================= */
+/* мультиссылки */
 
 @font-face {
   font-family: "gamequest_news";
@@ -9,7 +6,6 @@
   font-display: swap;
 }
 
-/* ---------- Переменные ---------- */
 @property --fade {
   syntax: "<length>";
   inherits: false;
@@ -62,7 +58,6 @@ body {
   color: var(--text);
 }
 
-/* Фон: картинка + затемнение */
 body::before {
   content: "" !important;
   display: block !important;
@@ -87,7 +82,6 @@ body::before {
   animation: fadeIn 1.6s ease-out both;
 }
 
-/* Мягкое лаймовое свечение по центру */
 body::after {
   content: "";
   position: fixed;
@@ -118,9 +112,6 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ============================================= */
-/* КАРТОЧКА                                      */
-/* ============================================= */
 .card {
   position: relative;
   width: 100%;
@@ -140,7 +131,6 @@ a {
   animation: cardIn 0.9s var(--ease) both;
 }
 
-/* Тонкая лаймовая кромка сверху */
 .card::before {
   content: "";
   position: absolute;
@@ -178,7 +168,6 @@ main::-webkit-scrollbar-track { background: transparent; }
 main::-webkit-scrollbar-thumb { background: transparent; border-radius: 10px; }
 main.show-scrollbar::-webkit-scrollbar-thumb { background: var(--accent); }
 
-/* Каскадное появление блоков */
 .content-wrapper > * {
   animation: rise 0.7s var(--ease) both;
 }
@@ -194,9 +183,6 @@ main.show-scrollbar::-webkit-scrollbar-thumb { background: var(--accent); }
   to { opacity: 1; transform: none; }
 }
 
-/* ============================================= */
-/* ШАПКА                                         */
-/* ============================================= */
 .hero {
   display: flex;
   flex-direction: column;
@@ -247,7 +233,6 @@ main.show-scrollbar::-webkit-scrollbar-thumb { background: var(--accent); }
   to { opacity: 1; transform: none; filter: blur(0); }
 }
 
-/* Частицы-«квесты» вокруг аватарки */
 .q-particle {
   --peak: 0.55;
   --tx1: 6px; --ty1: 0px; --r1: 10deg;
@@ -338,9 +323,6 @@ h1::after {
   transition: transform 0.35s var(--ease);
 }
 
-/* ============================================= */
-/* ЦИТАТА-СПОЙЛЕР В СТИЛЕ TELEGRAM               */
-/* ============================================= */
 .tg-quote {
   --collapsed: 6.9rem;
   position: relative;
@@ -351,7 +333,6 @@ h1::after {
   transition: background 0.3s ease;
 }
 
-/* Акцентная полоса слева */
 .tg-quote::before {
   content: "";
   position: absolute;
@@ -361,7 +342,6 @@ h1::after {
   box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.55);
 }
 
-/* Значок кавычек в правом верхнем углу (как в Telegram) */
 .tg-quote::after {
   content: "";
   position: absolute;
@@ -397,7 +377,7 @@ h1::after {
 .tg-quote__body p:last-of-type { margin-bottom: 0; }
 
 .tg-quote__body p.lead {
-  padding-right: 1.4rem; /* чтобы текст не заезжал под значок кавычек */
+  padding-right: 1.4rem;
   font-size: 1.02rem;
   font-weight: 700;
   color: var(--white);
@@ -408,7 +388,6 @@ h1::after {
   font-weight: 800;
 }
 
-/* «Также ищут» */
 .kw-extra {
   display: flex;
   flex-wrap: wrap;
@@ -440,8 +419,6 @@ h1::after {
   transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
 }
 
-/* Кнопка-стрелка сворачивания/разворачивания — сидит в одном углу всегда,
-   как значок в цитате Telegram (без JS скрыта, текст виден целиком) */
 .tg-quote__toggle {
   display: none;
   position: absolute;
@@ -466,14 +443,13 @@ h1::after {
 .tg-quote__toggle svg { transition: transform 0.45s var(--ease); }
 .tg-quote.is-open .tg-quote__toggle svg { transform: rotate(180deg); }
 
-/* Раскрыто: тот же кружок, но нейтрального цвета — чтобы не спорил с текстом */
 .js .tg-quote.is-open .tg-quote__toggle {
   background: rgba(255, 255, 255, 0.12);
   color: var(--text-soft);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
 }
 
-/* --- Режим с JS: по умолчанию свёрнуто --- */
+/* с JS по умолчанию свёрнуто */
 .js .tg-quote__toggle { display: inline-flex; }
 
 .js .tg-quote__body {
@@ -485,12 +461,8 @@ h1::after {
 .js .tg-quote:not(.is-open) { cursor: pointer; }
 .js .tg-quote:not(.is-open) .tg-quote__body { --fade: 3.2rem; }
 
-/* Немного отступа снизу в раскрытом виде, чтобы кружок не наезжал на последнюю строку/чипы */
 .js .tg-quote.is-open .tg-quote__body { padding-bottom: 2.1rem; }
 
-/* ============================================= */
-/* РАЗДЕЛИТЕЛЬ                                   */
-/* ============================================= */
 .section-divider {
   display: flex;
   align-items: center;
@@ -515,9 +487,6 @@ h1::after {
   white-space: nowrap;
 }
 
-/* ============================================= */
-/* ССЫЛКИ                                        */
-/* ============================================= */
 .links {
   display: grid;
   gap: 0.7rem;
@@ -547,7 +516,6 @@ h1::after {
   transition: transform 0.35s var(--ease), background 0.35s ease, color 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
-/* Стрелка справа */
 .link::after {
   content: "";
   flex: none;
@@ -603,9 +571,6 @@ h1::after {
   transform: scale(0.985);
 }
 
-/* ============================================= */
-/* ВИДЕО И ПОДДЕРЖКА                             */
-/* ============================================= */
 .video-container {
   position: relative;
   margin-top: 1.6rem;
@@ -659,9 +624,6 @@ h1::after {
   transition: color 0.25s ease, text-decoration-color 0.25s ease;
 }
 
-/* ============================================= */
-/* КНОПКА МУЗЫКИ                                 */
-/* ============================================= */
 .music-btn {
   position: fixed;
   right: 1.5rem;
@@ -686,7 +648,6 @@ h1::after {
   animation: btnPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.6s both;
 }
 
-/* Иконка-эквалайзер: полоски двигаются, пока играет музыка */
 .music-btn::before {
   content: "";
   flex: none;
@@ -714,9 +675,7 @@ h1::after {
 
 .music-btn:active { transform: scale(0.97); }
 
-/* ============================================= */
-/* HOVER — только для устройств с мышью          */
-/* ============================================= */
+/* hover только для мыши */
 @media (hover: hover) {
   .avatar-wrap img:hover {
     transform: scale(1.07) rotate(2deg);
@@ -762,7 +721,6 @@ h1::after {
   }
 }
 
-/* Видимый фокус с клавиатуры на ссылках-карточках */
 .link:focus-visible {
   outline-offset: 2px;
   border-radius: 1rem;

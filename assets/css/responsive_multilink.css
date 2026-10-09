@@ -1,9 +1,5 @@
-/* ============================================= */
-/* GAME QUEST — МУЛЬТИССЫЛКИ · АДАПТИВНОСТЬ      */
-/* Подключается ПОСЛЕ styles_multilink.css       */
-/* ============================================= */
+/* мультиссылки — адаптив */
 
-/* ---------- Большие экраны: масштабируем через rem ---------- */
 @media (min-width: 1800px) {
   html { font-size: 18px; }
 }
@@ -16,17 +12,14 @@
   html { font-size: 26px; }
 }
 
-/* ---------- Кнопка музыки — только на десктопе ---------- */
 @media (min-width: 1025px) {
   .music-btn { display: inline-flex; }
 }
 
-/* ---------- Планшеты ---------- */
 @media (max-width: 834px) {
   .card { max-width: 32rem; }
 }
 
-/* ---------- Телефоны ---------- */
 @media (max-width: 600px) {
   :root { --pad: 0.6rem; }
 
@@ -40,7 +33,6 @@
     margin-bottom: 1.5rem;
   }
 
-  /* На маленьких экранах оставляем только внутренние кольца частиц */
   .avatar-wrap > .q-particle:nth-child(n + 26) { display: none; }
 
   .avatar-wrap::after { animation: none; opacity: 0.7; }
@@ -71,7 +63,6 @@
   .support p { font-size: 0.85rem; }
 }
 
-/* ---------- Очень узкие телефоны ---------- */
 @media (max-width: 360px) {
   :root { --pad: 0.4rem; }
 
@@ -90,7 +81,6 @@
   .link__desc { font-size: 0.74rem; }
 }
 
-/* ---------- Низкие экраны в ландшафте ---------- */
 @media (max-height: 480px) and (orientation: landscape) {
   :root { --pad: 0.35rem; }
 
@@ -117,7 +107,7 @@
   .link { min-height: 3rem; }
 }
 
-/* ---------- Ретина: фоны повышенной чёткости ---------- */
+/* retina */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   :root { --bg-image: url("../images/background/backg_multilink@2x.webp"); }
 }
@@ -126,12 +116,10 @@
   :root { --bg-image: url("../images/background/backg_multilink@3x.webp"); }
 }
 
-/* ---------- Экономия трафика ---------- */
 @media (prefers-reduced-data: reduce) {
   :root { --bg-image: linear-gradient(135deg, #14170e, #0a0b07); }
 }
 
-/* ---------- Повышенный контраст ---------- */
 @media (prefers-contrast: high) {
   .card { border: 2px solid var(--accent); }
   .link { border-color: var(--accent); }
@@ -139,7 +127,6 @@
   .link__desc { color: #fff; }
 }
 
-/* ---------- Без анимаций ---------- */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
