@@ -1,13 +1,10 @@
-// quest-flyer v3 — 404 Game Quest
-// HUD: параллакс-наклон цифр, живые координаты курсора, «загрузка уровня» с консолью, кнопка «назад».
-// Flyers (только ПК): 12 белых Quest-логотипов — дрейф, разная «глубина», расталкивание,
-// линии-связи, линии к курсору, шлейфы и ударная волна по клику.
+// 404 Game Quest
 (function () {
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const wrap = (a) => Math.atan2(Math.sin(a), Math.cos(a));
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ================= HUD ================= */
+  // hud
   function initHud() {
     const mark = document.getElementById('mark-404');
     const text = mark && mark.querySelector('.mark-404__text');
@@ -52,7 +49,6 @@
     initStatus();
   }
 
-  /* ============ «Загрузка уровня» ============ */
   function initStatus() {
     const box = document.getElementById('quest-status');
     const pct = document.getElementById('qs-pct');
@@ -78,15 +74,14 @@
     })(t0);
   }
 
-  /* ================= Flyers ================= */
+  // flyers
   function initFlyers() {
     const field = document.getElementById('quest-flyer');
     if (!field) return;
-    // Только на ПК (см. @media в quest-flyer.css)
     if (!window.matchMedia('(min-width: 1025px)').matches) return;
 
     const SRC = field.dataset.src || 'assets/icons/Quest.svg';
-    const SIZES = [28, 34, 40, 46, 52, 58, 64, 70, 76, 82, 88, 96]; // 12 штук
+    const SIZES = [28, 34, 40, 46, 52, 58, 64, 70, 76, 82, 88, 96];
     const MAXS = SIZES[SIZES.length - 1];
     const ACCENT = '209, 240, 93';
     const BASE_SPEED = 1.0;
@@ -116,7 +111,7 @@
     document.documentElement.addEventListener('mouseleave', () => { mouse.x = mouse.y = -9999; });
 
     const flyers = SIZES.map((size, i) => {
-      const d = size / MAXS; // «глубина»: маленькие — дальше, медленнее и тусклее
+      const d = size / MAXS;
       const el = document.createElement('div');
       el.className = 'qf';
       el.style.width = el.style.height = size + 'px';
@@ -148,7 +143,6 @@
       return;
     }
 
-    // Ударная волна по клику: логотипы отлетают, по холсту идёт кольцо
     const ripples = [];
     window.addEventListener('pointerdown', (e) => {
       ripples.push({ x: e.clientX, y: e.clientY, t: 0 });
@@ -176,14 +170,12 @@
         const cx = f.x + f.size / 2;
         const cy = f.y + f.size / 2;
 
-        // 1. Плавное блуждание курса
         f.turn += (Math.random() - 0.5) * 0.006 * dt;
         f.turn *= Math.pow(0.97, dt);
         f.turn = clamp(f.turn, -0.022, 0.022);
 
         let steer = 0;
 
-        // 2. Мягкий разворот у краёв
         const nearest = Math.min(cx, W - cx, cy, H - cy);
         if (nearest < EDGE_ZONE) {
           const k = 1 - nearest / EDGE_ZONE;
@@ -191,7 +183,6 @@
           steer += clamp(toCenter * 0.05 * k * k, -0.05, 0.05);
         }
 
-        // 3. Расталкивание: соседи и курсор
         const away = (px, py, radius, power) => {
           const dx = cx - px, dy = cy - py;
           const dist = Math.hypot(dx, dy);
@@ -209,7 +200,6 @@
         steer = clamp(steer, -0.08, 0.08);
         f.heading = wrap(f.heading + (f.turn + steer) * dt);
 
-        // 4. Скорость «дышит» и зависит от глубины
         const speed = BASE_SPEED * (0.6 + 0.7 * f.d) *
           (1 + 0.26 * Math.sin(f.phase * 0.02) + 0.1 * Math.sin(f.phase * 0.047));
         f.x += (Math.cos(f.heading) * speed + f.vx) * dt;
@@ -217,19 +207,16 @@
         const damp = Math.pow(0.93, dt);
         f.vx *= damp; f.vy *= damp;
 
-        // Страховка у границ
         const maxX = W - f.size, maxY = H - f.size;
         if (f.x <= 0) { f.x = 0; f.vx = Math.abs(f.vx); f.heading = wrap(Math.PI - f.heading); }
         else if (f.x >= maxX) { f.x = maxX; f.vx = -Math.abs(f.vx); f.heading = wrap(Math.PI - f.heading); }
         if (f.y <= 0) { f.y = 0; f.vy = Math.abs(f.vy); f.heading = wrap(-f.heading); }
         else if (f.y >= maxY) { f.y = maxY; f.vy = -Math.abs(f.vy); f.heading = wrap(-f.heading); }
 
-        // 5. Наклон в виражах (+ от импульса)
         const targetBank = clamp((f.turn + steer) * 600 + f.vx * 3, -22, 22);
         f.bank += (targetBank - f.bank) * Math.min(1, 0.08 * dt);
         f.el.style.transform = `translate(${f.x}px, ${f.y}px) rotate(${f.bank.toFixed(2)}deg)`;
 
-        // 6. Шлейф: точка пути каждые ~3px
         const ncx = f.x + f.size / 2, ncy = f.y + f.size / 2;
         const lp = f.trail[0];
         if (!lp || Math.hypot(ncx - lp.x, ncy - lp.y) > 3) {
@@ -238,7 +225,6 @@
         }
       });
 
-      // Шлейфы акцентным цветом, сужаются и гаснут
       ctx.lineCap = 'round';
       flyers.forEach((f) => {
         const n = f.trail.length;
@@ -253,7 +239,6 @@
         }
       });
 
-      // Линии-связи между близкими логотипами и от логотипов к курсору
       ctx.lineWidth = 1;
       for (let a = 0; a < flyers.length; a++) {
         const A = flyers[a];
@@ -280,7 +265,6 @@
         }
       }
 
-      // Кольца ударной волны
       for (let r = ripples.length - 1; r >= 0; r--) {
         const rp = ripples[r];
         rp.t += dt;

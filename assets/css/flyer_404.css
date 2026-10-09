@@ -1,9 +1,4 @@
-/* ============================================= */
-/* GAME QUEST — 404 · ЛЕТАЮЩИЕ ЛОГОТИПЫ (v2)     */
-/* Подключается ПОСЛЕ styles_404_v2.css          */
-/* Только ПК: на телефонах/планшетах не          */
-/* показывается и не запускается в JS            */
-/* ============================================= */
+/* 404 — летающие логотипы, только пк */
 
 .qf-field {
   --qf-accent: var(--accent, #d1f05d);
@@ -12,7 +7,7 @@
   display: none;
   position: fixed;
   inset: 0;
-  z-index: 0; /* под контентом (main имеет z-index: 1) */
+  z-index: 0;
   overflow: hidden;
   pointer-events: none;
 }
@@ -21,7 +16,6 @@
   .qf-field { display: block; }
 }
 
-/* Холст для линий-связей и шлейфов */
 .qf-field canvas {
   position: absolute;
   inset: 0;
@@ -36,7 +30,6 @@
   will-change: transform;
 }
 
-/* Белый логотип с мягким свечением (акцент — в тени) */
 .qf__logo {
   display: block;
   width: 100%;
