@@ -45,13 +45,7 @@
 @media (max-width: 360px) { h1 { font-size: 1.6rem; } .lead { font-size: .9rem; } }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  :root { --bg-image: url("../images/background/backg_multilink@2x.webp"); }
-}
-@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
-  :root { --bg-image: url("../images/background/backg_multilink@3x.webp"); }
-}
-@media (prefers-reduced-data: reduce) {
-  :root { --bg-image: linear-gradient(135deg, #14170e, #0a0b07); }
+  :root { --bg-image: url("../images/background/backg_game@2x.webp"); }
 }
 @media (prefers-contrast: high) { .soft { color: #fff; } }
 @media (prefers-reduced-motion: reduce) {
