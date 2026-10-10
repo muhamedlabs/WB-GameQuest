@@ -1,13 +1,7 @@
-/* ============================================= */
-/* GAME QUEST — ФУТЕР · АДАПТИВНОСТЬ             */
-/* Подключается автоматически после styles_footer */
-/* ============================================= */
-
-/* ---------- Небольшие ноутбуки / планшеты ---------- */
 @media (max-width: 980px) {
   .gq-footer__cols {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2rem 2rem;
+    gap: 2rem;
   }
 
   .gq-footer__col--wide,
@@ -17,13 +11,8 @@
   .gq-footer__cta-text { display: none; }
 }
 
-/* ---------- Узкие планшеты ---------- */
 @media (max-width: 760px) {
-  .gq-footer__head {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
+  .gq-footer__head,
   .gq-footer__bottom {
     flex-direction: column;
     align-items: flex-start;
@@ -32,7 +21,6 @@
   .gq-footer__note { text-align: left; }
 }
 
-/* ---------- Телефоны ---------- */
 @media (max-width: 600px) {
   .gq-footer { --gq-radius: 1.25rem; }
 
@@ -48,14 +36,13 @@
   .gq-footer__cols { grid-template-columns: 1fr; gap: 1.25rem; }
   .gq-footer__col--wide .gq-footer__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  .gq-footer__link { padding-block: 0.25rem; }       /* больше зона нажатия */
+  /* чтобы удобнее попадать пальцем */
+  .gq-footer__link { padding-block: 0.25rem; }
 
   .gq-footer__mark { right: 0.75rem; }
-
   .gq-footer::before { background-size: 12rem 100%; }
 }
 
-/* ---------- Низкие экраны в ландшафте ---------- */
 @media (max-height: 480px) and (orientation: landscape) {
   .gq-footer__inner { padding-block: 1.25rem 0.7rem; }
   .gq-footer__tag { display: none; }
@@ -63,12 +50,10 @@
   .gq-footer__bottom { margin-top: 1.1rem; padding-top: 0.6rem; }
 }
 
-/* ---------- Телевизоры: крупнее фокус под пульт ---------- */
 @media (min-width: 3440px) {
   .gq-footer a:focus-visible { outline-width: 4px; outline-offset: 6px; }
 }
 
-/* ---------- Повышенный контраст ---------- */
 @media (prefers-contrast: high) {
   .gq-footer { background: rgba(13, 15, 8, 0.97); }
   .gq-footer__bg { display: none; }
@@ -76,7 +61,6 @@
   .gq-footer__cta-text, .gq-footer__hours-list dt, .gq-footer__hours-note { color: #fff; }
 }
 
-/* ---------- Без анимаций ---------- */
 @media (prefers-reduced-motion: reduce) {
   .gq-footer, .gq-footer * { transition: none !important; animation: none !important; }
   .gq-footer::before { animation: none; background-position: 3rem 0; }

@@ -1,6 +1,11 @@
-/* ============================================= */
-/* GAME QUEST — ЗАГЛУШКА «ПРОЕКТ В РАЗРАБОТКЕ»   */
-/* ============================================= */
+
+@font-face {
+    font-family: "gamequest_news";
+    src: url("../fonts/IgraSans.otf") format("opentype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
 
 :root {
     --bg: #0f100d;
@@ -9,9 +14,9 @@
     --lime-2: #e3f89a;
     --line: rgba(255, 255, 255, 0.05);
 
-    /* ТВОЯ КАРТИНКА: поменяй путь здесь */
+    --font: "gamequest_news", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
     --bg-img: url("../images/background/backg.webp");
-    /* затемнение поверх картинки: 0 — без затемнения, 1 — полностью чёрный */
     --shade: 0.78;
 }
 
@@ -26,25 +31,29 @@ body {
     min-height: 100%;
 }
 
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
 body {
     position: relative;
     min-height: 100vh;
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    /* шапка → контент → футер друг под другом */
     overflow-x: hidden;
     isolation: isolate;
-    /* фон-эффекты уходят под шапку и футер */
     background:
         linear-gradient(rgba(15, 16, 13, var(--shade)), rgba(15, 16, 13, calc(var(--shade) + 0.12))),
         var(--bg-img) center / cover no-repeat,
         var(--bg);
     color: var(--text);
-    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    font-family: var(--font);
 }
 
-/* сетка на фоне */
 body::before {
     content: "";
     position: absolute;
@@ -59,7 +68,6 @@ body::before {
     pointer-events: none;
 }
 
-/* салатовые свечения по углам */
 body::after {
     content: "";
     position: absolute;
@@ -74,7 +82,6 @@ body::after {
 .wrap {
     position: relative;
     flex: 1 0 auto;
-    /* занимает всё место между шапкой и футером */
     display: flex;
     flex-direction: column;
     align-items: flex-start;

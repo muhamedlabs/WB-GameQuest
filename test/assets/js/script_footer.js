@@ -1,28 +1,17 @@
-// script_footer.js — футер Game Quest одним подключением.
-//
-// Как использовать: перед </body> любой страницы добавь ОДНУ строку:
-//   <script src="assets/js/script_footer.js" defer></script>
-//
-// Скрипт сам подтянет styles_footer.css + responsive_footer.css, вставит разметку футера
-// и прижмёт его к низу страницы, если контента мало.
-// Необязательные настройки через data-атрибуты на этой же строке:
-//   data-home="multilink.html"     — страница, где собраны все ссылки
-//   data-index="index.html"        — адрес главной страницы (пункт «Главная»)
-//   data-news="news.html"          — страница новостей
-//   data-schedule="schedule.html"  — страница с подробным графиком проекта
-//   data-target="#my-footer"       — вставить в конкретный элемент вместо конца <body>
+// Подключение: <script src="assets/js/script_footer.js" defer></script>
+// Настройки через data-атрибуты: home, index, news, schedule, target
 (function () {
   var script = document.currentScript;
   if (!script || document.querySelector('.gq-footer')) return;
 
   var cfg = script.dataset || {};
   var src = (script.getAttribute('src') || '').split('?')[0];
-  var base = src.replace(/js\/script_footer\.js$/, '');   // папка assets/ относительно страницы
+  var base = src.replace(/js\/script_footer\.js$/, '');
 
   var HOME = cfg.home || 'multilink.html';
   var INDEX = cfg.index || './';
   var SCHEDULE = cfg.schedule || HOME;
-  var NEWS = cfg.news || HOME;               // страница новостей
+  var NEWS = cfg.news || HOME;
 
   var LOGO = base + 'icons/Quest.svg';
   var LOGO_FALLBACK = base + 'logo.webp';
@@ -59,9 +48,9 @@
     }
   ];
 
-  // Часы работы (МОСКОВСКОЕ время). Если меняешь — поправь и rows (что видно), и days/from/to (для статуса).
+  // время МСК; если меняешь — правь и rows, и days/from/to
   var HOURS = {
-    days: [1, 2, 3, 4, 5],   // 0 = вс, 1 = пн … 6 = сб
+    days: [1, 2, 3, 4, 5],   // 0 = вс
     from: 10,
     to: 19,
     rows: [
@@ -80,7 +69,6 @@
     });
   }
 
-  // Текущее время в Москве: { day, hour } или null
   function mskNow() {
     var dayMap = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
     try {
@@ -94,7 +82,6 @@
     } catch (e) { return null; }
   }
 
-  // Плашка «Сейчас на связи» видна только в рабочее время
   function updateStatus(footer) {
     var box = footer.querySelector('.gq-status');
     if (!box) return;
@@ -183,6 +170,7 @@
   updateStatus(footer);
   setInterval(function () { updateStatus(footer); }, 60000);
 
+  // если контента мало — прижимаем футер к низу окна
   if (!target) {
     var raf = 0;
     var stick = function () {

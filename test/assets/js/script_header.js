@@ -1,18 +1,5 @@
-// script_header.js — шапка Game Quest одним подключением.
-//
-// Как использовать: сразу после <body> (или перед </body>) добавь ОДНУ строку:
-//   <script src="assets/js/script_header.js" defer></script>
-//
-// Скрипт сам подтянет styles_header.css + responsive_header.css и вставит шапку.
-// Шапка закреплена сверху: при прокрутке остаётся на экране, сжимается и показывает полоску прокрутки.
-// Необязательные настройки через data-атрибуты на этой же строке:
-//   data-index="index.html"        — главная
-//   data-home="multilink.html"     — страница со всеми ссылками
-//   data-news="news.html"          — новости
-//   data-games="games.html"        — игры
-//   data-merch="merch.html"        — мерч
-//   data-schedule="schedule.html"  — график работы
-//   data-spacer="false"            — не вставлять отступ под шапку (если сам оставляешь место)
+// Подключение: <script src="assets/js/script_header.js" defer></script>
+// Настройки через data-атрибуты: index, home, news, games, merch, schedule, spacer="false"
 (function () {
   var script = document.currentScript;
   if (!script || document.querySelector('.gq-header')) return;
@@ -27,8 +14,7 @@
   var LOGO = base + 'icons/Quest.svg';
   var LOGO_FALLBACK = base + 'logo.webp';
 
-  // 5 пунктов меню. Пока почти все ведут на страницу со всеми ссылками —
-  // когда появятся отдельные страницы, укажи их через data-атрибуты.
+  // пока отдельных страниц нет, всё ведёт на HOME
   var NAV = [
     { label: 'Главная',       href: INDEX },
     { label: 'Новости',       href: cfg.news || HOME },
@@ -37,7 +23,7 @@
     { label: 'График работы', href: cfg.schedule || HOME, live: true }
   ];
 
-  // Рабочее время (МОСКОВСКОЕ) — для зелёной точки у «График работы». Совпадает с футером.
+  // МСК, те же часы что в футере
   var HOURS = { days: [1, 2, 3, 4, 5], from: 10, to: 19 };
 
   function loadCss(name) {
@@ -50,7 +36,6 @@
     });
   }
 
-  // Текущее время в Москве
   function mskInfo() {
     var dayMap = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
     try {
@@ -60,8 +45,7 @@
       var o = {};
       parts.forEach(function (p) { o[p.type] = p.value; });
       if (dayMap[o.weekday] === undefined) return null;
-      var h = parseInt(o.hour, 10), m = parseInt(o.minute, 10);
-      return { day: dayMap[o.weekday], h: h, m: m, hour: h + m / 60 };
+      return { day: dayMap[o.weekday], hour: parseInt(o.hour, 10) + parseInt(o.minute, 10) / 60 };
     } catch (e) { return null; }
   }
 
@@ -78,7 +62,7 @@
     } catch (e) { return false; }
   }
 
-  // Активный пункт — только если страница однозначно совпала с одним пунктом
+  // активным считаем пункт только если совпал ровно один
   var matches = NAV.filter(function (n) { return samePage(n.href); });
   var activeItem = matches.length === 1 ? matches[0] : null;
 
@@ -132,7 +116,7 @@
     logo.src = LOGO_FALLBACK;
   });
 
-  // Отступ, чтобы шапка не перекрывала начало страницы
+  // отступ под фиксированную шапку
   if (cfg.spacer !== 'false') {
     var spacer = document.createElement('div');
     spacer.className = 'gq-header-spacer';
@@ -147,7 +131,6 @@
   var links = header.querySelectorAll('.gq-header__link');
   var burger = header.querySelector('.gq-header__burger');
 
-  // ---- «Живая» подсветка пункта под курсором ----
   function moveGlow(a) {
     if (!a) { glow.classList.remove('is-on'); return; }
     glow.style.width = a.offsetWidth + 'px';
@@ -164,7 +147,6 @@
   nav.addEventListener('focusout', function (e) { if (!nav.contains(e.relatedTarget)) resetGlow(); });
   window.addEventListener('resize', resetGlow);
 
-  // ---- Игровой прогресс: чем дальше листаешь, тем выше уровень ----
   var xp = header.querySelector('.gq-header__xp');
   var xpBar = header.querySelector('.gq-header__arc');
   var xpLvl = header.querySelector('.gq-header__lvl');
@@ -211,7 +193,6 @@
     window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
   });
 
-  // ---- Прокрутка: сжатие + полоска прогресса ----
   var ticking = false;
   function onScroll() {
     ticking = false;
@@ -228,7 +209,6 @@
   window.addEventListener('resize', onScroll);
   onScroll();
 
-  // ---- Мобильное меню ----
   function setOpen(open) {
     header.classList.toggle('is-open', open);
     burger.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -244,7 +224,6 @@
   });
   window.addEventListener('resize', function () { if (window.innerWidth > 860) setOpen(false); });
 
-  // ---- Точка «на связи» у пункта «График работы» (по МСК) ----
   function updateLive() {
     var on = isOnline();
     Array.prototype.forEach.call(header.querySelectorAll('.gq-header__live'), function (d) { d.hidden = !on; });

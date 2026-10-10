@@ -1,10 +1,4 @@
-/* ============================================= */
-/* GAME QUEST — ШАПКА · ОСНОВНОЙ CSS             */
-/* Подключается автоматически из script_header.js */
-/* Адаптивность — в responsive_header.css        */
-/* Шапка на всю ширину: всегда на экране,    */
-/* при прокрутке сжимается, внизу — прогресс.    */
-/* ============================================= */
+
 
 .gq-header {
   --gq-accent: var(--accent, #d1f05d);
@@ -31,7 +25,6 @@
 
 .gq-header *, .gq-header *::before, .gq-header *::after { box-sizing: border-box; }
 
-/* Появление: плашка опускается сверху */
 .gq-header.is-pending { opacity: 0; transform: translateY(-140%); }
 
 .gq-header__wrap {
@@ -39,7 +32,6 @@
   width: 100%;
 }
 
-/* ---------- Плашка ---------- */
 .gq-header__bar {
   position: relative;
   display: grid;
@@ -47,7 +39,7 @@
   align-items: center;
   gap: 1.5rem;
   height: 4.3rem;
-  /* содержимое выровнено по той же сетке, что и у футера (72rem) */
+  /* та же сетка 72rem, что и в футере */
   padding: 0 max(1rem, calc((100% - 72rem) / 2 + 1.5rem));
   overflow: hidden;
   border-bottom: 1px solid var(--gq-line);
@@ -63,7 +55,7 @@
   transition: height 0.45s var(--gq-ease), background 0.45s ease, box-shadow 0.45s ease, border-color 0.45s ease;
 }
 
-/* Один «блик» пробегает по плашке при загрузке */
+/* блик при загрузке */
 .gq-header__bar::after {
   content: "";
   position: absolute;
@@ -86,7 +78,6 @@
     0 16px 36px -14px rgba(var(--gq-accent-rgb), 0.5);
 }
 
-/* Полоска прокрутки страницы */
 .gq-header__progress {
   position: absolute;
   left: 0;
@@ -100,7 +91,6 @@
   pointer-events: none;
 }
 
-/* ---------- Бренд ---------- */
 .gq-header__brand {
   display: inline-flex;
   align-items: center;
@@ -116,8 +106,10 @@
   height: 2.5rem;
   max-width: none;
   object-fit: contain;
-  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(var(--gq-accent-rgb), 0.45));
-  transition: transform 0.45s var(--gq-ease), height 0.45s var(--gq-ease);
+  /* цепочка фильтров такая же, как в :hover, иначе цвет прыгает */
+  filter: brightness(0) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%)
+          drop-shadow(0 0 8px rgba(var(--gq-accent-rgb), 0.45));
+  transition: filter 0.35s ease, height 0.45s var(--gq-ease);
 }
 .gq-header.is-scrolled .gq-header__logo { height: 2.2rem; }
 
@@ -126,9 +118,9 @@
   font-weight: 800;
   letter-spacing: 0.01em;
   white-space: nowrap;
+  transition: color 0.35s ease, text-shadow 0.35s ease;
 }
 
-/* ---------- Меню ---------- */
 .gq-header__nav {
   position: relative;
   justify-self: center;
@@ -163,7 +155,7 @@
 
 .gq-header__link.is-active { color: var(--gq-accent); }
 
-/* Плавающая подложка: едет к пункту под курсором */
+/* подложка, которая ездит за курсором */
 .gq-header__glow {
   position: absolute;
   top: 50%;
@@ -181,7 +173,6 @@
 }
 .gq-header__glow.is-on { opacity: 1; }
 
-/* Точка «мы на связи» у пункта «График работы» */
 .gq-header__live {
   flex: none;
   width: 7px;
@@ -193,7 +184,6 @@
 .gq-header__live[hidden] { display: none; }
 @keyframes gq-header-pulse { 50% { opacity: 0.35; } }
 
-/* ---------- Правая часть: игровой прогресс страницы ---------- */
 .gq-header__actions {
   display: flex;
   align-items: center;
@@ -256,14 +246,12 @@
 }
 .gq-header__xpb { display: none; }
 
-/* Максимум: кольцо и рамка светятся */
 .gq-header__xp.is-max {
   border-color: rgba(var(--gq-accent-rgb), 0.6);
   box-shadow: 0 0 22px -4px rgba(var(--gq-accent-rgb), 0.7);
 }
 .gq-header__xp.is-max .gq-header__arc { stroke: #fff; }
 
-/* Повышение уровня: кольцо «подпрыгивает» */
 .gq-header__xp.is-bump .gq-header__ring { animation: gq-header-bump 0.7s var(--gq-ease); }
 @keyframes gq-header-bump {
   0% { transform: scale(1); }
@@ -271,7 +259,6 @@
   100% { transform: scale(1); }
 }
 
-/* Всплывашка о новом уровне */
 .gq-header__toast {
   position: absolute;
   top: calc(100% + 0.8rem);
@@ -312,7 +299,6 @@
 .gq-header__toast-txt b { font-size: 0.98rem; color: #fff; }
 .gq-header__toast-txt em { font-size: 0.82rem; font-style: normal; color: var(--gq-accent); }
 
-/* ---------- Бургер (телефон/планшет) ---------- */
 .gq-header__burger {
   display: none;
   position: relative;
@@ -343,7 +329,6 @@
 .gq-header.is-open .gq-header__burger i:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .gq-header.is-open .gq-header__burger i:nth-child(3) { transform: rotate(-45deg); }
 
-/* ---------- Выпадающая панель (мобильная) ---------- */
 .gq-header__panel {
   display: none;
   position: absolute;
@@ -406,14 +391,12 @@
 .gq-header__plink.is-active { color: var(--gq-accent); }
 .gq-header__plink.is-active::before { opacity: 1; box-shadow: 0 0 8px rgba(var(--gq-accent-rgb), 0.9); }
 
-/* ---------- Фокус ---------- */
 .gq-header a:focus-visible,
 .gq-header button:focus-visible {
   outline: 2px solid var(--gq-accent);
   outline-offset: 3px;
 }
 
-/* ---------- Наведение мышью ---------- */
 @media (hover: hover) {
   .gq-header__xp:hover {
     border-color: rgba(var(--gq-accent-rgb), 0.55);
@@ -422,6 +405,18 @@
   }
   .gq-header__xp:hover .gq-header__xpa { display: none; }
   .gq-header__xp:hover .gq-header__xpb { display: inline; }
-  .gq-header__brand:hover .gq-header__logo { transform: scale(1.07) rotate(-4deg); }
+
+  /* лого и название при наведении слегка белеют */
+  .gq-header__brand:hover .gq-header__logo {
+    filter: brightness(0) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%)
+            drop-shadow(0 0 5px rgba(255, 255, 255, 0.55))
+            drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));
+  }
+  .gq-header__brand:hover .gq-header__name {
+    color: #fff;
+    text-shadow:
+      0 0 6px rgba(255, 255, 255, 0.5),
+      0 0 16px rgba(255, 255, 255, 0.2);
+  }
   .gq-header__plink:hover { color: var(--gq-accent); }
 }

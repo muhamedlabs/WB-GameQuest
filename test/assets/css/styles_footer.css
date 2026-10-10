@@ -1,10 +1,4 @@
-/* ============================================= */
-/* GAME QUEST — ФУТЕР · ОСНОВНОЙ CSS             */
-/* Подключается автоматически из script_footer.js */
-/* Адаптивность — в responsive_footer.css        */
-/* Футер на всю ширину, верхние углы скруглены,  */
-/* лаймовая кромка сверху, лёгкая прозрачность.  */
-/* ============================================= */
+
 
 .gq-footer {
   --gq-accent: var(--accent, #d1f05d);
@@ -21,18 +15,16 @@
   isolation: isolate;
   overflow: hidden;
   width: 100%;
-  margin-top: auto;               /* прижимается к низу страницы, если body — flex-колонка */
+  margin-top: auto;
   padding: 0 0 env(safe-area-inset-bottom);
   font-family: var(--font, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
   color: var(--gq-text);
   text-align: left;
 
-  /* верхние углы скруглены, нижние прямые */
   border: 1px solid var(--gq-line);
   border-bottom: 0;
   border-radius: var(--gq-radius) var(--gq-radius) 0 0;
 
-  /* фон: два лаймовых свечения + полупрозрачная тёмная заливка (чуть-чуть просвечивает) */
   background:
     radial-gradient(52rem 20rem at 6% -12%, rgba(var(--gq-accent-rgb), 0.15), transparent 62%),
     radial-gradient(40rem 20rem at 100% 112%, rgba(var(--gq-accent-rgb), 0.09), transparent 62%),
@@ -40,7 +32,6 @@
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 
-  /* лаймовая обводка сверху повторяет скругление + мягкое свечение */
   box-shadow:
     inset 0 2px 0 var(--gq-accent),
     0 -12px 32px -14px rgba(var(--gq-accent-rgb), 0.55);
@@ -54,7 +45,7 @@
 
 .gq-footer.is-pending { opacity: 0; transform: translateY(12px); }
 
-/* Бегущий луч по верхней кромке: привлекает взгляд к футеру */
+/* луч по верхней кромке */
 .gq-footer::before {
   content: "";
   position: absolute;
@@ -77,7 +68,6 @@
   100% { background-position: calc(100% + 20rem) 0; }
 }
 
-/* ---------- Фоновый декор ---------- */
 .gq-footer__bg {
   position: absolute;
   inset: 0;
@@ -86,7 +76,6 @@
   user-select: none;
 }
 
-/* Тонкая сетка, затухающая вниз */
 .gq-footer__pattern {
   position: absolute;
   inset: 0;
@@ -99,28 +88,25 @@
   mask-image: linear-gradient(180deg, #000 0%, transparent 85%);
 }
 
-/* Контурная надпись-водяной знак справа внизу */
+/* водяной знак: низ букв уходит за край */
 .gq-footer__mark {
   position: absolute;
   right: 1.25rem;
-  bottom: -0.3em;                  /* нижняя часть букв «уходит» за край футера */
+  bottom: -0.3em;
   font-size: clamp(3.5rem, 11vw, 9rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: 0.04em;
   white-space: nowrap;
-  /* лаймовая «дымка» внутри букв + тонкий контур */
   background: linear-gradient(180deg, rgba(var(--gq-accent-rgb), 0.22) 0%, rgba(var(--gq-accent-rgb), 0.04) 70%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-stroke: 1px rgba(var(--gq-accent-rgb), 0.2);
-  /* плавно растворяется к нижнему краю, будто уходит в тень */
   -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 92%);
   mask-image: linear-gradient(180deg, #000 30%, transparent 92%);
 }
 
-/* ---------- Контент ---------- */
 .gq-footer__inner {
   position: relative;
   z-index: 1;
@@ -129,7 +115,6 @@
   padding: 1.6rem 1.5rem 0.7rem;
 }
 
-/* ---------- Шапка футера: бренд + кнопка ---------- */
 .gq-footer__head {
   display: flex;
   align-items: center;
@@ -151,22 +136,23 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Просто логотип: без рамки, свечения и анимаций */
 .gq-footer__logo {
   display: block;
   width: auto;
   height: 2.5rem;
   max-width: none;
   object-fit: contain;
-  transition: transform 0.4s var(--gq-ease);
-  /* тёмный логотип делаем белым */
-  filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(var(--gq-accent-rgb), 0.45));
+  transition: filter 0.35s ease;
+  /* цепочка фильтров такая же, как в :hover, иначе цвет прыгает */
+  filter: brightness(0) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%)
+          drop-shadow(0 0 10px rgba(var(--gq-accent-rgb), 0.45));
 }
 
 .gq-footer__name {
   font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: 0.01em;
+  transition: color 0.35s ease, text-shadow 0.35s ease;
 }
 
 .gq-footer__tag {
@@ -192,7 +178,6 @@
   color: var(--gq-soft);
 }
 
-/* Кнопка на страницу со всеми ссылками: скошенные углы, лаймовая заливка */
 .gq-footer__cta {
   display: inline-flex;
   align-items: center;
@@ -210,7 +195,6 @@
 
 .gq-footer__cta span { display: inline-block; transition: transform 0.35s var(--gq-ease); }
 
-/* ---------- Сетка колонок ---------- */
 .gq-footer__cols {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.8fr) minmax(0, 1.1fr) minmax(0, 1.25fr);
@@ -250,7 +234,6 @@
   list-style: none;
 }
 
-/* Каталог — в две колонки */
 .gq-footer__col--wide .gq-footer__list {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.5rem 1.25rem;
@@ -266,7 +249,6 @@
   transition: color 0.3s ease, transform 0.3s var(--gq-ease);
 }
 
-/* Ромбик-маркер перед каждой ссылкой */
 .gq-footer__link::before {
   content: "";
   flex: none;
@@ -278,7 +260,6 @@
   transition: opacity 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ---------- Карточка «Часы работы» ---------- */
 .gq-footer__hours {
   padding: 0.85rem 1.1rem 0.95rem;
   border: 1px solid var(--gq-line);
@@ -359,7 +340,6 @@
 .gq-footer__contact b { font-weight: 800; }
 .gq-footer__contact span { flex: none; font-size: 1.15rem; transition: transform 0.35s var(--gq-ease); }
 
-/* ---------- Нижняя строка ---------- */
 .gq-footer__bottom {
   display: flex;
   align-items: center;
@@ -396,18 +376,16 @@
   opacity: 0.85;
 }
 
-/* ---------- Фокус ---------- */
 .gq-footer a:focus-visible {
   outline: 2px solid var(--gq-accent);
   outline-offset: 3px;
 }
 
-/* ---------- Наведение мышью ---------- */
 @media (hover: hover) {
   .gq-footer__cta:hover { filter: brightness(1.08); }
   .gq-footer__cta:hover span { transform: translate(2px, -2px); }
 
-  .gq-footer__link:hover { color: var(--gq-accent); }
+  .gq-footer__link:hover { color: var(--gq-accent); transform: translateX(4px); }
   .gq-footer__link:hover::before {
     opacity: 1;
     box-shadow: 0 0 6px rgba(var(--gq-accent-rgb), 0.8);
@@ -415,6 +393,17 @@
 
   .gq-footer__contact:hover { background: var(--gq-accent); color: var(--ink, #0d0f08); border-color: var(--gq-accent); }
   .gq-footer__contact:hover span { transform: translateX(3px); }
-  .gq-footer__brand:hover .gq-footer__logo { transform: scale(1.06) rotate(-3deg); }
-  .gq-footer__link:hover { transform: translateX(4px); }
+
+  /* лого и название при наведении слегка белеют */
+  .gq-footer__brand:hover .gq-footer__logo {
+    filter: brightness(0) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%)
+            drop-shadow(0 0 5px rgba(255, 255, 255, 0.55))
+            drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));
+  }
+  .gq-footer__brand:hover .gq-footer__name {
+    color: #fff;
+    text-shadow:
+      0 0 6px rgba(255, 255, 255, 0.5),
+      0 0 16px rgba(255, 255, 255, 0.2);
+  }
 }
