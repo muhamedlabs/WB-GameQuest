@@ -16,11 +16,14 @@ app = Flask(__name__, template_folder=BASE_DIR, static_folder=None)
 
 BLOCKED_EXT = {".py", ".pyc", ".db", ".sqlite", ".sqlite3", ".env", ".log", ".ini", ".cfg", ".toml", ".yml", ".yaml"}
 BLOCKED_DIRS = {"__pycache__", "venv", ".venv", "node_modules", "gq_data"}
+BLOCKED_FILES = {""}
 
 
 def is_blocked(filename):
     # lower(): на Windows регистр папок не важен
     parts = filename.replace("\\", "/").lower().split("/")
+    if parts[-1] in BLOCKED_FILES:
+        return True
     if any(p.startswith(".") or p in BLOCKED_DIRS for p in parts):
         return True
     return os.path.splitext(parts[-1])[1] in BLOCKED_EXT
