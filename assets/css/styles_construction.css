@@ -12,6 +12,8 @@
   --ink: #0d0f08;
   --text: rgba(255, 255, 255, 0.92);
   --text-soft: rgba(255, 255, 255, 0.62);
+  --grid-line: rgba(255, 255, 255, 0.05);
+  --cell: 64px; /* размер квадрата сетки */
   --bg-image: url("../images/background/backg_game.webp");
   --bg-base: url("../images/background/backg_game.webp");
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -33,7 +35,8 @@ body {
   color: var(--text);
 }
 
-body::before {
+/* картинка-фон */
+html::before {
   content: "" !important;
   display: block !important;
   position: fixed !important;
@@ -42,7 +45,7 @@ body::before {
   height: 100% !important;
   min-height: 100vh;
   min-height: 100lvh;
-  z-index: -2;
+  z-index: -1;
   opacity: 1 !important;
   visibility: visible !important;
   pointer-events: none;
@@ -55,10 +58,29 @@ body::before {
   background-size: cover !important;
   background-repeat: no-repeat !important;
 }
+
+/* сетка поверх картинки */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--cell) var(--cell);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 20%, transparent 80%);
+  mask-image: radial-gradient(ellipse at 50% 50%, #000 20%, transparent 80%);
+}
 body::after {
   content: "";
   position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(60rem 28rem at 50% 0%, rgba(var(--accent-rgb), .16), transparent 70%);
+  background:
+    radial-gradient(60rem 28rem at 50% 0%, rgba(var(--accent-rgb), .16), transparent 70%),
+    radial-gradient(34rem 26rem at -5% -5%, rgba(120, 140, 40, 0.35), transparent 65%),
+    radial-gradient(30rem 22rem at 105% 105%, rgba(150, 180, 40, 0.22), transparent 65%),
+    linear-gradient(rgba(15, 16, 13, 0.3), rgba(15, 16, 13, 0.6));
 }
 
 .page {
