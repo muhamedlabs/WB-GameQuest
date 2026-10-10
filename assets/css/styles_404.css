@@ -16,7 +16,7 @@
   --text-soft: rgba(255, 255, 255, 0.6);
   --line: rgba(255, 255, 255, 0.1);
 
-  --bg-image: url("../images/background/backg_multilink.webp");
+  --bg-image: url("../images/background/backg_404.webp");
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --pad: clamp(0.5rem, 2.5vw, 1.5rem);
   --font: "gamequest_news", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;

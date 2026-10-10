@@ -12,7 +12,8 @@
   --ink: #0d0f08;
   --text: rgba(255, 255, 255, 0.92);
   --text-soft: rgba(255, 255, 255, 0.62);
-  --bg-image: url("../images/background/backg_multilink.webp");
+  --bg-image: url("../images/background/backg_game.webp");
+  --bg-base: url("../images/background/backg_game.webp");
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --pad: clamp(0.9rem, 3.5vw, 2.5rem);
   --font: "gamequest_news", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
@@ -48,11 +49,11 @@ body::before {
   background-color: #0a0b07;
   background-image:
     linear-gradient(135deg, rgba(0,0,0,.42), rgba(0,0,0,.30)),
-    var(--bg-image) !important;
+    var(--bg-image),
+    var(--bg-base) !important;
   background-position: center center !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
-  transform: translateZ(0);
 }
 body::after {
   content: "";
