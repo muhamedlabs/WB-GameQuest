@@ -1,0 +1,13 @@
+/* ============================================= */
+/* GAME QUEST — ЗАГЛУШКА · АДАПТИВНОСТЬ          */
+/* ============================================= */
+
+@media (max-width: 640px) {
+  body::before { background-size: 44px 44px; }
+  .badge { font-size: 0.78rem; padding: 0.4rem 0.85rem; }
+  h1 { margin-top: 1.2rem; }
+}
+
+@media (prefers-contrast: high) {
+  :root { --line: rgba(255, 255, 255, 0.18); }
+}

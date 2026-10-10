@@ -1,0 +1,54 @@
+/* ============================================= */
+/* GAME QUEST — ШАПКА · АДАПТИВНОСТЬ             */
+/* Подключается автоматически после styles_header */
+/* ============================================= */
+
+/* ---------- Небольшие ноутбуки ---------- */
+@media (max-width: 1060px) {
+  .gq-header__bar { gap: 1rem; }
+  .gq-header__link { padding-inline: 0.8rem; font-size: 0.98rem; }
+}
+
+/* ---------- Планшеты и телефоны: меню в бургер ---------- */
+@media (max-width: 880px) {
+  .gq-header__bar { grid-template-columns: 1fr auto; }
+  .gq-header__nav,
+  /* на телефоне от виджета остаётся только кольцо с уровнем */
+  .gq-header__xptxt { display: none; }
+  .gq-header__xp { width: 3rem; padding: 0; justify-content: center; }
+  .gq-header__toast { right: 1rem; }
+  .gq-header__burger { display: block; }
+  .gq-header__panel { display: block; }
+}
+
+/* ---------- Телефоны ---------- */
+@media (max-width: 600px) {
+  .gq-header__bar { height: 3.8rem; padding: 0 0.75rem 0 1rem; border-radius: 0 0 1.1rem 1.1rem; }
+  .gq-header.is-scrolled .gq-header__bar { height: 3.4rem; }
+
+  .gq-header__logo { height: 2.3rem; }
+  .gq-header.is-scrolled .gq-header__logo { height: 2.1rem; }
+  .gq-header__name { font-size: 1.2rem; }
+
+  .gq-header-spacer { height: 3.8rem !important; }
+}
+
+/* ---------- Низкие экраны в ландшафте ---------- */
+@media (max-height: 480px) and (orientation: landscape) {
+  .gq-header__bar { height: 3.2rem; }
+  .gq-header-spacer { height: 3.2rem !important; }
+  .gq-header__panel { max-height: calc(100vh - 3.5rem); overflow-y: auto; }
+}
+
+/* ---------- Повышенный контраст ---------- */
+@media (prefers-contrast: high) {
+  .gq-header__bar, .gq-header__panel { background: rgba(13, 15, 8, 0.98); }
+  .gq-header__link { color: #fff; }
+}
+
+/* ---------- Без анимаций ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .gq-header, .gq-header * { transition: none !important; animation: none !important; }
+  .gq-header__bar::after { display: none; }
+  .gq-header.is-pending { transform: none; }
+}

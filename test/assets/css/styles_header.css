@@ -1,0 +1,427 @@
+/* ============================================= */
+/* GAME QUEST — ШАПКА · ОСНОВНОЙ CSS             */
+/* Подключается автоматически из script_header.js */
+/* Адаптивность — в responsive_header.css        */
+/* Шапка на всю ширину: всегда на экране,    */
+/* при прокрутке сжимается, внизу — прогресс.    */
+/* ============================================= */
+
+.gq-header {
+  --gq-accent: var(--accent, #d1f05d);
+  --gq-accent-2: var(--accent-2, #b9e03f);
+  --gq-accent-rgb: var(--accent-rgb, 209, 240, 93);
+  --gq-text: var(--text, rgba(255, 255, 255, 0.92));
+  --gq-soft: var(--text-soft, rgba(255, 255, 255, 0.62));
+  --gq-line: var(--line, rgba(255, 255, 255, 0.1));
+  --gq-ease: var(--ease, cubic-bezier(0.22, 1, 0.36, 1));
+  --gq-p: 0;
+
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  font-family: var(--font, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
+  color: var(--gq-text);
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s var(--gq-ease), transform 0.7s var(--gq-ease);
+}
+
+.gq-header *, .gq-header *::before, .gq-header *::after { box-sizing: border-box; }
+
+/* Появление: плашка опускается сверху */
+.gq-header.is-pending { opacity: 0; transform: translateY(-140%); }
+
+.gq-header__wrap {
+  position: relative;
+  width: 100%;
+}
+
+/* ---------- Плашка ---------- */
+.gq-header__bar {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  height: 4.3rem;
+  /* содержимое выровнено по той же сетке, что и у футера (72rem) */
+  padding: 0 max(1rem, calc((100% - 72rem) / 2 + 1.5rem));
+  overflow: hidden;
+  border-bottom: 1px solid var(--gq-line);
+  border-radius: 0 0 1.5rem 1.5rem;
+  background:
+    radial-gradient(40rem 10rem at 6% -40%, rgba(var(--gq-accent-rgb), 0.16), transparent 70%),
+    rgba(13, 15, 8, 0.72);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow:
+    inset 0 -1px 0 rgba(var(--gq-accent-rgb), 0.55),
+    0 14px 34px -16px rgba(0, 0, 0, 0.8);
+  transition: height 0.45s var(--gq-ease), background 0.45s ease, box-shadow 0.45s ease, border-color 0.45s ease;
+}
+
+/* Один «блик» пробегает по плашке при загрузке */
+.gq-header__bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(var(--gq-accent-rgb), 0.18) 50%, transparent 65%);
+  transform: translateX(-120%);
+  animation: gq-header-shine 1.4s var(--gq-ease) 0.7s 1 forwards;
+  pointer-events: none;
+}
+@keyframes gq-header-shine { to { transform: translateX(120%); } }
+
+.gq-header.is-scrolled .gq-header__bar {
+  height: 3.6rem;
+  border-color: rgba(var(--gq-accent-rgb), 0.28);
+  background:
+    radial-gradient(40rem 10rem at 6% -40%, rgba(var(--gq-accent-rgb), 0.2), transparent 70%),
+    rgba(13, 15, 8, 0.9);
+  box-shadow:
+    inset 0 -2px 0 var(--gq-accent),
+    0 16px 36px -14px rgba(var(--gq-accent-rgb), 0.5);
+}
+
+/* Полоска прокрутки страницы */
+.gq-header__progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gq-accent-2), var(--gq-accent));
+  box-shadow: 0 0 10px rgba(var(--gq-accent-rgb), 0.9);
+  transform-origin: left center;
+  transform: scaleX(var(--gq-p));
+  pointer-events: none;
+}
+
+/* ---------- Бренд ---------- */
+.gq-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #fff;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gq-header__logo {
+  display: block;
+  width: auto;
+  height: 2.5rem;
+  max-width: none;
+  object-fit: contain;
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(var(--gq-accent-rgb), 0.45));
+  transition: transform 0.45s var(--gq-ease), height 0.45s var(--gq-ease);
+}
+.gq-header.is-scrolled .gq-header__logo { height: 2.2rem; }
+
+.gq-header__name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+/* ---------- Меню ---------- */
+.gq-header__nav {
+  position: relative;
+  justify-self: center;
+}
+
+.gq-header__list {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gq-header__link {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--gq-soft);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.gq-header__link:hover,
+.gq-header__link:focus-visible { color: #fff; }
+
+.gq-header__link.is-active { color: var(--gq-accent); }
+
+/* Плавающая подложка: едет к пункту под курсором */
+.gq-header__glow {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 2.6rem;
+  margin-top: -1.3rem;
+  border: 1px solid rgba(var(--gq-accent-rgb), 0.35);
+  border-radius: 0.85rem;
+  background: rgba(var(--gq-accent-rgb), 0.12);
+  box-shadow: 0 0 18px -4px rgba(var(--gq-accent-rgb), 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.45s var(--gq-ease), width 0.45s var(--gq-ease), opacity 0.3s ease;
+}
+.gq-header__glow.is-on { opacity: 1; }
+
+/* Точка «мы на связи» у пункта «График работы» */
+.gq-header__live {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  background: var(--gq-accent);
+  box-shadow: 0 0 8px rgba(var(--gq-accent-rgb), 0.9);
+  animation: gq-header-pulse 2s ease-in-out infinite;
+}
+.gq-header__live[hidden] { display: none; }
+@keyframes gq-header-pulse { 50% { opacity: 0.35; } }
+
+/* ---------- Правая часть: игровой прогресс страницы ---------- */
+.gq-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.gq-header__xp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  height: 3rem;
+  padding: 0 1.15rem 0 0.3rem;
+  border: 1px solid var(--gq-line);
+  border-radius: 1.6rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--gq-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gq-header__ring {
+  position: relative;
+  flex: none;
+  width: 2.4rem;
+  height: 2.4rem;
+}
+.gq-header__ring svg { display: block; width: 100%; height: 100%; transform: rotate(-90deg); }
+.gq-header__ring circle { fill: none; stroke-width: 3.5; }
+.gq-header__trk { stroke: rgba(255, 255, 255, 0.13); }
+.gq-header__arc {
+  stroke: var(--gq-accent);
+  stroke-linecap: round;
+  stroke-dasharray: 119.38;
+  stroke-dashoffset: 119.38;
+  filter: drop-shadow(0 0 4px rgba(var(--gq-accent-rgb), 0.9));
+  transition: stroke-dashoffset 0.25s linear;
+}
+.gq-header__lvl {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  font-weight: 900;
+  color: #fff;
+}
+
+.gq-header__xptxt { display: grid; gap: 0.15rem; line-height: 1.1; }
+.gq-header__rank { font-size: 0.95rem; font-weight: 800; color: #fff; white-space: nowrap; }
+.gq-header__xpval {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+  color: var(--gq-accent);
+  white-space: nowrap;
+}
+.gq-header__xpb { display: none; }
+
+/* Максимум: кольцо и рамка светятся */
+.gq-header__xp.is-max {
+  border-color: rgba(var(--gq-accent-rgb), 0.6);
+  box-shadow: 0 0 22px -4px rgba(var(--gq-accent-rgb), 0.7);
+}
+.gq-header__xp.is-max .gq-header__arc { stroke: #fff; }
+
+/* Повышение уровня: кольцо «подпрыгивает» */
+.gq-header__xp.is-bump .gq-header__ring { animation: gq-header-bump 0.7s var(--gq-ease); }
+@keyframes gq-header-bump {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.28) rotate(-8deg); }
+  100% { transform: scale(1); }
+}
+
+/* Всплывашка о новом уровне */
+.gq-header__toast {
+  position: absolute;
+  top: calc(100% + 0.8rem);
+  right: max(1rem, calc((100% - 72rem) / 2 + 1.5rem));
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1.2rem 0.75rem 0.8rem;
+  border: 1px solid rgba(var(--gq-accent-rgb), 0.55);
+  border-radius: 1rem;
+  background: rgba(13, 15, 8, 0.94);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 0 30px -6px rgba(var(--gq-accent-rgb), 0.6), 0 16px 30px -12px rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-14px) scale(0.95);
+  transition: opacity 0.35s ease, transform 0.5s var(--gq-ease), visibility 0s linear 0.5s;
+}
+.gq-header__toast.is-show {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+.gq-header__toast-badge {
+  padding: 0.45rem 0.65rem;
+  background: linear-gradient(135deg, var(--gq-accent), var(--gq-accent-2));
+  color: var(--ink, #0d0f08);
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
+}
+.gq-header__toast-txt { display: grid; gap: 0.15rem; line-height: 1.15; }
+.gq-header__toast-txt b { font-size: 0.98rem; color: #fff; }
+.gq-header__toast-txt em { font-size: 0.82rem; font-style: normal; color: var(--gq-accent); }
+
+/* ---------- Бургер (телефон/планшет) ---------- */
+.gq-header__burger {
+  display: none;
+  position: relative;
+  width: 2.9rem;
+  height: 2.9rem;
+  padding: 0;
+  border: 1px solid var(--gq-line);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.gq-header__burger i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.3rem;
+  height: 2px;
+  margin: -1px 0 0 -0.65rem;
+  background: #fff;
+  transition: transform 0.4s var(--gq-ease), opacity 0.25s ease, background 0.3s ease;
+}
+.gq-header__burger i:nth-child(1) { transform: translateY(-6px); }
+.gq-header__burger i:nth-child(3) { transform: translateY(6px); }
+.gq-header.is-open .gq-header__burger { border-color: rgba(var(--gq-accent-rgb), 0.5); }
+.gq-header.is-open .gq-header__burger i { background: var(--gq-accent); }
+.gq-header.is-open .gq-header__burger i:nth-child(1) { transform: rotate(45deg); }
+.gq-header.is-open .gq-header__burger i:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.gq-header.is-open .gq-header__burger i:nth-child(3) { transform: rotate(-45deg); }
+
+/* ---------- Выпадающая панель (мобильная) ---------- */
+.gq-header__panel {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 0.75rem max(1rem, calc((100% - 72rem) / 2 + 1rem)) 1rem;
+  border-bottom: 1px solid rgba(var(--gq-accent-rgb), 0.28);
+  border-radius: 0 0 1.3rem 1.3rem;
+  background: rgba(13, 15, 8, 0.94);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 22px 44px -16px rgba(0, 0, 0, 0.85);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.98);
+  transform-origin: top center;
+  transition: opacity 0.35s ease, transform 0.45s var(--gq-ease), visibility 0s linear 0.45s;
+}
+.gq-header.is-open .gq-header__panel {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+
+.gq-header__plist { margin: 0; padding: 0; list-style: none; }
+.gq-header__plist li {
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.4s ease, transform 0.5s var(--gq-ease);
+}
+.gq-header.is-open .gq-header__plist li {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.05s + var(--i, 0) * 0.05s);
+}
+
+.gq-header__plink {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.95rem 1rem;
+  border-bottom: 1px solid var(--gq-line);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--gq-text);
+  text-decoration: none;
+}
+.gq-header__plist li:last-child .gq-header__plink { border-bottom: 0; }
+.gq-header__plink::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  background: var(--gq-accent);
+  opacity: 0.5;
+  transform: rotate(45deg);
+}
+.gq-header__plink.is-active { color: var(--gq-accent); }
+.gq-header__plink.is-active::before { opacity: 1; box-shadow: 0 0 8px rgba(var(--gq-accent-rgb), 0.9); }
+
+/* ---------- Фокус ---------- */
+.gq-header a:focus-visible,
+.gq-header button:focus-visible {
+  outline: 2px solid var(--gq-accent);
+  outline-offset: 3px;
+}
+
+/* ---------- Наведение мышью ---------- */
+@media (hover: hover) {
+  .gq-header__xp:hover {
+    border-color: rgba(var(--gq-accent-rgb), 0.55);
+    background: rgba(var(--gq-accent-rgb), 0.1);
+    box-shadow: 0 0 20px -6px rgba(var(--gq-accent-rgb), 0.6);
+  }
+  .gq-header__xp:hover .gq-header__xpa { display: none; }
+  .gq-header__xp:hover .gq-header__xpb { display: inline; }
+  .gq-header__brand:hover .gq-header__logo { transform: scale(1.07) rotate(-4deg); }
+  .gq-header__plink:hover { color: var(--gq-accent); }
+}

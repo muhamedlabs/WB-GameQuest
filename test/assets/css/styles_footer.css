@@ -1,0 +1,420 @@
+/* ============================================= */
+/* GAME QUEST — ФУТЕР · ОСНОВНОЙ CSS             */
+/* Подключается автоматически из script_footer.js */
+/* Адаптивность — в responsive_footer.css        */
+/* Футер на всю ширину, верхние углы скруглены,  */
+/* лаймовая кромка сверху, лёгкая прозрачность.  */
+/* ============================================= */
+
+.gq-footer {
+  --gq-accent: var(--accent, #d1f05d);
+  --gq-accent-2: var(--accent-2, #b9e03f);
+  --gq-accent-rgb: var(--accent-rgb, 209, 240, 93);
+  --gq-text: var(--text, rgba(255, 255, 255, 0.92));
+  --gq-soft: var(--text-soft, rgba(255, 255, 255, 0.6));
+  --gq-line: var(--line, rgba(255, 255, 255, 0.1));
+  --gq-ease: var(--ease, cubic-bezier(0.22, 1, 0.36, 1));
+  --gq-radius: 1.75rem;
+
+  position: relative;
+  z-index: 5;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  margin-top: auto;               /* прижимается к низу страницы, если body — flex-колонка */
+  padding: 0 0 env(safe-area-inset-bottom);
+  font-family: var(--font, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
+  color: var(--gq-text);
+  text-align: left;
+
+  /* верхние углы скруглены, нижние прямые */
+  border: 1px solid var(--gq-line);
+  border-bottom: 0;
+  border-radius: var(--gq-radius) var(--gq-radius) 0 0;
+
+  /* фон: два лаймовых свечения + полупрозрачная тёмная заливка (чуть-чуть просвечивает) */
+  background:
+    radial-gradient(52rem 20rem at 6% -12%, rgba(var(--gq-accent-rgb), 0.15), transparent 62%),
+    radial-gradient(40rem 20rem at 100% 112%, rgba(var(--gq-accent-rgb), 0.09), transparent 62%),
+    rgba(13, 15, 8, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+
+  /* лаймовая обводка сверху повторяет скругление + мягкое свечение */
+  box-shadow:
+    inset 0 2px 0 var(--gq-accent),
+    0 -12px 32px -14px rgba(var(--gq-accent-rgb), 0.55);
+
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s var(--gq-ease), transform 0.6s var(--gq-ease);
+}
+
+.gq-footer *, .gq-footer *::before, .gq-footer *::after { box-sizing: border-box; }
+
+.gq-footer.is-pending { opacity: 0; transform: translateY(12px); }
+
+/* Бегущий луч по верхней кромке: привлекает взгляд к футеру */
+.gq-footer::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(var(--gq-accent-rgb), 0.9) 35%, #fff 50%, rgba(var(--gq-accent-rgb), 0.9) 65%, transparent) no-repeat;
+  background-size: 18rem 100%;
+  background-position: -20rem 0;
+  filter: drop-shadow(0 0 6px rgba(var(--gq-accent-rgb), 0.95));
+  animation: gq-beam 6s var(--gq-ease) 1s infinite;
+  pointer-events: none;
+}
+
+@keyframes gq-beam {
+  0%   { background-position: -20rem 0; }
+  55%  { background-position: calc(100% + 20rem) 0; }
+  100% { background-position: calc(100% + 20rem) 0; }
+}
+
+/* ---------- Фоновый декор ---------- */
+.gq-footer__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Тонкая сетка, затухающая вниз */
+.gq-footer__pattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(var(--gq-accent-rgb), 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--gq-accent-rgb), 0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+  background-position: center top;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 85%);
+  mask-image: linear-gradient(180deg, #000 0%, transparent 85%);
+}
+
+/* Контурная надпись-водяной знак справа внизу */
+.gq-footer__mark {
+  position: absolute;
+  right: 1.25rem;
+  bottom: -0.3em;                  /* нижняя часть букв «уходит» за край футера */
+  font-size: clamp(3.5rem, 11vw, 9rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  /* лаймовая «дымка» внутри букв + тонкий контур */
+  background: linear-gradient(180deg, rgba(var(--gq-accent-rgb), 0.22) 0%, rgba(var(--gq-accent-rgb), 0.04) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(var(--gq-accent-rgb), 0.2);
+  /* плавно растворяется к нижнему краю, будто уходит в тень */
+  -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 92%);
+  mask-image: linear-gradient(180deg, #000 30%, transparent 92%);
+}
+
+/* ---------- Контент ---------- */
+.gq-footer__inner {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 72rem);
+  margin: 0 auto;
+  padding: 1.6rem 1.5rem 0.7rem;
+}
+
+/* ---------- Шапка футера: бренд + кнопка ---------- */
+.gq-footer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2.5rem;
+  padding-bottom: 1.1rem;
+  margin-bottom: 1.3rem;
+  border-bottom: 1px solid var(--gq-line);
+}
+
+.gq-footer__about { min-width: 0; }
+
+.gq-footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #fff;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Просто логотип: без рамки, свечения и анимаций */
+.gq-footer__logo {
+  display: block;
+  width: auto;
+  height: 2.5rem;
+  max-width: none;
+  object-fit: contain;
+  transition: transform 0.4s var(--gq-ease);
+  /* тёмный логотип делаем белым */
+  filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(var(--gq-accent-rgb), 0.45));
+}
+
+.gq-footer__name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.gq-footer__tag {
+  margin: 0.45rem 0 0;
+  max-width: 28rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--gq-soft);
+}
+
+.gq-footer__cta-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.gq-footer__cta-text {
+  margin: 0;
+  max-width: 15rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-align: right;
+  color: var(--gq-soft);
+}
+
+/* Кнопка на страницу со всеми ссылками: скошенные углы, лаймовая заливка */
+.gq-footer__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.35rem;
+  background: linear-gradient(135deg, var(--gq-accent), var(--gq-accent-2));
+  color: var(--ink, #0d0f08);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  transition: filter 0.3s ease;
+}
+
+.gq-footer__cta span { display: inline-block; transition: transform 0.35s var(--gq-ease); }
+
+/* ---------- Сетка колонок ---------- */
+.gq-footer__cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.8fr) minmax(0, 1.1fr) minmax(0, 1.25fr);
+  gap: 1.25rem 2rem;
+  align-items: start;
+}
+
+.gq-footer__title {
+  position: relative;
+  margin: 0 0 0.75rem;
+  padding-left: 0.9rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gq-accent);
+}
+
+.gq-footer__title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  background: var(--gq-accent);
+  transform: rotate(45deg);
+  box-shadow: 0 0 6px rgba(var(--gq-accent-rgb), 0.7);
+}
+
+.gq-footer__list {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Каталог — в две колонки */
+.gq-footer__col--wide .gq-footer__list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem 1.25rem;
+}
+
+.gq-footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.96rem;
+  color: var(--gq-soft);
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s var(--gq-ease);
+}
+
+/* Ромбик-маркер перед каждой ссылкой */
+.gq-footer__link::before {
+  content: "";
+  flex: none;
+  width: 4px;
+  height: 4px;
+  background: var(--gq-accent);
+  opacity: 0.45;
+  transform: rotate(45deg);
+  transition: opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ---------- Карточка «Часы работы» ---------- */
+.gq-footer__hours {
+  padding: 0.85rem 1.1rem 0.95rem;
+  border: 1px solid var(--gq-line);
+  border-left: 2px solid var(--gq-accent);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.gq-footer__hours .gq-footer__title { margin-bottom: 0.6rem; }
+
+.gq-footer__tz {
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid rgba(var(--gq-accent-rgb), 0.5);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+}
+
+.gq-footer__hours-list {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+}
+
+.gq-footer__hours-list > div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.gq-footer__hours-list dt { color: var(--gq-soft); }
+.gq-footer__hours-list dd { margin: 0 0 0 auto; color: #fff; font-weight: 700; }
+
+.gq-footer__hours-note {
+  margin: 0.6rem 0 0;
+  font-size: 0.78rem;
+  color: var(--gq-soft);
+  opacity: 0.8;
+}
+
+.gq-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0.6rem 0 0;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--gq-line);
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: var(--gq-soft);
+}
+.gq-status[hidden] { display: none; }
+.gq-status__dot { flex: none; width: 7px; height: 7px; background: #6b6f63; }
+.gq-status.is-online { border-color: rgba(var(--gq-accent-rgb), 0.4); color: var(--gq-text); }
+.gq-status.is-online .gq-status__dot {
+  background: var(--gq-accent);
+  box-shadow: 0 0 8px rgba(var(--gq-accent-rgb), 0.9);
+  animation: gq-pulse 2s ease-in-out infinite;
+}
+@keyframes gq-pulse { 50% { opacity: 0.4; } }
+
+.gq-footer__contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.7rem;
+  padding: 0.6rem 0.85rem;
+  background: rgba(var(--gq-accent-rgb), 0.1);
+  border: 1px solid rgba(var(--gq-accent-rgb), 0.45);
+  font-size: 0.84rem;
+  line-height: 1.3;
+  color: var(--gq-accent);
+  text-decoration: none;
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.gq-footer__contact b { font-weight: 800; }
+.gq-footer__contact span { flex: none; font-size: 1.15rem; transition: transform 0.35s var(--gq-ease); }
+
+/* ---------- Нижняя строка ---------- */
+.gq-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem 2rem;
+  flex-wrap: wrap;
+  margin-top: 1.2rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--gq-line);
+  font-size: 0.82rem;
+  color: var(--gq-soft);
+}
+
+.gq-footer__copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.gq-footer__dot {
+  width: 4px;
+  height: 4px;
+  background: var(--gq-accent);
+  transform: rotate(45deg);
+  box-shadow: 0 0 6px rgba(var(--gq-accent-rgb), 0.7);
+}
+
+.gq-footer__note {
+  margin: 0;
+  max-width: 34rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  text-align: right;
+  opacity: 0.85;
+}
+
+/* ---------- Фокус ---------- */
+.gq-footer a:focus-visible {
+  outline: 2px solid var(--gq-accent);
+  outline-offset: 3px;
+}
+
+/* ---------- Наведение мышью ---------- */
+@media (hover: hover) {
+  .gq-footer__cta:hover { filter: brightness(1.08); }
+  .gq-footer__cta:hover span { transform: translate(2px, -2px); }
+
+  .gq-footer__link:hover { color: var(--gq-accent); }
+  .gq-footer__link:hover::before {
+    opacity: 1;
+    box-shadow: 0 0 6px rgba(var(--gq-accent-rgb), 0.8);
+  }
+
+  .gq-footer__contact:hover { background: var(--gq-accent); color: var(--ink, #0d0f08); border-color: var(--gq-accent); }
+  .gq-footer__contact:hover span { transform: translateX(3px); }
+  .gq-footer__brand:hover .gq-footer__logo { transform: scale(1.06) rotate(-3deg); }
+  .gq-footer__link:hover { transform: translateX(4px); }
+}
